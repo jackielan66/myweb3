@@ -15,7 +15,11 @@ const Header = () => {
         {
             "name": "Withdrawal",
             path: "/withdraw"
-        }
+        },
+        {
+         "name": "My Function",
+            path: "/my"
+        },
     ]
     return (
         <Box sx={{
