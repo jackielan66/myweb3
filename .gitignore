@@ -15,3 +15,12 @@ node_modules
 
 # Hardhat Ignition default folder for deployments against a local node
 ignition/deployments/chain-31337
+
+
+/2024*
+/tru
+# 本地测试的
+/localTest
+
+# .DS_Store
+
