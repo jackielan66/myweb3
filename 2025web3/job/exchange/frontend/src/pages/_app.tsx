@@ -13,6 +13,7 @@ import {
 } from "@tanstack/react-query";
 import {  wagmiConfig } from "@/utils/wagmi";
 import Header from '@/components/header'
+import Order from "@/components/order";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
       <RainbowKitProvider>
         <Header />
+        <Order />
         <Component {...pageProps} />
       </RainbowKitProvider>
     </QueryClientProvider>
