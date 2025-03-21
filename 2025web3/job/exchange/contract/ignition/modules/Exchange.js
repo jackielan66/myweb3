@@ -9,7 +9,7 @@ const ONE_GWEI = 1_000_000_000n;
 module.exports = buildModule("ExchangeModule", (m) => {
 
 
-  const exchange = m.contract("Exchange", ['0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266', 0.1]);
+  const exchange = m.contract("Exchange", ['0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',1]);
   const lanToken20 = m.contract("LanToken20", []);
 
   return { exchange, lanToken20 };

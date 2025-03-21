@@ -22,5 +22,5 @@ ignition/deployments/chain-31337
 # 本地测试的
 /localTest
 
-# .DS_Store
+.DS_Store
 
