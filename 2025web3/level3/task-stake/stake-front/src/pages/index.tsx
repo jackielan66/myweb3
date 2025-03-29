@@ -51,31 +51,31 @@ const Home: NextPage = () => {
 
   const handleAddPool = async () => {
 
-    writeContract({
-      address: ADDRESS_CONTRACT.RccStake,
-      abi: ABI_CONTRACT.RCCStake,
-      functionName: 'setEndBlock',
-      args: [
-        1000
-      ]
-    })
+    // writeContract({
+    //   address: ADDRESS_CONTRACT.RccStake,
+    //   abi: ABI_CONTRACT.RCCStake,
+    //   functionName: 'setEndBlock',
+    //   args: [
+    //     100000
+    //   ]
+    // })
 
-    // try {
-    //   writeContract({
-    //     address: ADDRESS_CONTRACT.RccStake,
-    //     abi: ABI_CONTRACT.RCCStake,
-    //     functionName: 'addPool',
-    //     args: [
-    //       ADDRESS_CONTRACT.AddressZero,
-    //       1,
-    //       1,
-    //       3,
-    //       false
-    //     ]
-    //   })
-    // } catch (error) {
-    //   console.log(error, "error eeror")
-    // }
+    try {
+      writeContract({
+        address: ADDRESS_CONTRACT.RccStake,
+        abi: ABI_CONTRACT.RCCStake,
+        functionName: 'addPool',
+        args: [
+          ADDRESS_CONTRACT.AddressZero,
+          1,
+          1,
+          3,
+          false
+        ]
+      })
+    } catch (error) {
+      console.log(error, "error eeror")
+    }
 
   }
 
@@ -173,10 +173,9 @@ unstakeLockedBlocks: 解除质押的锁定区块数。 */}
 
               </Box> : <></>
             }
-            {
-              !poolData.data && <Button
-                variant='contained' sx={{ mt: '20px' }} onClick={handleAddPool}>增加池</Button>
-            }
+            <Button
+              variant='contained' sx={{ mt: '20px' }} onClick={handleAddPool}>增加池</Button>
+
             {/* <Button
               variant='contained' sx={{ mt: '20px' }} onClick={() => {
                 writeContract({
