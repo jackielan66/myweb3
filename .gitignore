@@ -21,6 +21,7 @@ ignition/deployments/chain-31337
 /tru
 # 本地测试的
 /localTest
+/2025web3/level3/code
 
 .DS_Store
 
