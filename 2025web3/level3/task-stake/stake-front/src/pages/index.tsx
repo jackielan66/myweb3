@@ -180,7 +180,7 @@ const Home: NextPage = () => {
                             {item.lastRewardBlock}
                           </TableCell>
                           <TableCell>
-                            {item.lastRewardBlock + item.unstakeLockedBlocks}
+                            {item.unstakeLockedBlocks}
                           </TableCell>
                           <TableCell>
                             {item.accRCCPerST}
@@ -196,12 +196,17 @@ const Home: NextPage = () => {
                               <Button size='small' variant='contained' onClick={() => {
                                 router.push('/stake/' + index)
                               }}>
-                                stake
+                                Stake
                               </Button>
                               <Button size='small' variant='contained' onClick={() => {
                                 router.push('/withdraw/' + index)
                               }}>
-                                withdraw
+                                Withdraw
+                              </Button>
+                              <Button size='small' variant='contained' onClick={() => {
+                                router.push('/claim/' + index)
+                              }}>
+                                Claim
                               </Button>
                             </Box>
 
@@ -212,8 +217,20 @@ const Home: NextPage = () => {
                   </TableBody>
                 </Table>
 
-              </Box> : <></>
+              </Box> : <>
+                <Box sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  mt: "20px"
+                }} >
+                  <Typography variant='h3' >
+                    暂时无数据，请添加
+                  </Typography>
+                </Box>
+              </>
             }
+
             <Button
               variant='contained' sx={{ mt: '20px' }} onClick={() => {
                 setOpen(true)

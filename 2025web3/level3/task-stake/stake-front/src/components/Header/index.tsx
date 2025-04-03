@@ -9,18 +9,18 @@ const routes = [
         name: 'Home',
         path: '/'
     },
-    {
-        name: 'Stake',
-        path: '/stake'
-    },
-    {
-        name: 'Withdraw',
-        path: '/withdraw'
-    },
-    {
-        name: 'RCC Reward',
-        path: '/rccReward'
-    }
+    // {
+    //     name: 'Stake',
+    //     path: '/stake'
+    // },
+    // {
+    //     name: 'Withdraw',
+    //     path: '/withdraw'
+    // },
+    // {
+    //     name: 'RCC Reward',
+    //     path: '/rccReward'
+    // }
 ]
 export default function Header() {
 

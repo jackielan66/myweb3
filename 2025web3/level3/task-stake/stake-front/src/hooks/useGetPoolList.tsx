@@ -21,10 +21,16 @@ export const useGetPoolList = () => {
             transport: http()
         })
 
-        const poolLength = await publicClient.readContract({
-            ...wagmiContract,
-            functionName: 'poolLength',
-        }) as number;
+        let poolLength = 0;
+        try {
+            poolLength = await publicClient.readContract({
+                ...wagmiContract,
+                functionName: 'poolLength',
+            }) as number;
+        } catch (error) {
+            console.log(error);
+        }
+      
         console.log(poolLength, "poolLength");
         let results = []
 
