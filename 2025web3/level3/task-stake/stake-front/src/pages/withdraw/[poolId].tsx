@@ -10,7 +10,7 @@ import { formatEther, parseEther } from 'viem';
 import { use, useEffect, useMemo, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { useParams } from 'next/navigation';
-import { NativeCurrencyWithdraw } from '../../components/Withdraw';
+import { NativeCurrencyWithdraw, ERC20TokenWithdraw } from '../../components/Withdraw';
 
 const WithdrawPage: NextPage = () => {
   const params = useParams<{ poolId: string }>() || {};
@@ -44,7 +44,7 @@ const WithdrawPage: NextPage = () => {
           isAddressZero && <NativeCurrencyWithdraw poolId={params.poolId} />
         }
         {
-          // !isAddressZero && <ERC20Token poolId={params.poolId} />
+          !isAddressZero && <ERC20TokenWithdraw poolId={params.poolId} />
         }
 
       </main>

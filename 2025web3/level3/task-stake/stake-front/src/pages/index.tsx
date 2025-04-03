@@ -147,7 +147,7 @@ const Home: NextPage = () => {
                         开始区块号
                       </TableCell>
                       <TableCell>
-                        结算区块号
+                        结算质押区块号数量
                       </TableCell>
                       <TableCell>
                         每个质押代币累积的 RCC 数量
