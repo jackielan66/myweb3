@@ -3,19 +3,21 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import Header from '../components/Header';
-import { Box, Button, Container, Snackbar, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography } from '@mui/material';
+import { Box, Button, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, FormLabel, InputLabel, MenuItem, Select, Snackbar, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography } from '@mui/material';
 import { useAccount, useBalance, useBlock, useBlockNumber, useReadContract, useReadContracts, useSimulateContract, useWriteContract } from 'wagmi';
 import { ABI_CONTRACT, ADDRESS_CONTRACT } from '../utils/contractConfig'
 import { parseEther, keccak256, toBytes, toUtf8Bytes } from 'viem';
 import { useMemo, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-
+import useStakeBase from '../hooks/useStakeBase';
+import { useGetPoolList } from '../hooks/useGetPoolList';
+import { useRouter } from 'next/router';
 const ADMIN_ROLE = keccak256(toBytes("ADMIN_ROLE")); // 计算 ADMIN_ROLE 哈希值
-// const ADMIN_ROLE = "0x" + keccak256("ADMIN_ROLE").toString("hex"); // 计算角色的 keccak256 哈希
-// const ADMIN_ROLE = keccak256(toUtf8Bytes('ADMIN_ROLE'));
+
 const Home: NextPage = () => {
   const account = useAccount();
-
+  const { data: currentBlockNumber } = useBlockNumber();
+  const { startBlock, endBlock, rccPerBlock } = useStakeBase()
   const { data: isAdmin, isLoading } = useReadContract({
     address: ADDRESS_CONTRACT.RccStake,
     abi: ABI_CONTRACT.RCCStake,
@@ -25,17 +27,8 @@ const Home: NextPage = () => {
       enabled: Boolean(account.address),
     },
   });
-  console.log("isAdmin,", isAdmin)
+  const { poolList, fetchPoolList } = useGetPoolList()
 
-  // 1️⃣ 先用 `simulateContract` 预检查
-  // let blockData = useBlockNumber();
-
-  const endBlock = useReadContract({
-    address: ADDRESS_CONTRACT.RccStake,
-    abi: ABI_CONTRACT.RCCStake,
-    functionName: 'endBlock',
-  })
-  // console.log("endBlock,", endBlock)
 
   const { writeContractAsync, writeContract, error } = useWriteContract();
 
@@ -46,33 +39,30 @@ const Home: NextPage = () => {
     args: [0],
   });
 
+  const poolLength = useReadContract({
+    address: ADDRESS_CONTRACT.RccStake,
+    abi: ABI_CONTRACT.RCCStake,
+    functionName: 'poolLength',
+  });
+
   // console.log(poolData, "poolData")
 
 
-  const handleAddPool = async () => {
-
-    // writeContract({
-    //   address: ADDRESS_CONTRACT.RccStake,
-    //   abi: ABI_CONTRACT.RCCStake,
-    //   functionName: 'setEndBlock',
-    //   args: [
-    //     100000
-    //   ]
-    // })
-
+  const handleAddPool = async (formData) => {
     try {
-      writeContract({
+      await writeContractAsync({
         address: ADDRESS_CONTRACT.RccStake,
         abi: ABI_CONTRACT.RCCStake,
         functionName: 'addPool',
         args: [
-          ADDRESS_CONTRACT.AddressZero,
-          1,
-          1,
-          3,
+          formData.stTokenAddress,
+          formData.poolWeight,
+          formData.minDepositAmount,
+          formData.unstakeLockedBlocks,
           false
         ]
       })
+      fetchPoolList()
     } catch (error) {
       console.log(error, "error eeror")
     }
@@ -86,8 +76,12 @@ const Home: NextPage = () => {
 
   // const [poolLength,] = multiContractsResult;
   // console.log(multiContractsResult, "multiContracts !!!");
-
-
+  const [open, setOpen] = useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  // console.log(poolList, "poolList")
+  const router = useRouter()
   return (
     <div>
       <Head>
@@ -100,13 +94,22 @@ const Home: NextPage = () => {
       </Head>
       <Header />
       <main>
-        <Container>
-          <Typography variant='h6' align='center' >
-            Home Page 资源池
-          </Typography>
-          <Typography variant='body2' align='center' >
-            用户：{account.address}
-          </Typography>
+        <Container sx={{ gap: '20px' }} >
+          <Box sx={{ gap: '15px', display: 'flex', flexDirection: 'column', alignItems: 'center' }} >
+            <Typography variant='h6' align='center' >
+              Home Page Stake Infomation
+            </Typography>
+            <Typography variant='body2' align='center' >
+              有效区块时间 {startBlock}  -  {endBlock} (当前链上最新区块{currentBlockNumber})
+            </Typography>
+            <Typography variant='body2' align='center' >
+              每个区块获得的RCC奖励：{rccPerBlock}
+            </Typography>
+            <Typography variant='body2' align='center' >
+              用户：{account.address}
+            </Typography>
+          </Box>
+
 
           <Box sx={{
             marginTop: '30px',
@@ -140,7 +143,10 @@ unstakeLockedBlocks: 解除质押的锁定区块数。 */}
                         质押池的权重
                       </TableCell>
                       <TableCell>
-                        最后一次计算奖励的区块号
+                        质押开始区块号
+                      </TableCell>
+                      <TableCell>
+                        质押结算区块号
                       </TableCell>
                       <TableCell>
                         每个质押代币累积的 RCC 数量
@@ -152,12 +158,54 @@ unstakeLockedBlocks: 解除质押的锁定区块数。 */}
                         最小质押金额
                       </TableCell>
                       <TableCell>
-                        解除质押的锁定区块数
+                        操作
                       </TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    <TableRow>
+                    {
+                      poolList.map((item, index) => {
+                        return <TableRow>
+                          <TableCell>
+                            {index}
+                          </TableCell>
+                          <TableCell>
+                            {item.stTokenAddress}
+                          </TableCell>
+                          <TableCell>
+                            {item.poolWeight}
+                          </TableCell>
+                          <TableCell>
+                            {item.lastRewardBlock}
+                          </TableCell>
+                          <TableCell>
+                            {item.lastRewardBlock + item.unstakeLockedBlocks}
+                          </TableCell>
+                          <TableCell>
+                            {item.accRCCPerST}
+                          </TableCell>
+                          <TableCell>
+                            {item.stTokenAmount}
+                          </TableCell>
+                          <TableCell>
+                            {item.minDepositAmount}
+                          </TableCell>
+                          <TableCell>
+                            <Button variant='contained' onClick={() => {
+                                router.push('/stake/'+index)
+                            }}>
+                              stake
+                            </Button>
+                            <Button variant='contained' onClick={() => {
+                                     router.push('/withdraw/'+index)
+                            }}>
+                              withdraw
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      })
+                    }
+                    {/* <TableRow>
                       <TableCell>
                         0
                       </TableCell>
@@ -166,7 +214,7 @@ unstakeLockedBlocks: 解除质押的锁定区块数。 */}
                           {item}
                         </TableCell>
                       })}
-                    </TableRow>
+                    </TableRow> */}
                   </TableBody>
                 </Table>
 
@@ -174,20 +222,119 @@ unstakeLockedBlocks: 解除质押的锁定区块数。 */}
               </Box> : <></>
             }
             <Button
-              variant='contained' sx={{ mt: '20px' }} onClick={handleAddPool}>增加池</Button>
+              variant='contained' sx={{ mt: '20px' }} onClick={() => {
+                setOpen(true)
+              }}>增加池</Button>
 
-            {/* <Button
+            <Button
               variant='contained' sx={{ mt: '20px' }} onClick={() => {
                 writeContract({
                   address: ADDRESS_CONTRACT.RccStake,
                   abi: ABI_CONTRACT.RCCStake,
-                  functionName: 'setEndBlock',
+                  functionName: 'setStartBlock',
                   args: [
-                    1000
+                    10
                   ]
                 })
-              }}>Test</Button> */}
+              }}>Test</Button>
           </Box>
+
+
+          {
+            open && <Dialog
+
+              open={open}
+              onClose={handleClose}
+              slotProps={{
+                paper: {
+                  component: 'form',
+                  onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
+                    event.preventDefault();
+                    const formData = new FormData(event.currentTarget);
+                    const formJson = Object.fromEntries((formData as any).entries());
+                    console.log(formJson, "formJson");
+                    if (!formJson.stTokenAddress) {
+                      formJson.stTokenAddress = ADDRESS_CONTRACT.AddressZero
+                    }
+                    handleAddPool(formJson)
+                  },
+                },
+              }}
+            >
+              <DialogTitle>新增池子</DialogTitle>
+              <DialogContent>
+                <DialogContentText>
+                  当前池长度：{poolLength.data}
+                </DialogContentText>
+                <Box sx={{
+                  mt: 2, display: 'flex', flexDirection: 'column', gap: '15px',
+                  width: '500px'
+
+                }}>
+                  {
+                    poolLength.data > 0 ? <FormControl fullWidth>
+                      <InputLabel id="demo-simple-select-label">质押的代币(stTokenAddress)</InputLabel>
+                      <Select
+                        labelId="demo-simple-select-label"
+                        id="stTokenAddress"
+                        name="stTokenAddress"
+                        label="质押的代币(stTokenAddress)"
+                      >
+                        <MenuItem value={ADDRESS_CONTRACT.TokenA}>{ADDRESS_CONTRACT.TokenA}</MenuItem>
+                        <MenuItem value={ADDRESS_CONTRACT.TokenB}>{ADDRESS_CONTRACT.TokenB}</MenuItem>
+                      </Select>
+                    </FormControl>
+                      :
+                      <TextField
+                        required
+                        id="stTokenAddress"
+                        name="stTokenAddress"
+                        label="质押的代币(stTokenAddress)"
+                        fullWidth
+                        disabled={poolLength.data == 0}
+                        defaultValue={ADDRESS_CONTRACT.AddressZero}
+                      />
+                  }
+
+                  <TextField
+                    autoFocus
+                    required
+                    type='number'
+                    id="poolWeight"
+                    name="poolWeight"
+                    label="池权重(poolWeight)影响最后RCC奖励分配"
+                    fullWidth
+                  />
+                  <TextField
+                    autoFocus
+                    required
+                    type='number'
+                    id="minDepositAmount"
+                    name="minDepositAmount"
+                    label="最少质押金额(minDepositAmount)"
+                    fullWidth
+                    variant="standard"
+                  />
+                  <TextField
+                    autoFocus
+                    required
+                    type='number'
+                    id="unstakeLockedBlocks"
+                    name="unstakeLockedBlocks"
+                    label="unstakeLockedBlocks 多久可以提取(比如输入10，则10个区块内不可以提取)"
+                    fullWidth
+                    variant="standard"
+                  />
+                </Box>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose}>Cancel</Button>
+                <Button type="submit">Add</Button>
+              </DialogActions>
+            </Dialog>
+          }
+
+
         </Container>
       </main>
     </div>
