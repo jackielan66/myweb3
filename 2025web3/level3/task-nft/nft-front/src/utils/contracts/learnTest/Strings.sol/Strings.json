@@ -1,0 +1,10 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "Strings",
+  "sourceName": "contracts/learnTest/Strings.sol",
+  "abi": [],
+  "bytecode": "0x60808060405234601757603a9081601d823930815050f35b600080fdfe600080fdfea2646970667358221220bfb5cb1f6048a555381db7ebb4c20e7fa2b6b009ef48d7979be05e5f936108fb64736f6c63430008140033",
+  "deployedBytecode": "0x600080fdfea2646970667358221220bfb5cb1f6048a555381db7ebb4c20e7fa2b6b009ef48d7979be05e5f936108fb64736f6c63430008140033",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}
