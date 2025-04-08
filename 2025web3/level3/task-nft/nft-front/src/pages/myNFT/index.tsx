@@ -8,7 +8,7 @@ import { getLoginMessage, getUserStatus, handleUserLogin } from "../../api/commo
 import { toast } from "react-toastify";
 import useGetUserLoginStatus from "../../hooks/useGetUserLoginStatus";
 
-const ActivitiesPage = () => {
+const MyNFTPage = () => {
     const [isSigned, handleSign] = useGetUserLoginStatus()
     
     return (
@@ -38,4 +38,4 @@ const ActivitiesPage = () => {
     )
 }
 
-export default ActivitiesPage;
+export default MyNFTPage;

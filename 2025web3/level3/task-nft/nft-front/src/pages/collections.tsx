@@ -35,6 +35,9 @@ const TableHeader = styled(TableHead)(({ theme }) => ({
     backgroundColor: "#292929",
 }));
 
+const TableRowCell = styled(TableCell)(({ theme }) => ({
+    color: "#ffffff",
+}));
 const CollectionPage = () => {
     const [params, setParams] = useState({
         limit: 10,
@@ -59,7 +62,7 @@ const CollectionPage = () => {
         fetchData();
     }, [params]);
 
-    console.log(data);
+    // console.log(data);
 
 
     return (
@@ -70,14 +73,14 @@ const CollectionPage = () => {
                     <Table>
                         <TableHeader>
                             <TableRow>
-                                <TableCell sx={{ color: "white" }}></TableCell>
-                                <TableCell sx={{ color: "white" }}>最高出价</TableCell>
-                                <TableCell sx={{ color: "white" }}>1天内变化</TableCell>
-                                <TableCell sx={{ color: "white" }}>15天内成交量</TableCell>
-                                <TableCell sx={{ color: "white" }}>1天内成交量</TableCell>
-                                <TableCell sx={{ color: "white" }}>7天内成交量</TableCell>
-                                <TableCell sx={{ color: "white" }}>所有者</TableCell>
-                                <TableCell sx={{ color: "white" }}>供应量</TableCell>
+                                <TableRowCell sx={{ color: "white" }}></TableRowCell>
+                                <TableRowCell sx={{ color: "white" }}>最高出价</TableRowCell>
+                                <TableRowCell sx={{ color: "white" }}>1天内变化</TableRowCell>
+                                <TableRowCell sx={{ color: "white" }}>15天内成交量</TableRowCell>
+                                <TableRowCell sx={{ color: "white" }}>1天内成交量</TableRowCell>
+                                <TableRowCell sx={{ color: "white" }}>7天内成交量</TableRowCell>
+                                <TableRowCell sx={{ color: "white" }}>所有者</TableRowCell>
+                                <TableRowCell sx={{ color: "white" }}>供应量</TableRowCell>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -91,46 +94,42 @@ const CollectionPage = () => {
                                         key={collection.address}
                                         className="h-[88px] border-gray-800 group hover:bg-gray-800 cursor-pointer relative"
                                         onClick={() => {
-                                            // setState({
-                                            //     chain_id: collection.chain_id,
-                                            //     collection_address: collection.address,
-                                            // });
                                             router.push(
                                                 `/collections/${encodeURIComponent(collection.address)}?chain_id=${collection.chain_id}`
                                             );
                                         }}>
-                                        <TableCell className="w-[200px]">
+                                        <TableRowCell className="w-[200px] text-color-white ">
                                             {collection.name}
-                                        </TableCell>
-                                        <TableCell className="w-[120px]">
+                                        </TableRowCell>
+                                        <TableRowCell className="w-[120px]">
                                             {collection.floor_price}
-                                        </TableCell>
-                                        <TableCell className="w-[120px]">
+                                        </TableRowCell>
+                                        <TableRowCell className="w-[120px]">
                                             {collection.floor_price_change}
-                                        </TableCell>
-                                        <TableCell className="w-[120px]">
+                                        </TableRowCell>
+                                        <TableRowCell className="w-[120px]">
                                             {collection.item_sold}
-                                        </TableCell>
-                                        <TableCell className="w-[120px]">
+                                        </TableRowCell>
+                                        <TableRowCell className="w-[120px]">
                                             {collection.item_sold}
-                                        </TableCell>
-                                        <TableCell className="w-[120px]">
+                                        </TableRowCell>
+                                        <TableRowCell className="w-[120px]">
                                             {collection.item_sold}
-                                        </TableCell>
-                                        <TableCell className="w-[120px]">
+                                        </TableRowCell>
+                                        <TableRowCell className="w-[120px]">
                                             {/* {collection.owners} */}
                                             <img src={getRandomAvatarUrl()} alt={collection.name} className="w-[40px] h-[40px] rounded-md" />
-                                        </TableCell>
-                                        <TableCell className="w-[120px]">
+                                        </TableRowCell>
+                                        <TableRowCell className="w-[120px]">
                                             {collection.item_num}
-                                        </TableCell>
+                                        </TableRowCell>
                                     </TableRow>
                                 })
                             }
                             {
-                                data.length == 0 && <TableRow><TableCell colSpan={6} align="center" sx={{ color: "gray" }}>
+                                data.length == 0 && <TableRow><TableRowCell colSpan={6} align="center" sx={{ color: "gray" }}>
                                     暂时没有找到NFT资产。
-                                </TableCell>
+                                </TableRowCell>
                                 </TableRow>
                             }
 

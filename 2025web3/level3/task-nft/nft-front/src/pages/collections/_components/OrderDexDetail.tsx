@@ -64,7 +64,6 @@ const OrderDexDetail = (props: any) => {
 
   return (
     <>
-
       <Box >
         <Tabs
           value={value}

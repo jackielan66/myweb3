@@ -4,7 +4,7 @@ import { Box, Typography, Button, Grid, Table, TableHead, TableRow, TableCell, T
 import Header from "../../components/Header";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { getCollectionsAddress, getCollectionsRanking } from "../../api/common-api";
+import { getCollectionsAddress, getCollectionsRanking, getCollectionsItems } from "../../api/common-api";
 import { styled } from "@mui/system";
 import OrderDexStats from "./_components/OrderDexStats";
 import OrderDexDetail from "./_components/OrderDexDetail";
@@ -73,9 +73,18 @@ const CollectionAddressPage = () => {
         };
         const fetchDataItem = async () => {
             try {
-                const result = await getCollectionsAddress({
+                let params = {
                     address: urlParams.address,
-                    chain_id: router.query.chain_id
+                    // chain_id: router.query.chain_id,
+                    filters: { "sort": 1, "status": [1, 2], "markets": [], "chain_id": router.query.chain_id,
+                         "page": 1, "page_size": 20 }
+
+                }
+
+                const result = await getCollectionsItems({
+                    address: params.address,
+                    filters: '%7B%22sort%22:1,%22status%22:[1,2],%22markets%22:[],%22chain_id%22:31337,%22page%22:1,%22page_size%22:20%7D'
+                    // JSON.stringify(params.filters)
                 }); // 使用封装的 GET 请求
                 if (result?.data?.result) {
                     setCurrentDexInfo(result.data.result); // 假设 API 返回的数据
@@ -85,6 +94,7 @@ const CollectionAddressPage = () => {
                 console.error("Error fetching data:", error);
             }
         };
+        fetchDataItem()
 
     }, [urlParams.address, router.query.chain_id]);
 

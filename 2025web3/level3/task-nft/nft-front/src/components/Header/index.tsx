@@ -20,6 +20,10 @@ const routes = [
     {
         name: 'Activities',
         path: '/activities'
+    },
+    {
+        name: '我的NFT资产',
+        path: '/myNFT'
     }
     // {
     //     name: 'Withdraw',

@@ -3,13 +3,47 @@ import { Box, Button, Container } from "@mui/material";
 import Header from "../components/Header";
 import { PortfolioSidebar, PortfolioMain } from "../components/Portfolio"
 import { MakeOrder } from "../components/Order";
-import React from "react";
+import React, { use, useEffect } from "react";
+import { getPortfolioBids, getPortfolioCollections, getPortfolioList } from "../api/common-api";
+import { useAccount, useChainId } from "wagmi";
 const PortfolioPage = () => {
     const [orderDialogCfg, setOrderDialogCfg] = React.useState({
         open: false,
         orderId: 0,
         type: '',
     })
+    const chainId = useChainId();
+    const account = useAccount()
+
+    useEffect(() => {
+        let params = {
+            filters: {
+                user_addresses: [account.address],
+                chainID: [chainId],
+                "page": 1, "page_size": 20 
+            },
+        }
+        // getPortfolioCollections({
+        //     filters: JSON.stringify(params.filters),
+
+
+        // }).then(res => {
+        //     console.log(res)
+        // });
+
+        getPortfolioList({
+            filters: JSON.stringify(params.filters),
+        }).then(res => {
+            console.log(res)
+        });
+
+        // getPortfolioBids({
+        //     filters: JSON.stringify(params.filters),
+        // }).then(res => {
+        //     console.log(res)
+        // });
+
+    }, [account])
 
     return (
         <>
@@ -55,7 +89,7 @@ const PortfolioPage = () => {
                     type: 'makeOrder',
                     orderId: 1
                 })
-            }}/>
+            }} />
         </>
 
     )
