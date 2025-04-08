@@ -96,7 +96,7 @@ const CollectionPage = () => {
                                             //     collection_address: collection.address,
                                             // });
                                             router.push(
-                                                `/collections/${encodeURIComponent(collection.address)}`
+                                                `/collections/${encodeURIComponent(collection.address)}?chain_id=${collection.chain_id}`
                                             );
                                         }}>
                                         <TableCell className="w-[200px]">

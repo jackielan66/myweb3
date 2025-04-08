@@ -17,6 +17,10 @@ const routes = [
         name: 'Portfolio',
         path: '/portfolio'
     },
+    {
+        name: 'Activities',
+        path: '/activities'
+    }
     // {
     //     name: 'Withdraw',
     //     path: '/withdraw'
