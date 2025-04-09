@@ -12,18 +12,22 @@ import { useGetPoolList } from '../../hooks/useGetPoolList';
 import { useRouter } from 'next/router';
 import useGetERC20TokenInfo from '../../hooks/useGetTokenInfo';
 import { SaleKind, Side } from '../../utils/constant';
+import useUpdateContract from '../../hooks/useUpdateContract';
 const ADMIN_ROLE = keccak256(toBytes("ADMIN_ROLE")); // 计算 ADMIN_ROLE 哈希值
 
 interface TProps {
     open: boolean,
     onCancel: () => void,
     title?: string,
+    type?: 'edit' | 'create',
+    order?: any,
 }
 const MakeOrder: React.FC<TProps> = (props) => {
-    const { open, onCancel, title = "挂单" } = props;
+    const { open, onCancel, title = "挂单", order, type } = props;
     const account = useAccount();
     const { data: currentBlockNumber } = useBlockNumber();
     const { startBlock, endBlock, rccPerBlock } = useStakeBase()
+    const { updateContractData } = useUpdateContract()
 
     const { poolList, fetchPoolList } = useGetPoolList();
 
@@ -43,46 +47,52 @@ const MakeOrder: React.FC<TProps> = (props) => {
 
     const { writeContractAsync, writeContract, error } = useWriteContract();
 
-    const poolData = useReadContract({
-        address: ADDRESS_CONTRACT.RccStake,
-        abi: ABI_CONTRACT.RCCStake,
-        functionName: 'pool',
-        args: [0],
-    });
 
-    const poolLength = useReadContract({
-        address: ADDRESS_CONTRACT.RccStake,
-        abi: ABI_CONTRACT.RCCStake,
-        functionName: 'poolLength',
-    });
-
-    // console.log(poolData, "poolData")
-
-//     side: Side,
-//     saleKind: SaleKind,
-//     maker: string,
-//     nft:Array<any>,
-//     price: string,
-//     expiry:number,
-//     salt:number
-// }
-
-    const handleMakeOrder
-        = async (formData) => {
-            try {
-                let orderList = [formData]
-                await writeContractAsync({
-                    address: ADDRESS_CONTRACT.EasySwapOrderBook,
-                    abi: ABI_CONTRACT.EasySwapOrderBook,
-                    functionName: 'makeOrders',
-                    args: [orderList]
-                })
-                // fetchPoolList()
-                // handleClose()
-            } catch (error) {
-                console.log(error, "error eeror")
+    const handleMakeOrder = async (formData) => {
+        try {
+            let orderList = [formData]
+            let receipt = await updateContractData({
+                address: ADDRESS_CONTRACT.EasySwapOrderBook,
+                abi: ABI_CONTRACT.EasySwapOrderBook,
+                functionName: 'makeOrders',
+                args: [orderList]
+            })
+            if (receipt.status === 'success') {
+                toast.success('挂单成功')
+            } else {
+                toast.error('make failed')
             }
+            // fetchPoolList()
+            // handleClose()
+        } catch (error) {
+            console.log(error, "error eeror")
         }
+    }
+
+    const handleEditOrders = async (formData) => {
+        try {
+            let editDetail = {
+                oldOrderKey: order.orderKey,
+                newOrder: formData
+            }
+            let orderList = [editDetail]
+            const receipt = await updateContractData({
+                address: ADDRESS_CONTRACT.EasySwapOrderBook,
+                abi: ABI_CONTRACT.EasySwapOrderBook,
+                functionName: 'editOrders',
+                args: [orderList]
+            })
+            if (receipt.status === 'success') {
+                toast.success('编辑成功')
+            } else {
+                toast.error('Edit failed')
+            }
+            // fetchPoolList()
+            handleClose()
+        } catch (error) {
+            console.log(error, "error eeror")
+        }
+    }
 
 
     const handleClose = () => {
@@ -91,7 +101,6 @@ const MakeOrder: React.FC<TProps> = (props) => {
     // console.log(poolList, "poolList")
     return (
         <Dialog
-
             open={open}
             onClose={handleClose}
             slotProps={{
@@ -99,34 +108,46 @@ const MakeOrder: React.FC<TProps> = (props) => {
                     component: 'form',
                     onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
                         event.preventDefault();
-                        let expiry = parseInt((Date.now() / 1000).toString()) + 100000
-                        let salt = Math.floor(Math.random() * 100);
+                        if (type === 'edit') {
+                            const formData = new FormData(event.currentTarget);
+                            const formJson = Object.fromEntries((formData as any).entries());
+                            let newOrder = {
+                                ...order,
+                                price: parseEther(formJson.price),
+                            }
+                            handleEditOrders(newOrder);
+                        } else {
+                            let expiry = parseInt((Date.now() / 1000).toString()) + 100000
+                            let salt = Math.floor(Math.random() * 100);
 
-                        const formData = new FormData(event.currentTarget);
-                        const formJson = Object.fromEntries((formData as any).entries());
-                        // if (!formJson.stTokenAddress) {
-                        //     formJson.stTokenAddress = ADDRESS_CONTRACT.AddressZero
-                        // }
-                        // 订单创建人，当前登录人
-                        formJson.maker = account.address;
-                        formJson.expiry = expiry;
-                        formJson.salt = salt;
-                        formJson.price = parseEther(formJson.price)
-                        formJson.nft = [10, ADDRESS_CONTRACT.TestERC721, 1];
-                        handleMakeOrder(formJson)
+                            const formData = new FormData(event.currentTarget);
+                            const formJson = Object.fromEntries((formData as any).entries());
+                            // if (!formJson.stTokenAddress) {
+                            //     formJson.stTokenAddress = ADDRESS_CONTRACT.AddressZero
+                            // }
+                            // 订单创建人，当前登录人
+                            formJson.maker = account.address;
+                            formJson.expiry = expiry;
+                            formJson.salt = salt;
+                            formJson.price = parseEther(formJson.price)
+                            formJson.nft = [10, ADDRESS_CONTRACT.TestERC721, 1];
+                            handleMakeOrder(formJson)
+                        }
+
+
                     },
                 },
             }}
         >
             <DialogTitle>{title}</DialogTitle>
-            <DialogContent>
+            {
+                open && <DialogContent>
+                    <Box sx={{
+                        mt: 2, display: 'flex', flexDirection: 'column', gap: '15px',
+                        width: '500px'
 
-                <Box sx={{
-                    mt: 2, display: 'flex', flexDirection: 'column', gap: '15px',
-                    width: '500px'
-
-                }}>
-                    {/* {
+                    }}>
+                        {/* {
                         poolLength.data > 0 ? <FormControl fullWidth>
                             <InputLabel id="demo-simple-select-label">质押的代币(stTokenAddress)</InputLabel>
                             <Select
@@ -155,37 +176,44 @@ const MakeOrder: React.FC<TProps> = (props) => {
                             />
                     } */}
 
-                    <TextField
-                        autoFocus
-                        required
-                        type='number'
-                        id="side"
-                        name="side"
-                        label="side(0挂单，1买单)"
-                        fullWidth
-                    />
-                    <TextField
-                        autoFocus
-                        required
-                        type='number'
-                        id="saleKind"
-                        name="saleKind"
-                        label="saleKind（0 集合  1 item）"
-                        fullWidth
-                        variant="standard"
-                    />
-                    <TextField
-                        autoFocus
-                        required
-                        type='number'
-                        id="price"
-                        name="price"
-                        label="price"
-                        fullWidth
-                        variant="standard"
-                    />
-                </Box>
-            </DialogContent>
+                        <TextField
+                            autoFocus
+                            required
+                            type='number'
+                            id="side"
+                            name="side"
+                            label="side(0挂单，1买单)"
+                            fullWidth
+                        />
+                        <TextField
+                            autoFocus
+                            required
+                            type='number'
+                            id="saleKind"
+                            name="saleKind"
+                            label="saleKind（0 集合  1 item）"
+                            fullWidth
+                            variant="standard"
+                        />
+                        <TextField
+                            autoFocus
+                            required
+                            type='number'
+                            id="price"
+                            name="price"
+                            label="price"
+                            fullWidth
+                            variant="standard"
+                            defaultValue={
+                                type === 'edit' ?
+                                    formatEther(order.price) :
+                                    0
+                            }
+                        />
+                    </Box>
+                </DialogContent>
+            }
+
             <DialogActions>
                 <Button onClick={handleClose}>Cancel</Button>
                 <Button type="submit">Add</Button>

@@ -10,10 +10,13 @@ import { config } from '../wagmi';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import useGetEventLog from '../hooks/useGetEventLog';
 const client = new QueryClient();
 
 function MyApp({ Component, pageProps }: AppProps) {
+
+
+
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={client}>

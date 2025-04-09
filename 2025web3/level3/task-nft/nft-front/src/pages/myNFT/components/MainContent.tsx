@@ -1,11 +1,13 @@
 // pages/index.js
 
 import React, { use, useState, useEffect } from "react";
-import { Box, Typography, Button, Grid, Table, TableHead, TableRow, TableCell, TableBody, TableContainer } from "@mui/material";
+import { Box, Typography, Button, Grid, Table, TableHead, TableRow, TableCell, TableBody, TableContainer, Tab } from "@mui/material";
 import { styled } from "@mui/system";
 import { getActivities } from "../../../api/common-api";
-import { useChainId } from "wagmi";
+import { useChainId, useAccount } from "wagmi";
 import { formatEther } from "viem";
+import DataTable from "../../../components/Table";
+import useNFTs from "../../../hooks/useNFTs";
 
 function formatTime(seconds: number): string {
   //   const minutes = Math.floor(seconds / 60);
@@ -83,113 +85,70 @@ const CustomTableCell = styled(TableCell)(({ theme }) => ({
   color: "white",
 }));
 const MainContent = () => {
-
+  const account = useAccount();
   const chainId = useChainId();
+
+  const { tokenList } = useNFTs();
+
+
   const [result, setResult] = useState<any>([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        let params = {
-          filter_ids: [chainId],
-          event_types: [],
-          user_addresses: [],
-          collection_addresses: [],
-          page: 1,
-          page_size: 50,
-        };
-        const result = await getActivities({
-          filters: JSON.stringify(params),
-        });
-        if (result?.data?.result) {
-          setResult(result.data.result); // 假设 API 返回的数据
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
 
-    fetchData();
+
+
 
   }, [chainId]);
 
-  console.log(result, "result")
+  console.log(tokenList, "tokenList")
 
+  const columns = [
+    {
+      label: "资产名称",
+      field: "collection_name",
+      render: (item) => (
+        <div className="flex items-center gap-2">
+          <div>{item.name}({item.symbol})</div>
+        </div>
+      ),
+    },
+    {
+      label: "物品",
+      field: "collection_name",
+      render: (item) => (
+        <div className="flex items-center gap-2">
+          <img src={item.image_url || getRandomNftImage()} alt="" className="w-8 h-8 rounded-lg" />
+          <div>{item.name}</div>
+          <div className="text-sm text-gray-500">{item.tokenId}</div>
+        </div>
+      ),
+    },
+    {
+      label: "操作", field: "type", render: (item) => {
+        return <Box>
+          {/* <Button variant="contained" onClick={() => {
+            handleCancel(item)
+          }}>取消</Button>
+          <Button variant="contained" onClick={() => {
+            setOrderDialogCfg((prev) => {
+              return {
+                ...prev,
+                open: true,
+                order: item
+              }
+            })
+          }}>
+            编辑
+          </Button> */}
+        </Box>
+      }
+    },
+  ];
 
   return (
     <Container>
-      <Typography variant="h6">活动列表</Typography>
-      <TableContainer sx={{ marginTop: 3 }}>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <CustomTableCell>操作</CustomTableCell>
-              <CustomTableCell>物品</CustomTableCell>
-              <CustomTableCell>稀有度	</CustomTableCell>
-              <CustomTableCell>价格</CustomTableCell>
-              <CustomTableCell>最高出价</CustomTableCell>
-              <CustomTableCell>从</CustomTableCell>
-              <CustomTableCell>至</CustomTableCell>
-              <CustomTableCell>时间</CustomTableCell>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {
-              result.length > 0 && result.map((item, index) => {
-                return <TableRow key={index} >
-                  <CustomTableCell>  {item.type === "sell" ? "销售" : "挂单"}</CustomTableCell>
-                  <CustomTableCell>
-                    <div className="flex items-center gap-2">
-                      <img
-                        src={item.image_url || getRandomNftImage()}
-                        alt=""
-                        className="w-8 h-8 rounded-lg"
-                      />
-                      <div>{item.collection_name}</div>
-                      <div className="text-sm text-gray-500">
-                        {item.item_name}
-                      </div>
-                    </div>
-                  </CustomTableCell>
-                  <CustomTableCell>
-                    {/* 稀有度 */}
-                    {item.rarity?.name}
-                  </CustomTableCell>
-                  <CustomTableCell>
-                    {/* 价格 */}
-                    {formatEther(item.price) } ETH
-                  </CustomTableCell>
-                  <CustomTableCell>
-                    {/* 最高出价 */}
-                    {item.highestBid}
-                  </CustomTableCell>
-                  <CustomTableCell>
-                    {/* 从 */}
-                    {item.from || '-'}
-                  </CustomTableCell>
-                  <CustomTableCell>
-                    {/* 至 */}
-                    {item.to || '-'}
-
-                  </CustomTableCell>
-                  <CustomTableCell>
-                    {/* 时间 */}
-                    {formatTime(item.event_time)}
-                  </CustomTableCell>
-                </TableRow>
-              })
-            }
-            {
-              result.length == 0 && <TableRow>
-                <TableCell colSpan={8} align="center" sx={{ color: "gray" }}>
-                  暂时没有找到活动。
-                </TableCell>
-              </TableRow>
-            }
-
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <Typography variant="h6">我的资产列表</Typography>
+      <DataTable data={tokenList} columns={columns} />
     </Container>
   );
 };

@@ -26,6 +26,10 @@ const esVault_address = "0x9A676e781A523b5d0C0e43731313A708CB607508"
 const erc721_name = "TestERC721"
 const erc721_address = "0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82"
 
+// deployer:  0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+// esDex address: 0x367761085BF3C12e5DA2Df99AC6E1a824612b8fb
+// esVault address: 0x1c85638e118b37167e9298c2268758e058DdfDA0
+// testERC721 address: 0xC9a43158891282A2B1475592D5719c001986Aaec
 
 export enum ADDRESS_CONTRACT {
     'EasySwapOrderBook' = esDex_address,

@@ -22,8 +22,16 @@ const routes = [
         path: '/activities'
     },
     {
+        name: '市场中心',
+        path: '/my-collection'
+    },
+    {
         name: '我的NFT资产',
         path: '/myNFT'
+    },
+    {
+        name: '我的用户中心',
+        path: '/my-user-center'
     }
     // {
     //     name: 'Withdraw',

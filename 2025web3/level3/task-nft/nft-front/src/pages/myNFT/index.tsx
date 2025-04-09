@@ -16,11 +16,6 @@ const MyNFTPage = () => {
             <Header />
             {
                 isSigned && <Box sx={{ display: 'flex' }} >
-                    <Box sx={{
-                        width: '300px',
-                    }} >
-                        <Sidebar />
-                    </Box>
                     <Box sx={{ borderLeft: '1px solid #2D2D2D', flex: 1 }}  >
                         <MainContent />
                     </Box>

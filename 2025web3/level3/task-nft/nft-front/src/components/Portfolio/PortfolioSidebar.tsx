@@ -10,7 +10,8 @@ const SidebarContainer = styled(Box)(({ theme }) => ({
   backgroundColor: "#1C1C1C",
   padding: "20px",
   color: "white",
-  height:"100%"
+  height:"100%",
+  overflow:"hidden"
 }));
 
 const ButtonStyle = styled(Button)(({ theme }) => ({
@@ -31,7 +32,7 @@ const PortfolioSidebar = () => {
       {/* 用户头像和钱包地址 */}
       <Box display="flex" alignItems="center" marginBottom={2}>
         <Avatar sx={{ bgcolor: "#4A90E2" }}>🐵</Avatar>
-        <Typography variant="body1" sx={{ marginLeft: 1 }}>
+        <Typography variant="body1" sx={{ marginLeft: 1,  }}>
             {userInfo.address}
         </Typography>
       </Box>
