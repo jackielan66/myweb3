@@ -4,36 +4,25 @@ import { createPublicClient, createWalletClient, http } from 'viem'
 import { config } from '../wagmi'
 import { use, useEffect, useMemo, useState } from "react"
 import { parseAbiItem } from 'viem'
+import { OrderStatue, IOrder } from "../types/global"
 
 const fromBlock = 'earliest' // 起始区块
 const toBlock = 'latest' // 到最新区块
 
-type address = `0x${string}`;
-interface IOrder {
-  orderKey: string,
-  side: 0 | 1,
-  saleKind: 0 | 1,
-  maker: address,
-  nft: []
-  price: number,
-  expiry: number,
-  salt: number
-}
+const client = createPublicClient({
+  chain: config.chains[0],
+  transport: http()
+});
 
 // 监听合约事件，返回我的订单,所有的订单
 const useGetEventLog = () => {
-  const account = useAccount()
-  const [makeOrders, setMakeOrders] = useState([]);
+  const [makeOrders, setMakeOrders] = useState<IOrder[]>([]);
   const [cancelOrders, setCancelOrders] = useState([]);
   const [matchOrders, setMatchOrders] = useState([]);
-
-  const client = createPublicClient({
-    chain: config.chains[0],
-    transport: http()
-  });
   // 获取创建订单日志，所有订单列表
   async function getLogMakeLogs() {
     const logMakeEventAbi = ABI_CONTRACT.EasySwapOrderBook.filter(item => item.name === 'LogMake');
+
     const orderLogs = await client.getLogs({
       address: ADDRESS_CONTRACT.EasySwapOrderBook,
       event: logMakeEventAbi[0],
@@ -74,15 +63,49 @@ const useGetEventLog = () => {
     })
     setMatchOrders(_order)
   }
-  useEffect(() => {
+
+  const refetch = () => {
     getLogMakeLogs()
     getLogCancel()
     getMatchOrder()
+  }
+
+  useEffect(() => {
+    refetch()
   }, [])
+
+
+  // @ts-ignore
+  const allOrderList = useMemo(() => {
+    let tempObj: Record<string, IOrder> = {}
+    makeOrders.forEach((item) => {
+      item.status = OrderStatue.Process;
+      tempObj[item.orderKey] = item;
+    })
+    // @ts-ignore
+    matchOrders.forEach((item) => {
+      // @ts-ignore
+      item.makeOrder.status = OrderStatue.Complete;
+      // @ts-ignore
+      tempObj[item.makeOrder.orderKey] = item.makeOrder;
+      // @ts-ignore
+      tempObj[item.takeOrder.orderKey].status = OrderStatue.Complete;
+    })
+
+    cancelOrders.forEach((item) => {
+      // @ts-ignore
+      if (tempObj[item.orderKey]) {
+        tempObj[item.orderKey].status = OrderStatue.Cancel;
+      }
+    })
+    return Object.values(tempObj)
+  }, [makeOrders, cancelOrders, matchOrders])
 
   console.log('makeOrders', makeOrders)
   console.log('cancelOrders', cancelOrders);
   console.log('matchOrders', matchOrders);
+  console.log('allOrderList', allOrderList);
+
 
 
 
@@ -101,7 +124,9 @@ const useGetEventLog = () => {
   return {
     makeOrders,
     sellOrderList,
-    bidOrderList
+    bidOrderList,
+    allOrderList,
+    refetch
   }
 
 

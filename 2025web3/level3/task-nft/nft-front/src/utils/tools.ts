@@ -17,7 +17,7 @@ const nftImages = [
     "https://i2.seadn.io/ethereum/0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb/423558aec7b17453cf02482a2ce52b/fc423558aec7b17453cf02482a2ce52b.png?w=100"
 ];
 
-export function getRandomNftImage(tokenId:bigint): string {
+export function getRandomNftImage(tokenId:bigint | string ): string {
     const randomIndex =   Number(tokenId) % (nftImages.length) ;
     return nftImages[randomIndex];
 }
@@ -44,7 +44,13 @@ export function getRandomAvatarUrl(): string {
     return randomService(randomAddr);
 }
 
-export function formatDate(value: string | number, format = "YYYY-MM-DD HH:mm:ss") {
+export function formatDate(value: string | number | bigint | Date, format = "YYYY-MM-DD HH:mm:ss") {
     if (!value) return "";
+    if (typeof value === "bigint") {
+        value = Number(value);
+        if (value < 10000000000) {
+            value *= 1000;
+        }
+    }
     return dayjs(value).format(format);
 }

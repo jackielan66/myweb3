@@ -3,7 +3,6 @@ import { Modal, Box, Typography, Button, Grid, TextField, Switch, FormControlLab
 import { styled } from "@mui/system";
 import { useTheme } from '@mui/material/styles';
 import useGetERC20TokenInfo from '../../hooks/useGetTokenInfo';
-import { SaleKind, Side } from '../../utils/constant';
 import useUpdateContract from '../../hooks/useUpdateContract';
 import { ABI_CONTRACT, ADDRESS_CONTRACT } from '../../utils/contractConfig'
 import { toast } from "react-toastify";
@@ -12,6 +11,7 @@ import { useAccount } from "wagmi";
 import DataTable from "../Table";
 import { getRandomNftImage } from "../../utils/tools";
 import dayjs from "dayjs";
+import { SaleKind, Side } from "../../types/global";
 
 // 自定义样式
 const StyledModal = styled(Modal)(({ theme }) => ({
@@ -43,7 +43,7 @@ const InputRow = styled(Grid)(({ theme }) => ({
     marginBottom: "10px",
 }));
 
-const CustomModal = (props) => {
+const MakeCustomModal = (props) => {
     const { open, handleClose,
         assets,
         onSuccess
@@ -86,13 +86,6 @@ const CustomModal = (props) => {
                     saleKind: SaleKind.FixedPriceForItem,
                     price: parseEther(inputValue)
                 }
-                // formJson.maker = account.address;
-                // formJson.expiry = expiry;
-                // formJson.salt = salt;
-                // formJson.price = parseEther(inputValue)
-                // formJson.nft = [tokenId, ADDRESS_CONTRACT.TestERC721, 1];
-                // formJson.side = Side.List;
-                // formJson.saleKind = SaleKind.FixedPriceForItem;
                 handleMakeOrder(formJson)
 
             } else {
@@ -101,7 +94,7 @@ const CustomModal = (props) => {
             }
         } catch (error) {
             console.log(error, "error eeror")
-            toast.error('授权失败', error)
+            toast.error('授权失败', error.toString())
         }
 
     }
@@ -203,4 +196,4 @@ const CustomModal = (props) => {
     );
 };
 
-export default CustomModal;
+export default MakeCustomModal;

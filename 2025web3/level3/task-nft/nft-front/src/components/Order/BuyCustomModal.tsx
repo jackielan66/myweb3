@@ -3,7 +3,7 @@ import { Modal, Box, Typography, Button, Grid, TextField, Switch, FormControlLab
 import { styled } from "@mui/system";
 import { useTheme } from '@mui/material/styles';
 import useGetERC20TokenInfo from '../../hooks/useGetTokenInfo';
-import { SaleKind, Side } from '../../utils/constant';
+import { SaleKind, Side } from '../../types/global';
 import useUpdateContract from '../../hooks/useUpdateContract';
 import { ABI_CONTRACT, ADDRESS_CONTRACT } from '../../utils/contractConfig'
 import { toast } from "react-toastify";
@@ -95,7 +95,8 @@ const BuyCustomModal = (props) => {
 
         } catch (error) {
             setLoading(false)
-            toast.error('购买失败',error)
+            console.log(error, "error")
+            toast.error('购买失败')
 
         }
     }

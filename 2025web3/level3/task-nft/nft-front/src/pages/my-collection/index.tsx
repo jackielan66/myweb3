@@ -2,10 +2,7 @@
 import { Box, Button, Container } from "@mui/material";
 import Header from "../../components/Header";
 import { PortfolioSidebar, PortfolioMain } from "../../components/Portfolio"
-import { MakeOrder } from "../../components/Order";
 import React, { use, useEffect } from "react";
-import { getPortfolioBids, getPortfolioCollections, getPortfolioList, getUserStatus } from "../../api/common-api";
-import { useAccount, useChainId } from "wagmi";
 import useGetUserLoginStatus from "../../hooks/useGetUserLoginStatus";
 import MainView from "./components/mainView";
 const MyUserCenterPage = () => {

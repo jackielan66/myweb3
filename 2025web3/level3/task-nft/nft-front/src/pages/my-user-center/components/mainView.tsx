@@ -5,10 +5,11 @@ import HistoryOutlinedIcon from '@mui/icons-material/HistoryOutlined';
 import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
 import useGetEventLog from '../../../hooks/useGetEventLog';
-import TableView from './tableView';
+import HistoryTableView from './historyTableView';
 import MakeListTableView from './makeListTableView'
 import StockListTableView from './stockListTableView'
 import BidListTableView from './bidListTableView'
+import { useAccount } from 'wagmi';
 
 const TabPanel = ({ children, value, index }: any) => {
     return (
@@ -23,8 +24,8 @@ const TabPanel = ({ children, value, index }: any) => {
 };
 
 export default function MainView() {
-
-    const { makeOrders, cancelOrders } = useGetEventLog()
+    const account =  useAccount()
+    const {  } = useGetEventLog()
 
     const [value, setValue] = useState(0);
 
@@ -54,7 +55,7 @@ export default function MainView() {
                 <StockListTableView />
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <TableView orderList={makeOrders} />
+                <HistoryTableView address={account.address} />
             </TabPanel>
             <TabPanel value={value} index={2}>
                 <BidListTableView />

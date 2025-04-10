@@ -9,12 +9,19 @@ import { Tab } from '@mui/material';
 import { ABI_CONTRACT, ADDRESS_CONTRACT } from "../../../utils/contractConfig";
 import { useWriteContract } from "wagmi";
 import DataTable from "../../../components/Table";
-import { getRandomNftImage } from "../../../utils/tools";
+import { formatDate, getRandomNftImage } from "../../../utils/tools";
 import { MakeOrder } from "../../../components/Order";
 import { formatEther } from "viem";
+import useGetEventLog from "../../../hooks/useGetEventLog";
+import { IOrder, OrderStatue } from "../../../types/global";
+import useUpdateContract from "../../../hooks/useUpdateContract";
+import { toast } from "react-toastify";
 
-const TableView = (props: any) => {
-    const { orderList = [] } = props;
+const HistoryTableView = (props: {
+    address: `0x${string}`
+}) => {
+    const { address } = props;
+    const { allOrderList, refetch: refetchLog } = useGetEventLog();
     const [orderDialogCfg, setOrderDialogCfg] = useState({
         open: false,
         order: {},
@@ -22,16 +29,23 @@ const TableView = (props: any) => {
         type: 'edit',
     })
     const { writeContractAsync } = useWriteContract()
-    const handleCancel = async (item) => {
+    const { updateContractData } = useUpdateContract()
+    const handleCancel = async (item: IOrder) => {
         try {
-            await writeContractAsync({
+
+            const receipt = await updateContractData({
                 address: ADDRESS_CONTRACT.EasySwapOrderBook,
                 abi: ABI_CONTRACT.EasySwapOrderBook,
                 functionName: 'cancelOrders',
                 args: [[item.orderKey]]
             })
-            // fetchPoolList()
-            // handleClose()
+            console.log(receipt)
+            if (receipt.status === 'success') {
+                toast.success('取消成功')
+                refetchLog()
+            } else {
+                toast.error('取消失败')
+            }
         } catch (error) {
             console.log(error, "error eeror")
         }
@@ -40,23 +54,32 @@ const TableView = (props: any) => {
         {
             label: "物品",
             field: "collection_name",
-            render: (item) => (
+            render: (item: IOrder) => (
                 <div className="flex items-center gap-2">
-                    <img src={item.image_url || getRandomNftImage()} alt="" className="w-8 h-8 rounded-lg" />
-                    <div>{item.collection_name}</div>
-                    <div className="text-sm text-gray-500">{item.nft?.tokenId}</div>
+                    <img src={getRandomNftImage(item.nft.tokenId)} alt="" className="w-8 h-8 rounded-lg" />
+                    <div className="text-sm text-gray-500">{item.nft.tokenId}</div>
                 </div>
             ),
         },
-        { label: "稀有度", field: "rarity?.name" },
-        { label: "价格", field: "price", render: (item) => `${formatEther(item.price)} ETH` },
-        { label: "最高出价", field: "highestBid" },
-        { label: "从", field: "from" },
-        { label: "至", field: "to" },
-        { label: "时间", field: "event_time", render: (item) => item.expiry },
+        { label: "价格", field: "price", render: (item: IOrder) => `${formatEther(item.price)} ETH` },
+        { label: "时间", field: "event_time", render: (item: IOrder) => formatDate(item.expiry) },
         {
-            label: "操作", field: "type", render: (item) => {
-                return <Box>
+            label: "状态", field: "status", render: (item: IOrder) => {
+                if (item.status == OrderStatue.Cancel) {
+                    return <div className="text-red-500">取消</div>
+                }
+                if (item.status == OrderStatue.Complete) {
+                    return <div className="text-green-500">交易完成</div>
+                }
+                if (item.status == OrderStatue.Process) {
+                    return <div className="text-yellow-500">进行中</div>
+                }
+            }
+        },
+
+        {
+            label: "操作", field: "type", render: (item: IOrder) => {
+                return item.status === OrderStatue.Process && <Box>
                     <Button variant="contained" onClick={() => {
                         handleCancel(item)
                     }}>取消</Button>
@@ -72,9 +95,15 @@ const TableView = (props: any) => {
                         编辑
                     </Button>
                 </Box>
+
+
             }
         },
     ];
+
+    const dataSource = allOrderList.filter((item) => {
+        return item.maker === address
+    });
 
     return <>
         <MakeOrder open={orderDialogCfg.open}
@@ -89,10 +118,10 @@ const TableView = (props: any) => {
                     }
                 })
             }} />
-        <DataTable columns={columns} data={orderList} />
+        <DataTable columns={columns} data={dataSource} />
     </>
 
 
 }
 
-export default TableView;
+export default HistoryTableView;

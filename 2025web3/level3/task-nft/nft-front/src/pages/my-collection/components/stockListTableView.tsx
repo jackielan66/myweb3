@@ -15,11 +15,11 @@ import { formatEther } from "viem";
 import useNFTs from "../../../hooks/useNFTs";
 import { Check, CheckBox } from "@mui/icons-material";
 import useGetEventLog from "../../../hooks/useGetEventLog";
-import { Side } from "../../../utils/constant";
+import { OrderStatue, Side } from "../../../types/global";
 
 const StockListTableView = (props: any) => {
     const account = useAccount()
-    const { makeOrders, bidOrderList, sellOrderList } = useGetEventLog()
+    const { makeOrders, allOrderList, bidOrderList, sellOrderList } = useGetEventLog()
     const { tokenList, refetch: reFetchNFTs } = useNFTs()
     const [orderDialogCfg, setOrderDialogCfg] = useState({
         open: false,
@@ -62,7 +62,7 @@ const StockListTableView = (props: any) => {
         {
             label: "价格", field: "price",
             render: (item) => {
-                return formatEther(item.price) + ' ETH'
+                return item.price ? formatEther(item.price) + ' ETH' : ' '
             }
         },
         { label: "最高出价", field: "highestBid" },
@@ -70,10 +70,23 @@ const StockListTableView = (props: any) => {
         { label: "至", field: "to" },
         { label: "有效期", field: "expire", render: (item) => formatDate(Number(item.expiry) * 1000) },
         {
+            label: "状态", field: "status", render: (item) => {
+                if (item.status == OrderStatue.Cancel) {
+                    return <div className="text-red-500">取消</div>
+                }
+                if (item.status == OrderStatue.Complete) {
+                    return <div className="text-green-500">交易完成</div>
+                }
+                if (item.status == OrderStatue.Process) {
+                    return <div className="text-yellow-500">进行中</div>
+                }
+            }
+        },
+        {
             label: "操作", field: "type", render: (item) => {
                 return <Box>
                     {
-                        item.side == 0 && item.maker != account.address  && <Button variant="contained" onClick={() => {
+                       item.status == OrderStatue.Process && item.side == 0 && item.maker != account.address && <Button variant="contained" onClick={() => {
                             setOrderDialogCfg((prev) => {
                                 return {
                                     ...prev,
@@ -92,15 +105,14 @@ const StockListTableView = (props: any) => {
     ];
 
     const dataSource = useMemo(() => {
-        return [...sellOrderList, ...bidOrderList].filter(item => {
+        return allOrderList.filter(item => {
             // 过滤调自己挂单
-            if (item.side === Side.List && item.maker === account.address) {
+            if (item.side == Side.List && item.maker === account.address) {
                 return false
             }
             return true
-        }).
-            sort((a, b) => Number(b.expiry) - Number(a.expiry))
-    }, [sellOrderList, bidOrderList, account.address]);
+        }).sort((a, b) => Number(b.expiry) - Number(a.expiry))
+    }, [allOrderList, account.address]);
 
     return <>
         {
