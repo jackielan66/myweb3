@@ -4,26 +4,21 @@ const nftImages = [
     "https://i.seadn.io/gae/Ju9CkWtV-1Okvf45wo8UctR-M9He2PjILP0oOvxE89AyiPPGtrR3gysu1Zgy0hjd2xKIgjJJtWIc0ybj4Vd7wv8t3pxDGHoJBzDB?w=500&auto=format",
     "https://i.seadn.io/gae/H8jOCJuQokNqGBpkBN5wk1oZwO7LM8bNnrHCaekV2nKjnCqw6UB5oaH8XyNeBDj6bA_n1mjejzhFQUP3O1NfjFLHr3FOaeHcTOOT?w=500&auto=format",
     "https://i.seadn.io/gcs/files/c6cb0b1d6f2ab61c0efacf00e62e2230.jpg?w=500&auto=format",
-    "https://i.seadn.io/gcs/files/a8a2c681f0437294a88d4fd4cd161a0d.png?w=500&auto=format",
     "https://i.seadn.io/gae/BdxvLseXcfl57BiuQcQYdJ64v-aI8din7WPk0Pgo3qQFhAUH-B6i-dCqqc_mCkRIzULmwzwecnohLhrcH8A9mpWIZqA7ygc52Sr81hE?w=500&auto=format",
     "https://i.seadn.io/gae/7B0qai02OdHA8P_EOVK672qUliyjQdQDGNrACxs7WnTgZAkJa_wWURnIFKeOh5VTf8cfTqW3wQpozGedaC9mteKphEOtztls02RlWQ?w=500&auto=format",
     "https://i.seadn.io/gae/yIm-M5-BpSDdTEIJRt5D6xphizhIdozXjqSITgK4phWq7MmAU3qE7Nw7POGCiPGyhtJ3ZFP8iJ29TFl-RLcGBWX5qI4-ZcnCPcsY4zI?w=500&auto=format",
-    "https://i.seadn.io/gae/PHxWz47uWRKHGnUBk-CkWZdUiE6kzX_sgvQN1YKBn45qZbI3Dj3RXwwh-9Xb2xlwqkEUF9_o-ySm_uqEICe0v-nfE3mQB3skjENYXA?w=500&auto=format",
     "https://i.seadn.io/gae/6X867ZmCsuYcjHpx-nmNkXeHaDFd2m-EDEEkExVLKETphkfcrpRJOyzFxRQlc-29J0e-9mB9uDGze0O9yracSA9ibnQm2sIq5i2Yuw?w=500&auto=format",
-    "https://i.seadn.io/gae/d784iHHbqQFVH1XYD6HoT4u3y_Fsu_9FZUltWjnOzoYv7qqB5dLUqpGyHBd8Gq3h4mykK5PtkYzdGGoryWJaiFzGyx0_cWbwwE_W?w=500&auto=format",
-    "https://i.seadn.io/gae/8g0poMCQ5J9SZHMsQ3VD3C_8zoXzMJThmm0AwA11RuKGS4lqXPzrZlqKVUZ5PzhWS_GqLTOFoZLgXq6XTVQUqkz1XPq6AmwLd9Wz?w=500&auto=format",
     "https://i.seadn.io/gae/LIov33kogXOK4XZd2ESj29sqm_Hww5JSdO7AFn5wjt8xgnJJ0UpNV9yITqxra3s_LMEW1AnnrgOVB_hDpjJRA1uF4skI5Sdi_9rULi8?w=500&auto=format",
-    "https://i.seadn.io/gae/obxP_zMXHWA8qZK4GkdD3HGQGLXJGXfs6GPbHCXxeqQWcjVEfqMoaix7dY7uUc8yHGQA4iBIKZpsTIxv0qEQqtYYxHdBCHe6_qhY?w=500&auto=format",
-    "https://i.seadn.io/gae/9EPP0IGrMUgR8FgFd-RTo4epMm55JUEOVaUvGY9CKQM9J47Ni6OxOTbQKeDwS_8BXo5IKL4H_Q0tZ8pK2UsE1eEpyVB6_T_GvgD9=w600",
-    "https://i.seadn.io/gae/KbTJGEK-dRFtvh56IY6AaWFqJJylvCjYqjMJKF8ymx4iWzU8lYS3nMXoHHHVE1Zqb8QWGRJz3qB9uPcBDJMv-vqpUs7GS-qjRANj?w=500&auto=format",
-    "https://i.seadn.io/gae/UA7blhz93Jk8BwqDf6EX6Rc8teS_T5KGGXz9p8XkI6u8oQhh4WkHrPKqQqQd7E3nPTvZ-_uFX_WTLKgiDHd6MuuUQb_J2OHE4Iqn?w=500&auto=format",
-    "https://i.seadn.io/gae/6ev2GVLx3BDJq89890xrLuoS6kNT7H0C_cC5-Tg4uBM0PSvKGkqIxF0K1E0fS9kJey9B5AGFnQwU3e9HzJ75f-Z0hpRVL-O-mQlZ?w=500&auto=format",
-    "https://i.seadn.io/gae/ZWEV7BBCrHlVe8nOh0ySo5uZQxqwMTZ7_GQu0cLrGQWcHJTGx2cEyZyQHf7j_KhxZMsBxnKhc_UDmFV-VUG0bBLM3rqYTGddGhFS?w=500&auto=format",
-    "https://i.seadn.io/gae/0cOqWoYA7xL9CkUjGlxsjreSYBdrUBE0c6EO1COG4XE8UeP-Z30ckqUNiL872zHQHQU5MUNMNhvDpyXIP17hRUS7ZJT31O5ieZKXs1Y?w=500&auto=format",
+    "https://ipfs.io/ipfs/QmSgvgwxZGaBLqkGyWemEDqikCqU52XxsYLKtdy3vGZ8uq",
+    "https://i.seadn.io/s/raw/files/f3564ef33373939b024fb791f21ec37b.png?auto=format&dpr=1&w=100",
+    "https://i.seadn.io/gcs/files/b9cc6a3368e7e6e243fc9433f3024b52.png?auto=format&dpr=1&w=100",
+    "https://i2.seadn.io/ethereum/0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb/5a6248b5c4124f57fe6ed70da8fff5/cf5a6248b5c4124f57fe6ed70da8fff5.png?w=100",
+    "https://i.seadn.io/gae/tlmoxN7phyuRcGZLqb8NIHrHHS2M2ceQF8IhqZu7pXFQp2HyYbAh4zViNfQudoBAWaWk3JSBK24rpy6WgUJGmjd92w?auto=format&dpr=1&w=100",
+    "https://i2.seadn.io/ethereum/0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb/423558aec7b17453cf02482a2ce52b/fc423558aec7b17453cf02482a2ce52b.png?w=100"
 ];
 
-export function getRandomNftImage(): string {
-    const randomIndex = Math.floor(Math.random() * nftImages.length);
+export function getRandomNftImage(tokenId:bigint): string {
+    const randomIndex =   Number(tokenId) % (nftImages.length) ;
     return nftImages[randomIndex];
 }
 

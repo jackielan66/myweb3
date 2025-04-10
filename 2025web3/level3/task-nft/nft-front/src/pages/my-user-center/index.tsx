@@ -27,11 +27,7 @@ const MyUserCenterPage = () => {
             }
             {
                 isSigned && <Box sx={{ display: 'flex' }} >
-                    <Box sx={{
-                        width: '300px',
-                    }} >
-                        <PortfolioSidebar />
-                    </Box>
+                    <PortfolioSidebar />
                     <Box sx={{ borderLeft: '1px solid #2D2D2D', flex: 1 }}  >
                         <MainView />
                     </Box>

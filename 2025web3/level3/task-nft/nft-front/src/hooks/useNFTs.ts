@@ -13,16 +13,11 @@ const useNFTs = () => {
         address: ADDRESS_CONTRACT.TestERC721,
         abi: erc721Abi,
         functionName: 'balanceOf',
-        args: [account.address],
+        args: account.address ? [account.address] : undefined,
         query: {
             enabled: !!account.address
         }
     })
-    // 获取创建订单日志，所有订单列表
-    // const getLogs = useCallback((contractAddress: `0x${string}`, ownerAddress: `0x${string}`) =>{
-
-
-    //     , [])
     async function getLogs(contractAddress: `0x${string}`, ownerAddress: `0x${string}`) {
         let tokens = await getOwnedTokenIds(contractAddress, ownerAddress)
         setTokenList(tokens)

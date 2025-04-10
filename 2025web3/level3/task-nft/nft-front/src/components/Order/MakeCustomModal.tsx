@@ -1,5 +1,5 @@
 import React, { use, useState } from "react";
-import { Modal, Box, Typography, Button, Grid, TextField, Switch, FormControlLabel } from "@mui/material";
+import { Modal, Box, Typography, Button, Grid, TextField, Switch, FormControlLabel, Slide, Slider } from "@mui/material";
 import { styled } from "@mui/system";
 import { useTheme } from '@mui/material/styles';
 import useGetERC20TokenInfo from '../../hooks/useGetTokenInfo';
@@ -9,6 +9,9 @@ import { ABI_CONTRACT, ADDRESS_CONTRACT } from '../../utils/contractConfig'
 import { toast } from "react-toastify";
 import { parseEther } from "viem";
 import { useAccount } from "wagmi";
+import DataTable from "../Table";
+import { getRandomNftImage } from "../../utils/tools";
+import dayjs from "dayjs";
 
 // 自定义样式
 const StyledModal = styled(Modal)(({ theme }) => ({
@@ -47,10 +50,14 @@ const CustomModal = (props) => {
     } = props;
     const account = useAccount()
     const [inputValue, setInputValue] = useState("");
-    const [inputDay, setInputDay] = useState(1);
+    const [expiry, setExpiry] = useState(1);
     const { updateContractData } = useUpdateContract();
 
     const setApprovalForAll = async () => {
+        if (!inputValue) {
+            toast.error('请输入价格')
+            return
+        }
         try {
             let receipt = await updateContractData({
                 address: ADDRESS_CONTRACT.TestERC721,
@@ -58,6 +65,7 @@ const CustomModal = (props) => {
                 functionName: 'setApprovalForAll',
                 args: [ADDRESS_CONTRACT.EasySwapVault, true],
             })
+
             // let receipt = await updateContractData({
             //     address: ADDRESS_CONTRACT.TestERC721,
             //     abi: ABI_CONTRACT.TestERC721,
@@ -68,16 +76,23 @@ const CustomModal = (props) => {
             if (receipt.status === 'success') {
                 toast.success('授权成功')
                 let tokenId = assets[0].tokenId;
-                let expiry = parseInt((Date.now() / 1000).toString()) + 100000
                 let salt = Math.floor(Math.random() * 100);
-                let formJson = {}
-                formJson.maker = account.address;
-                formJson.expiry = expiry;
-                formJson.salt = salt;
-                formJson.price = parseEther(inputValue)
-                formJson.nft = [tokenId, ADDRESS_CONTRACT.TestERC721, 1];
-                formJson.side = Side.List;
-                formJson.saleKind = SaleKind.FixedPriceForItem;
+                let formJson = {
+                    maker: account.address,
+                    salt: salt,
+                    expiry: parseInt((dayjs().add(expiry, 'd').valueOf() / 1000)+''),
+                    nft: [tokenId, ADDRESS_CONTRACT.TestERC721, 1],
+                    side: Side.List,
+                    saleKind: SaleKind.FixedPriceForItem,
+                    price: parseEther(inputValue)
+                }
+                // formJson.maker = account.address;
+                // formJson.expiry = expiry;
+                // formJson.salt = salt;
+                // formJson.price = parseEther(inputValue)
+                // formJson.nft = [tokenId, ADDRESS_CONTRACT.TestERC721, 1];
+                // formJson.side = Side.List;
+                // formJson.saleKind = SaleKind.FixedPriceForItem;
                 handleMakeOrder(formJson)
 
             } else {
@@ -88,6 +103,7 @@ const CustomModal = (props) => {
             console.log(error, "error eeror")
             toast.error('授权失败', error)
         }
+
     }
     const handleMakeOrder = async (formData) => {
         try {
@@ -110,6 +126,37 @@ const CustomModal = (props) => {
         }
     }
 
+    const columns = [
+        {
+            label: "物品",
+            field: "name",
+            render: (item) => (
+                <div className="flex items-center gap-2">
+                    <img src={item.image_url || getRandomNftImage(item.tokenId)} alt="" className="w-8 h-8 rounded-lg" />
+                    <div>{item.name}</div>
+                    <div className="text-sm text-gray-500">{item.symbol}</div>
+                </div>
+            ),
+        },
+        { label: "tokenId", field: "tokenId" },
+        {
+            label: "价格",
+            field: "name",
+            render: (item, index) => (
+                <>
+                    <TextField
+                        sx={{
+                            backgroundColor: '#999',
+                        }}
+                        type="number"
+                        onChange={(e) => setInputValue(e.target.value)}
+                        placeholder="请输入价格" ></TextField>
+                </>
+            ),
+        },
+    ];
+
+
     return (
         <StyledModal open={open} onClose={handleClose}>
             <ModalContent>
@@ -117,38 +164,34 @@ const CustomModal = (props) => {
                     挂单
                 </Typography>
                 <Box>
-                    <Typography>物品</Typography>
-                    {
-                        assets.map(item => {
-                            return (
-                                <Box sx={{ display: 'flex', gap: '10px' }} >
-                                    <Typography>{item.name}</Typography>
-                                    <Typography>{item.symbol}</Typography>
-                                </Box>
-                            )
-                        })
-                    }
+                    <DataTable columns={columns} data={assets} ></DataTable>
                 </Box>
-                <Box sx={{ display: 'flex', gap: '10px' }}>
-                    <Typography>请输入输入价格</Typography>
-                    <TextField
-                        fullWidth
-                        variant="outlined"
-                        value={inputValue}
-                        onChange={(e) => setInputValue(e.target.value)}
-                        placeholder="输入价格"
-                    />
-                </Box>
+                <Box sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    gap: '10px', py: '20px'
+                }}>
+                    <Box>
+                        <Typography>到期时间</Typography>
+                        <Typography key={expiry} >{dayjs().add(expiry, 'd').format('YYYY-MM-DD HH:mm')}</Typography>
+                    </Box>
+                    <Box>
+                        <Slider
+                            sx={{
+                                width: '300px',
+                            }}
+                            color="info"
+                            value={expiry}
+                            onChange={(e, value) => {
+                                setExpiry(value as number)
+                            }
+                            }
+                            valueLabelDisplay="auto"
+                            min={1}
+                            max={30}
+                        />
+                    </Box>
 
-                <Box sx={{ display: 'flex', gap: '10px' }}>
-                    <Typography>到期时间</Typography>
-                    <TextField
-                        fullWidth
-                        variant="outlined"
-                        value={inputDay}
-                        onChange={(e) => setInputDay(e.target.value)}
-                        placeholder="输入天数"
-                    />
                 </Box>
 
                 <ButtonStyle onClick={() => {

@@ -16,7 +16,7 @@ import useNFTs from "../../../hooks/useNFTs";
 import { Check, CheckBox } from "@mui/icons-material";
 
 const StockListTableView = (props: any) => {
-    const { tokenList,count, refetch: reFetchNFTs } = useNFTs()
+    const { tokenList, count, refetch: reFetchNFTs } = useNFTs()
     const [orderDialogCfg, setOrderDialogCfg] = useState({
         open: false,
         order: {},
@@ -41,21 +41,14 @@ const StockListTableView = (props: any) => {
     const columns = [
         {
             label: "",
-            field: "selection",
-            // render: (item) => {
-            //     return <CheckBox
-            //         checked={item.checked}
-            //         onChange={() => {
-            //         }}
-            //     />
-            // },
+            field: "selection"
         },
         {
             label: "物品",
             field: "collection_name",
             render: (item) => (
                 <div className="flex items-center gap-2">
-                    <img src={item.image_url || getRandomNftImage()} alt="" className="w-8 h-8 rounded-lg" />
+                    <img src={getRandomNftImage(item.tokenId)} alt="" className="w-8 h-8 rounded-lg" />
                     <div>{item.name}</div>
                     <div className="text-sm text-gray-500">{item.tokenId}</div>
                 </div>
@@ -70,9 +63,6 @@ const StockListTableView = (props: any) => {
         {
             label: "操作", field: "type", render: (item) => {
                 return <Box>
-                    {/* <Button variant="contained" onClick={() => {
-                        handleCancel(item)
-                    }}>取消</Button> */}
                     <Button variant="contained" onClick={() => {
                         setOrderDialogCfg((prev) => {
                             return {
@@ -90,7 +80,7 @@ const StockListTableView = (props: any) => {
     ];
     const dataSource = useMemo(() => {
         return tokenList.map((item) => {
-            console.log(tokenList,"tokenList")
+            console.log(tokenList, "tokenList")
             return item
         })
     }, [tokenList])
@@ -122,7 +112,7 @@ const StockListTableView = (props: any) => {
                 onSuccess={() => {
                     reFetchNFTs()
                 }}
-                />
+            />
         }
 
         <DataTable columns={columns} data={dataSource} />

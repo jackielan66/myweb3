@@ -11,6 +11,7 @@ const SidebarContainer = styled(Box)(({ theme }) => ({
   padding: "20px",
   color: "white",
   height:"100%",
+  width: '300px',
   overflow:"hidden"
 }));
 
@@ -30,7 +31,9 @@ const PortfolioSidebar = () => {
   return (
     <SidebarContainer>
       {/* 用户头像和钱包地址 */}
-      <Box display="flex" alignItems="center" marginBottom={2}>
+      <Box display="flex" alignItems="center" 
+        sx={{overflow:'hidden'}}
+      >
         <Avatar sx={{ bgcolor: "#4A90E2" }}>🐵</Avatar>
         <Typography variant="body1" sx={{ marginLeft: 1,  }}>
             {userInfo.address}
@@ -47,12 +50,6 @@ const PortfolioSidebar = () => {
         label="搜索你的系列"
         variant="outlined"
         sx={{ marginTop: 2, backgroundColor: "#292929", borderRadius: "5px" }}
-        InputLabelProps={{
-          style: { color: "#9E9E9E" },
-        }}
-        InputProps={{
-          style: { color: "white" },
-        }}
       />
 
       {/* 显示NFT系列表头 */}

@@ -63,14 +63,12 @@ async function getOwnedTokenIds(contractAddress: `0x${string}`, ownerAddress: `0
     toBlock: toBlock
   })
 
-  // 3. 计算当前拥有的 tokenId
-  const ownedTokens = new Set<bigint>()
   let mapTokenInfo: any = {}
   // console.log('incomingLogs', incomingLogs)
   // 处理转入事件
   incomingLogs.forEach(log => {
-    let tokenId = log.args.tokenId
-    if (tokenId != undefined) {
+    if (log.args.tokenId !== undefined) {
+      let tokenId = (log.args.tokenId).toString() as string;
       if (mapTokenInfo[tokenId]) {
         mapTokenInfo[tokenId].count += 1
       } else {
@@ -83,16 +81,20 @@ async function getOwnedTokenIds(contractAddress: `0x${string}`, ownerAddress: `0
         }
       }
     }
+
+
   })
   // console.log('incomingLogs', incomingLogs)
 
   // 处理转出事件
   outgoingLogs.forEach(log => {
     // ownedTokens.delete(log.args.tokenId!)
-    let tokenId = log.args.tokenId
-    if (tokenId != undefined) {
-      if (mapTokenInfo[tokenId]) {
-        mapTokenInfo[tokenId].count -= 1
+    if (log.args.tokenId !== undefined) {
+      let tokenId = (log.args.tokenId).toString()
+      if (tokenId != undefined) {
+        if (mapTokenInfo[tokenId]) {
+          mapTokenInfo[tokenId].count -= 1
+        }
       }
     }
   })

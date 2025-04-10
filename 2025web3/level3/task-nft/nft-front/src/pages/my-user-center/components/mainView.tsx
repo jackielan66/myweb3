@@ -15,14 +15,14 @@ const TabPanel = ({ children, value, index }: any) => {
         <div hidden={value !== index}>
             {value === index && (
                 <Box sx={{ p: 2 }}>
-                    <Typography>{children}</Typography>
+                    {children}
                 </Box>
             )}
         </div>
     );
 };
 
-export default function PortfolioTabs() {
+export default function MainView() {
 
     const { makeOrders, cancelOrders } = useGetEventLog()
 
@@ -39,7 +39,6 @@ export default function PortfolioTabs() {
                 onChange={handleChange}
                 aria-label="portfolio tabs"
                 textColor="inherit"
-                TabIndicatorProps={{ style: { background: '#a78bfa' } }} // 指示条颜色
                 sx={{
                     borderBottom: 1,
                     borderColor: 'divider',
@@ -50,7 +49,6 @@ export default function PortfolioTabs() {
                 <Tab icon={<AttachMoneyOutlinedIcon />} iconPosition="start" label="出价" />
                 <Tab icon={<AccountBalanceWalletOutlinedIcon />} iconPosition="start" label="取消" />
             </Tabs>
-
             {/* Tab 内容区域 */}
             <TabPanel value={value} index={0}>
                 <StockListTableView />

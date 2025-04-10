@@ -14,7 +14,7 @@ const TabPanel = ({ children, value, index }: any) => {
         <div hidden={value !== index}>
             {value === index && (
                 <Box sx={{ p: 2 }}>
-                    <Typography>{children}</Typography>
+                    {children}               
                 </Box>
             )}
         </div>

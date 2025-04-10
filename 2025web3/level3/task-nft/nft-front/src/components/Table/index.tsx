@@ -28,7 +28,7 @@ const DataTable = ({ columns, data }) => {
               <TableRow key={index}>
                 {columns.map((col, colIndex) => (
                   <CustomTableCell key={colIndex}>
-                    {col.render ? col.render(item) : item[col.field]}
+                    {col.render ? col.render(item,index) : item[col.field]}
                   </CustomTableCell>
                 ))}
               </TableRow>
