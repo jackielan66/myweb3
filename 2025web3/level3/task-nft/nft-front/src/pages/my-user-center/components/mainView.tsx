@@ -58,7 +58,7 @@ export default function MainView() {
                 <HistoryTableView address={account.address} />
             </TabPanel>
             <TabPanel value={value} index={2}>
-                <BidListTableView />
+                <BidListTableView address={account.address}/>
             </TabPanel>
             <TabPanel value={value} index={3}>
 

@@ -18,18 +18,18 @@ export const ABI_CONTRACT = {
 
 
 const esDex_name = "EasySwapOrderBook";
-const esDex_address = "0x0B306BF915C4d645ff596e518fAf3F9669b97016"
+const esDex_address = "0x0165878A594ca255338adfa4d48449f69242Eb8F"
 
 const esVault_name = "EasySwapVault";
-const esVault_address = "0x9A676e781A523b5d0C0e43731313A708CB607508"
+const esVault_address = "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9"
 
 const erc721_name = "TestERC721"
-const erc721_address = "0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82"
+const erc721_address = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
 
 // deployer:  0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
-// esDex address: 0x367761085BF3C12e5DA2Df99AC6E1a824612b8fb
-// esVault address: 0x1c85638e118b37167e9298c2268758e058DdfDA0
-// testERC721 address: 0xC9a43158891282A2B1475592D5719c001986Aaec
+// esDex address: 0x0165878A594ca255338adfa4d48449f69242Eb8F
+// esVault address: 0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9
+// testERC721 address: 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512
 
 export enum ADDRESS_CONTRACT {
     'EasySwapOrderBook' = esDex_address,

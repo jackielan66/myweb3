@@ -13,7 +13,7 @@ import { formatDate, getRandomNftImage } from "../../../utils/tools";
 import { MakeOrder } from "../../../components/Order";
 import { formatEther } from "viem";
 import useGetEventLog from "../../../hooks/useGetEventLog";
-import { IOrder, OrderStatue } from "../../../types/global";
+import { IOrder, OrderStatue, Side } from "../../../types/global";
 import useUpdateContract from "../../../hooks/useUpdateContract";
 import { toast } from "react-toastify";
 
@@ -28,7 +28,6 @@ const HistoryTableView = (props: {
         title: "编辑",
         type: 'edit',
     })
-    const { writeContractAsync } = useWriteContract()
     const { updateContractData } = useUpdateContract()
     const handleCancel = async (item: IOrder) => {
         try {
@@ -39,7 +38,6 @@ const HistoryTableView = (props: {
                 functionName: 'cancelOrders',
                 args: [[item.orderKey]]
             })
-            console.log(receipt)
             if (receipt.status === 'success') {
                 toast.success('取消成功')
                 refetchLog()
@@ -51,6 +49,14 @@ const HistoryTableView = (props: {
         }
     }
     const columns = [
+        {
+            label: "类型",
+            field: "orp",
+            render: (item: IOrder) => {
+                
+                return item.side === Side.Bid ? "出价" : "购买";
+            },
+        },
         {
             label: "物品",
             field: "collection_name",

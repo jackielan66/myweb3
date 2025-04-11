@@ -16,7 +16,8 @@ const client = createPublicClient({
 
 // 监听合约事件，返回我的订单,所有的订单
 const useGetEventLog = () => {
-  const [makeOrders, setMakeOrders] = useState<IOrder[]>([]);
+  const account = useAccount()
+  const [makeOrders, setMakeOrders] = useState<(IOrder & { _sortKey?: number })[]>([]);
   const [cancelOrders, setCancelOrders] = useState([]);
   const [matchOrders, setMatchOrders] = useState([]);
   // 获取创建订单日志，所有订单列表
@@ -59,6 +60,7 @@ const useGetEventLog = () => {
       toBlock,
     })
     let _order = orderLogs.map((item: any) => {
+      console.log('item make order', item);
       return item.args
     })
     setMatchOrders(_order)
@@ -72,24 +74,45 @@ const useGetEventLog = () => {
 
   useEffect(() => {
     refetch()
-  }, [])
+  }, [account.address])
 
 
   // @ts-ignore
   const allOrderList = useMemo(() => {
-    let tempObj: Record<string, IOrder> = {}
-    makeOrders.forEach((item) => {
+    let tempObj: Record<string, IOrder & { _sortKey?: number }> = {}
+    makeOrders.forEach((item, index) => {
       item.status = OrderStatue.Process;
+      item._sortKey = index;
       tempObj[item.orderKey] = item;
     })
     // @ts-ignore
     matchOrders.forEach((item) => {
       // @ts-ignore
+      let _sortKeyFromTemp = tempObj[item.takeOrderKey]?._sortKey ?? tempObj[item.makeOrderKey]?._sortKey
+      // @ts-ignore
+      const extraObj = {
+        // @ts-ignore
+        seller: item.takeOrder.maker,
+        // @ts-ignore
+        buyer: item.makeOrder.maker,
+      }
+      // console.log('item extraObj', extraObj);
+      // @ts-ignore
       item.makeOrder.status = OrderStatue.Complete;
+      item.makeOrder.seller = extraObj.seller;
+      item.makeOrder.buyer = extraObj.buyer;
+      item.makeOrder._sortKey = _sortKeyFromTemp;
       // @ts-ignore
-      tempObj[item.makeOrder.orderKey] = item.makeOrder;
+      tempObj[item.makeOrderKey] = item.makeOrder;
       // @ts-ignore
-      tempObj[item.takeOrder.orderKey].status = OrderStatue.Complete;
+      item.takeOrder.status = OrderStatue.Complete;
+      // @ts-ignore
+      tempObj[item.takeOrderKey] = item.takeOrder;
+      item.takeOrder.seller = extraObj.seller;
+      item.takeOrder.buyer = extraObj.buyer;
+      item.takeOrder._sortKey = _sortKeyFromTemp
+      // // @ts-ignore
+
     })
 
     cancelOrders.forEach((item) => {
@@ -98,13 +121,14 @@ const useGetEventLog = () => {
         tempObj[item.orderKey].status = OrderStatue.Cancel;
       }
     })
-    return Object.values(tempObj)
+
+    return Object.values(tempObj).sort((a,b)=>b._sortKey! - a._sortKey!)
   }, [makeOrders, cancelOrders, matchOrders])
 
-  console.log('makeOrders', makeOrders)
-  console.log('cancelOrders', cancelOrders);
-  console.log('matchOrders', matchOrders);
-  console.log('allOrderList', allOrderList);
+  // console.log('makeOrders', makeOrders)
+  // console.log('cancelOrders', cancelOrders);
+  // console.log('matchOrders', matchOrders);
+  // console.log('allOrderList', allOrderList);
 
 
 

@@ -9,12 +9,12 @@ import { useAccount, useChainId } from "wagmi";
 import useGetUserLoginStatus from "../../hooks/useGetUserLoginStatus";
 import MainView from "./components/mainView";
 const MyUserCenterPage = () => {
-    const [isSigned, handleSign] = useGetUserLoginStatus();
+    // const [isSigned, handleSign] = useGetUserLoginStatus();
 
     return (
         <>
             <Header />
-            {
+            {/* {
                 !isSigned && <Box sx={{
                     display: "flex",
                     flexDirection: "column",
@@ -24,9 +24,9 @@ const MyUserCenterPage = () => {
                 }} ><Button onClick={() => {
                     handleSign()
                 }} >请登录</Button></Box>
-            }
+            } */}
             {
-                isSigned && <Box sx={{ display: 'flex' }} >
+                 <Box sx={{ display: 'flex' }} >
                     <PortfolioSidebar />
                     <Box sx={{ borderLeft: '1px solid #2D2D2D', flex: 1 }}  >
                         <MainView />

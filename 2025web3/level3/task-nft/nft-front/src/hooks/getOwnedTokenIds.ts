@@ -24,6 +24,8 @@ async function getOwnedTokenIds(contractAddress: `0x${string}`, ownerAddress: `0
     functionName: 'symbol',
   });
 
+  
+
 
   // 1. 获取所有转入该地址的 Transfer 事件
   const incomingLogs = await client.getLogs({
@@ -98,8 +100,7 @@ async function getOwnedTokenIds(contractAddress: `0x${string}`, ownerAddress: `0
       }
     }
   })
-  // console.log('ownedTokens', ownedTokens)
-  // console.log('mapTokenInfo', mapTokenInfo)
+
   return Object.values(mapTokenInfo).filter((item: any) => item.count > 0)
 }
 

@@ -17,8 +17,8 @@ const nftImages = [
     "https://i2.seadn.io/ethereum/0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb/423558aec7b17453cf02482a2ce52b/fc423558aec7b17453cf02482a2ce52b.png?w=100"
 ];
 
-export function getRandomNftImage(tokenId:bigint | string ): string {
-    const randomIndex =   Number(tokenId) % (nftImages.length) ;
+export function getRandomNftImage(tokenId: bigint | string): string {
+    const randomIndex = Number(tokenId) % (nftImages.length);
     return nftImages[randomIndex];
 }
 
@@ -53,4 +53,19 @@ export function formatDate(value: string | number | bigint | Date, format = "YYY
         }
     }
     return dayjs(value).format(format);
+}
+
+export function secureAddress(address:`0x{string}`| string |undefined, frontChars: number = 4, endChars: number = 4): string {
+    if (!address) return "";
+    // 确保地址是有效的
+
+    // 获取前后指定的字符数
+    const front = address.slice(0, frontChars + 2); // 2 是为了包含 `0x`
+    const end = address.slice(-endChars);
+
+    // 中间部分用 * 填充
+    const stars = '*'.repeat(6);
+
+    // 返回格式化后的地址
+    return front + stars + end;
 }

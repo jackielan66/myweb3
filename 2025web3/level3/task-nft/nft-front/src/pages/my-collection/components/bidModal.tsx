@@ -2,16 +2,16 @@ import React, { use, useState } from "react";
 import { Modal, Box, Typography, Button, Grid, TextField, Switch, FormControlLabel, Slide, Slider } from "@mui/material";
 import { styled } from "@mui/system";
 import { useTheme } from '@mui/material/styles';
-import useGetERC20TokenInfo from '../../hooks/useGetTokenInfo';
-import useUpdateContract from '../../hooks/useUpdateContract';
-import { ABI_CONTRACT, ADDRESS_CONTRACT } from '../../utils/contractConfig'
+import useUpdateContract from '../../../hooks/useUpdateContract';
+import { ABI_CONTRACT, ADDRESS_CONTRACT } from '../../../utils/contractConfig'
 import { toast } from "react-toastify";
 import { parseEther } from "viem";
 import { useAccount } from "wagmi";
-import DataTable from "../Table";
-import { getRandomNftImage } from "../../utils/tools";
+
+import { getRandomNftImage } from "../../../utils/tools";
 import dayjs from "dayjs";
-import { SaleKind, Side } from "../../types/global";
+import { SaleKind, Side } from "../../../types/global";
+import DataTable from "../../../components/Table";
 
 // 自定义样式
 const StyledModal = styled(Modal)(({ theme }) => ({
@@ -39,52 +39,30 @@ const ButtonStyle = styled(Button)(({ theme }) => ({
     },
 }));
 
-const InputRow = styled(Grid)(({ theme }) => ({
-    marginBottom: "10px",
-}));
+
 
 const MakeCustomModal = (props) => {
-    const { open, handleClose,
+
+    const { open,
         assets,
         onSuccess,
-        assetsIsApproved
+        assetsIsApproved,
+        title
     } = props;
     const account = useAccount()
     const [inputValue, setInputValue] = useState("");
     const [expiry, setExpiry] = useState(1);
     const { updateContractData } = useUpdateContract();
 
+    const handleClose = () => {
+        props.onCancel && props.onCancel()
+    };
     const setApprovalForAll = async () => {
         if (!inputValue) {
             toast.error('请输入价格')
             return
         }
         try {
-            let receipt;
-            if (!assetsIsApproved) {
-                receipt = await updateContractData({
-                    address: ADDRESS_CONTRACT.TestERC721,
-                    abi: ABI_CONTRACT.TestERC721,
-                    functionName: 'setApprovalForAll',
-                    args: [ADDRESS_CONTRACT.EasySwapVault, true],
-                })
-            }
-            // let receipt = await updateContractData({
-            //     address: ADDRESS_CONTRACT.TestERC721,
-            //     abi: ABI_CONTRACT.TestERC721,
-            //     functionName: 'approve',
-            //     args: [ADDRESS_CONTRACT.EasySwapVault, rue],
-            // })
-            if (!assetsIsApproved) {
-                if (receipt.status === 'success') {
-                    toast.success('授权成功')
-    
-                } else {
-                    toast.error('授权失败')
-                    return
-                }
-            }
-         
             let tokenId = assets[0].tokenId;
             let salt = Math.floor(Math.random() * 100);
             let formJson = {
@@ -92,7 +70,7 @@ const MakeCustomModal = (props) => {
                 salt: salt,
                 expiry: parseInt((dayjs().add(expiry, 'd').valueOf() / 1000) + ''),
                 nft: [tokenId, ADDRESS_CONTRACT.TestERC721, 1],
-                side: Side.List,
+                side: Side.Bid,
                 saleKind: SaleKind.FixedPriceForItem,
                 price: parseEther(inputValue)
             }
@@ -113,11 +91,11 @@ const MakeCustomModal = (props) => {
                 args: [orderList],
             })
             if (receipt.status === 'success') {
-                toast.success('挂单成功')
+                toast.success(title + '成功')
                 onSuccess && onSuccess()
                 handleClose()
             } else {
-                toast.error('make failed')
+                toast.error('failed')
             }
         } catch (error) {
             console.log(error, "error eeror")
@@ -159,7 +137,7 @@ const MakeCustomModal = (props) => {
         <StyledModal open={open} onClose={handleClose}>
             <ModalContent>
                 <Typography variant="h6" color="white" gutterBottom className="text-xl">
-                    挂单
+                    {title}
                 </Typography>
                 <Box>
                     <DataTable columns={columns} data={assets} ></DataTable>
@@ -194,8 +172,7 @@ const MakeCustomModal = (props) => {
 
                 <ButtonStyle onClick={() => {
                     setApprovalForAll()
-
-                }}>挂单 {assets.length} 个物品</ButtonStyle>
+                }}>{title} {assets.length} 个物品</ButtonStyle>
             </ModalContent>
         </StyledModal>
     );

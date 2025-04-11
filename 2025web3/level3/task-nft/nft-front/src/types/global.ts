@@ -27,7 +27,7 @@ export enum OrderStatue {
 
 // 主接口类型
 export interface IOrder {
-    orderKey: string;
+    orderKey?: string;
     side: Side;
     saleKind: SaleKind;
     maker: string;  // 地址类型
@@ -36,4 +36,8 @@ export interface IOrder {
     expiry: number; // uint64 映射到 number
     salt: number;   // uint64 映射到 number
     status?: OrderStatue,
+    // 买家
+    buyer?: string; 
+    // 卖家
+    seller?: string;
 }

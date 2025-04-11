@@ -16,7 +16,7 @@ import useNFTs from "../../../hooks/useNFTs";
 import { Check, CheckBox } from "@mui/icons-material";
 
 const StockListTableView = (props: any) => {
-    const { tokenList, count, refetch: reFetchNFTs } = useNFTs()
+    const { tokenList, count, refetch: reFetchNFTs, isApproved } = useNFTs()
     const [orderDialogCfg, setOrderDialogCfg] = useState({
         open: false,
         order: {},
@@ -80,7 +80,7 @@ const StockListTableView = (props: any) => {
     ];
     const dataSource = useMemo(() => {
         return tokenList.map((item) => {
-            console.log(tokenList, "tokenList")
+            // console.log(tokenList, "tokenList")
             return item
         })
     }, [tokenList])
@@ -100,6 +100,7 @@ const StockListTableView = (props: any) => {
             }} /> */}
         {
             orderDialogCfg.open && <MakeCustomModal
+                assetsIsApproved={isApproved}
                 assets={[orderDialogCfg.order]}
                 open={orderDialogCfg.open} handleClose={() => {
                     setOrderDialogCfg((prev) => {

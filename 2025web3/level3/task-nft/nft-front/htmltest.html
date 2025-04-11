@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charSet="utf-8" data-next-head="" />
+    <meta name="viewport" content="width=device-width" data-next-head="" />
+    <title data-next-head="">集合中心</title>
+    <meta name="description" content="集合中心" data-next-head="" />
+    <style data-next-hide-fouc="true">
+        body {
+            display: none
+        }
+    </style><noscript data-next-hide-fouc="true">
+        <style>
+            body {
+                display: block
+            }
+        </style>
+    </noscript><noscript data-n-css=""></noscript>
+    <script defer="" noModule="" src="/_next/static/chunks/polyfills.js"></script>
+    <script src="/_next/static/chunks/webpack.js" defer=""></script>
+    <script src="/_next/static/chunks/main.js" defer=""></script>
+    <script src="/_next/static/chunks/pages/_app.js" defer=""></script>
+    <script src="/_next/static/chunks/pages/my-collection.js" defer=""></script>
+    <script src="/_next/static/development/_buildManifest.js" defer=""></script>
+    <script src="/_next/static/development/_ssgManifest.js" defer=""></script><noscript
+        id="__next_css__DO_NOT_USE__"></noscript>
+</head>
+
+<body>
+    <div id="__next">
+        <div data-rk="">
+            <style>
+                [data-rk] {
+                    --rk-blurs-modalOverlay: blur(0px);
+                    --rk-fonts-body: SFRounded, ui-rounded, "SF Pro Rounded", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+                    --rk-radii-actionButton: 9999px;
+                    --rk-radii-connectButton: 12px;
+                    --rk-radii-menuButton: 12px;
+                    --rk-radii-modal: 24px;
+                    --rk-radii-modalMobile: 28px;
+                    --rk-colors-accentColor: #0E76FD;
+                    --rk-colors-accentColorForeground: #FFF;
+                    --rk-colors-actionButtonBorder: rgba(0, 0, 0, 0.04);
+                    --rk-colors-actionButtonBorderMobile: rgba(0, 0, 0, 0.06);
+                    --rk-colors-actionButtonSecondaryBackground: rgba(0, 0, 0, 0.06);
+                    --rk-colors-closeButton: rgba(60, 66, 66, 0.8);
+                    --rk-colors-closeButtonBackground: rgba(0, 0, 0, 0.06);
+                    --rk-colors-connectButtonBackground: #FFF;
+                    --rk-colors-connectButtonBackgroundError: #FF494A;
+                    --rk-colors-connectButtonInnerBackground: linear-gradient(0deg, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.06));
+                    --rk-colors-connectButtonText: #25292E;
+                    --rk-colors-connectButtonTextError: #FFF;
+                    --rk-colors-connectionIndicator: #30E000;
+                    --rk-colors-downloadBottomCardBackground: linear-gradient(126deg, rgba(255, 255, 255, 0) 9.49%, rgba(171, 171, 171, 0.04) 71.04%), #FFFFFF;
+                    --rk-colors-downloadTopCardBackground: linear-gradient(126deg, rgba(171, 171, 171, 0.2) 9.49%, rgba(255, 255, 255, 0) 71.04%), #FFFFFF;
+                    --rk-colors-error: #FF494A;
+                    --rk-colors-generalBorder: rgba(0, 0, 0, 0.06);
+                    --rk-colors-generalBorderDim: rgba(0, 0, 0, 0.03);
+                    --rk-colors-menuItemBackground: rgba(60, 66, 66, 0.1);
+                    --rk-colors-modalBackdrop: rgba(0, 0, 0, 0.3);
+                    --rk-colors-modalBackground: #FFF;
+                    --rk-colors-modalBorder: transparent;
+                    --rk-colors-modalText: #25292E;
+                    --rk-colors-modalTextDim: rgba(60, 66, 66, 0.3);
+                    --rk-colors-modalTextSecondary: rgba(60, 66, 66, 0.6);
+                    --rk-colors-profileAction: #FFF;
+                    --rk-colors-profileActionHover: rgba(255, 255, 255, 0.5);
+                    --rk-colors-profileForeground: rgba(60, 66, 66, 0.06);
+                    --rk-colors-selectedOptionBorder: rgba(60, 66, 66, 0.1);
+                    --rk-colors-standby: #FFD641;
+                    --rk-shadows-connectButton: 0px 4px 12px rgba(0, 0, 0, 0.1);
+                    --rk-shadows-dialog: 0px 8px 32px rgba(0, 0, 0, 0.32);
+                    --rk-shadows-profileDetailsAction: 0px 2px 6px rgba(37, 41, 46, 0.04);
+                    --rk-shadows-selectedOption: 0px 2px 6px rgba(0, 0, 0, 0.24);
+                    --rk-shadows-selectedWallet: 0px 2px 6px rgba(0, 0, 0, 0.12);
+                    --rk-shadows-walletLogo: 0px 2px 16px rgba(0, 0, 0, 0.16);
+                }
+            </style>
+            <style data-emotion="css keoovd">
+                .css-keoovd {
+                    background-color: #1C1C1C;
+                    padding: 10px 20px;
+                    width: 100%;
+                    display: -webkit-box;
+                    display: -webkit-flex;
+                    display: -ms-flexbox;
+                    display: flex;
+                    -webkit-align-items: center;
+                    -webkit-box-align: center;
+                    -ms-flex-align: center;
+                    align-items: center;
+                    -webkit-box-pack: justify;
+                    -webkit-justify-content: space-between;
+                    justify-content: space-between;
+                    border-bottom: 1px solid #2D2D2D;
+                }
+            </style>
+            <div class="MuiBox-root css-keoovd">
+                <style data-emotion="css kl5uk3">
+                    .css-kl5uk3 {
+                        display: -webkit-box;
+                        display: -webkit-flex;
+                        display: -ms-flexbox;
+                        display: flex;
+                        gap: 20px;
+                    }
+                </style>
+                <div class="MuiBox-root css-kl5uk3">
+                    <style data-emotion="css 1b0xtm2">
+                        .css-1b0xtm2 {
+                            color: #fff;
+                        }
+
+                        .css-1b0xtm2:hover {
+                            background-color: #333;
+                            color: rgb(142, 103, 233);
+                        }
+                    </style>
+                    <style data-emotion="css mzbr2g-MuiButton-root">
+                        .css-mzbr2g-MuiButton-root {
+                            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+                            font-weight: 500;
+                            font-size: 0.875rem;
+                            line-height: 1.75;
+                            letter-spacing: 0.02857em;
+                            text-transform: uppercase;
+                            min-width: 64px;
+                            padding: 6px 16px;
+                            border: 0;
+                            border-radius: 4px;
+                            -webkit-transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+                            transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+                            padding: 6px 8px;
+                            color: var(--variant-textColor);
+                            background-color: var(--variant-textBg);
+                            --variant-textColor: #1976d2;
+                            --variant-outlinedColor: #1976d2;
+                            --variant-outlinedBorder: rgba(25, 118, 210, 0.5);
+                            --variant-containedColor: #fff;
+                            --variant-containedBg: #1976d2;
+                            -webkit-transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+                            transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+                            color: #fff;
+                        }
+
+                        .css-mzbr2g-MuiButton-root:hover {
+                            -webkit-text-decoration: none;
+                            text-decoration: none;
+                        }
+
+                        .css-mzbr2g-MuiButton-root.Mui-disabled {
+                            color: rgba(0, 0, 0, 0.26);
+                        }
+
+                        @media (hover: hover) {
+                            .css-mzbr2g-MuiButton-root:hover {
+                                --variant-containedBg: #1565c0;
+                                --variant-textBg: rgba(25, 118, 210, 0.04);
+                                --variant-outlinedBorder: #1976d2;
+                                --variant-outlinedBg: rgba(25, 118, 210, 0.04);
+                            }
+                        }
+
+                        .css-mzbr2g-MuiButton-root.MuiButton-loading {
+                            color: transparent;
+                        }
+
+                        .css-mzbr2g-MuiButton-root:hover {
+                            background-color: #333;
+                            color: rgb(142, 103, 233);
+                        }
+                    </style>
+                    <style data-emotion="css km1712-MuiButtonBase-root-MuiButton-root">
+                        .css-km1712-MuiButtonBase-root-MuiButton-root {
+                            display: -webkit-inline-box;
+                            display: -webkit-inline-flex;
+                            display: -ms-inline-flexbox;
+                            display: inline-flex;
+                            -webkit-align-items: center;
+                            -webkit-box-align: center;
+                            -ms-flex-align: center;
+                            align-items: center;
+                            -webkit-box-pack: center;
+                            -ms-flex-pack: center;
+                            -webkit-justify-content: center;
+                            justify-content: center;
+                            position: relative;
+                            box-sizing: border-box;
+                            -webkit-tap-highlight-color: transparent;
+                            background-color: transparent;
+                            outline: 0;
+                            border: 0;
+                            margin: 0;
+                            border-radius: 0;
+                            padding: 0;
+                            cursor: pointer;
+                            -webkit-user-select: none;
+                            -moz-user-select: none;
+                            -ms-user-select: none;
+                            user-select: none;
+                            vertical-align: middle;
+                            -moz-appearance: none;
+                            -webkit-appearance: none;
+                            -webkit-text-decoration: none;
+                            text-decoration: none;
+                            color: inherit;
+                            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+                            font-weight: 500;
+                            font-size: 0.875rem;
+                            line-height: 1.75;
+                            letter-spacing: 0.02857em;
+                            text-transform: uppercase;
+                            min-width: 64px;
+                            padding: 6px 16px;
+                            border: 0;
+                            border-radius: 4px;
+                            -webkit-transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+                            transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+                            padding: 6px 8px;
+                            color: var(--variant-textColor);
+                            background-color: var(--variant-textBg);
+                            --variant-textColor: #1976d2;
+                            --variant-outlinedColor: #1976d2;
+                            --variant-outlinedBorder: rgba(25, 118, 210, 0.5);
+                            --variant-containedColor: #fff;
+                            --variant-containedBg: #1976d2;
+                            -webkit-transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+                            transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+                            color: #fff;
+                        }
+
+                        .css-km1712-MuiButtonBase-root-MuiButton-root::-moz-focus-inner {
+                            border-style: none;
+                        }
+
+                        .css-km1712-MuiButtonBase-root-MuiButton-root.Mui-disabled {
+                            pointer-events: none;
+                            cursor: default;
+                        }
+
+                        @media print {
+                            .css-km1712-MuiButtonBase-root-MuiButton-root {
+                                -webkit-print-color-adjust: exact;
+                                color-adjust: exact;
+                            }
+                        }
+
+                        .css-km1712-MuiButtonBase-root-MuiButton-root:hover {
+                            -webkit-text-decoration: none;
+                            text-decoration: none;
+                        }
+
+                        .css-km1712-MuiButtonBase-root-MuiButton-root.Mui-disabled {
+                            color: rgba(0, 0, 0, 0.26);
+                        }
+
+                        @media (hover: hover) {
+                            .css-km1712-MuiButtonBase-root-MuiButton-root:hover {
+                                --variant-containedBg: #1565c0;
+                                --variant-textBg: rgba(25, 118, 210, 0.04);
+                                --variant-outlinedBorder: #1976d2;
+                                --variant-outlinedBg: rgba(25, 118, 210, 0.04);
+                            }
+                        }
+
+                        .css-km1712-MuiButtonBase-root-MuiButton-root.MuiButton-loading {
+                            color: transparent;
+                        }
+
+                        .css-km1712-MuiButtonBase-root-MuiButton-root:hover {
+                            background-color: #333;
+                            color: rgb(142, 103, 233);
+                        }
+                    </style><a
+                        class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary css-km1712-MuiButtonBase-root-MuiButton-root"
+                        tabindex="0" href="/">Home</a><a
+                        class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary css-km1712-MuiButtonBase-root-MuiButton-root"
+                        tabindex="0" href="/collections">Collections</a><a
+                        class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary css-km1712-MuiButtonBase-root-MuiButton-root"
+                        tabindex="0" href="/portfolio">Portfolio</a><a
+                        class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary css-km1712-MuiButtonBase-root-MuiButton-root"
+                        tabindex="0" href="/activities">Activities</a><a
+                        class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary meta-text css-km1712-MuiButtonBase-root-MuiButton-root"
+                        tabindex="0" href="/my-collection"
+                        style="background-color:#333;color:rgb(142, 103, 233)">市场中心</a><a
+                        class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary css-km1712-MuiButtonBase-root-MuiButton-root"
+                        tabindex="0" href="/myNFT">我的NFT资产</a><a
+                        class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary css-km1712-MuiButtonBase-root-MuiButton-root"
+                        tabindex="0" href="/my-user-center">我的用户中心</a>
+                </div>
+            </div>
+            <style data-emotion="css k008qs">
+                .css-k008qs {
+                    display: -webkit-box;
+                    display: -webkit-flex;
+                    display: -ms-flexbox;
+                    display: flex;
+                }
+            </style>
+            <div class="MuiBox-root css-k008qs">
+                <style data-emotion="css 1v5z18m">
+                    .css-1v5z18m {
+                        width: 300px;
+                    }
+                </style>
+                <div class="MuiBox-root css-1v5z18m">
+                    <style data-emotion="css 1ivfvwa">
+                        .css-1ivfvwa {
+                            background-color: #1C1C1C;
+                            padding: 20px;
+                            color: white;
+                            height: 100%;
+                            width: 300px;
+                            overflow: hidden;
+                        }
+                    </style>
+                    <style data-emotion="css useuba">
+                        .css-useuba {
+                            background-color: #1C1C1C;
+                            padding: 20px;
+                            color: white;
+                            height: 100%;
+                            width: 300px;
+                            overflow: hidden;
+                        }
+                    </style>
+                    <div class="MuiBox-root css-useuba">
+                        <style data-emotion="css 1mervjy">
+                            .css-1mervjy {
+                                display: -webkit-box;
+                                display: -webkit-flex;
+                                display: -ms-flexbox;
+                                display: flex;
+                                -webkit-align-items: center;
+                                -webkit-box-align: center;
+                                -ms-flex-align: center;
+                                align-items: center;
+                                overflow: hidden;
+                            }
+                        </style>
+                        <div class="MuiBox-root css-1mervjy">
+                            <style data-emotion="css i3w201-MuiAvatar-root">
+                                .css-i3w201-MuiAvatar-root {
+                                    position: relative;
+                                    display: -webkit-box;
+                                    display: -webkit-flex;
+                                    display: -ms-flexbox;
+                                    display: flex;
+                                    -webkit-align-items: center;
+                                    -webkit-box-align: center;
+                                    -ms-flex-align: center;
+                                    align-items: center;
+                                    -webkit-box-pack: center;
+                                    -ms-flex-pack: center;
+                                    -webkit-justify-content: center;
+                                    justify-content: center;
+                                    -webkit-flex-shrink: 0;
+                                    -ms-flex-negative: 0;
+                                    flex-shrink: 0;
+                                    width: 40px;
+                                    height: 40px;
+                                    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+                                    font-size: 1.25rem;
+                                    line-height: 1;
+                                    border-radius: 50%;
+                                    overflow: hidden;
+                                    -webkit-user-select: none;
+                                    -moz-user-select: none;
+                                    -ms-user-select: none;
+                                    user-select: none;
+                                    color: #fff;
+                                    background-color: #bdbdbd;
+                                    background-color: #4A90E2;
+                                }
+                            </style>
+                            <div
+                                class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault css-i3w201-MuiAvatar-root">
+                                🐵</div>
+                            <style data-emotion="css 16gpks2-MuiTypography-root">
+                                .css-16gpks2-MuiTypography-root {
+                                    margin: 0;
+                                    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+                                    font-weight: 400;
+                                    font-size: 1rem;
+                                    line-height: 1.5;
+                                    letter-spacing: 0.00938em;
+                                    margin-left: 8px;
+                                }
+                            </style>
+                            <p class="MuiTypography-root MuiTypography-body1 css-16gpks2-MuiTypography-root"></p>
+                        </div>
+                        <style data-emotion="css 8x1mxu">
+                            .css-8x1mxu {
+                                color: white;
+                                width: 100%;
+                                margin-top: 10px;
+                                background-color: #333;
+                            }
+
+                            .css-8x1mxu:hover {
+                                background-color: #555;
+                            }
+                        </style>
+                        <style data-emotion="css qyjk0p-MuiButton-root">
+                            .css-qyjk0p-MuiButton-root {
+                                font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+                                font-weight: 500;
+                                font-size: 0.875rem;
+                                line-height: 1.75;
+                                letter-spacing: 0.02857em;
+                                text-transform: uppercase;
+                                min-width: 64px;
+                                padding: 6px 16px;
+                                border: 0;
+                                border-radius: 4px;
+                                -webkit-transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+                                transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+                                color: var(--variant-containedColor);
+                                background-color: var(--variant-containedBg);
+                                box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+                                --variant-textColor: #1976d2;
+                                --variant-outlinedColor: #1976d2;
+                                --variant-outlinedBorder: rgba(25, 118, 210, 0.5);
+                                --variant-containedColor: #fff;
+                                --variant-containedBg: #1976d2;
+                                -webkit-transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+                                transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+                                color: white;
+                                width: 100%;
+                                margin-top: 10px;
+                                background-color: #333;
+                            }
+
+                            .css-qyjk0p-MuiButton-root:hover {
+                                -webkit-text-decoration: none;
+                                text-decoration: none;
+                            }
+
+                            .css-qyjk0p-MuiButton-root.Mui-disabled {
+                                color: rgba(0, 0, 0, 0.26);
+                            }
+
+                            .css-qyjk0p-MuiButton-root:hover {
+                                box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+                            }
+
+                            @media (hover: none) {
+                                .css-qyjk0p-MuiButton-root:hover {
+                                    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+                                }
+                            }
+
+                            .css-qyjk0p-MuiButton-root:active {
+                                box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+                            }
+
+                            .css-qyjk0p-MuiButton-root.Mui-focusVisible {
+                                box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+                            }
+
+                            .css-qyjk0p-MuiButton-root.Mui-disabled {
+                                color: rgba(0, 0, 0, 0.26);
+                                box-shadow: none;
+                                background-color: rgba(0, 0, 0, 0.12);
+                            }
+
+                            @media (hover: hover) {
+                                .css-qyjk0p-MuiButton-root:hover {
+                                    --variant-containedBg: #1565c0;
+                                    --variant-textBg: rgba(25, 118, 210, 0.04);
+                                    --variant-outlinedBorder: #1976d2;
+                                    --variant-outlinedBg: rgba(25, 118, 210, 0.04);
+                                }
+                            }
+
+                            .css-qyjk0p-MuiButton-root.MuiButton-loading {
+                                color: transparent;
+                            }
+
+                            .css-qyjk0p-MuiButton-root:hover {
+                                background-color: #555;
+                            }
+                        </style>
+                        <style data-emotion="css 3sth73-MuiButtonBase-root-MuiButton-root">
+                            .css-3sth73-MuiButtonBase-root-MuiButton-root {
+                                display: -webkit-inline-box;
+                                display: -webkit-inline-flex;
+                                display: -ms-inline-flexbox;
+                                display: inline-flex;
+                                -webkit-align-items: center;
+                                -webkit-box-align: center;
+                                -ms-flex-align: center;
+                                align-items: center;
+                                -webkit-box-pack: center;
+                                -ms-flex-pack: center;
+                                -webkit-justify-content: center;
+                                justify-content: center;
+                                position: relative;
+                                box-sizing: border-box;
+                                -webkit-tap-highlight-color: transparent;
+                                background-color: transparent;
+                                outline: 0;
+                                border: 0;
+                                margin: 0;
+                                border-radius: 0;
+                                padding: 0;
+                                cursor: pointer;
+                                -webkit-user-select: none;
+                                -moz-user-select: none;
+                                -ms-user-select: none;
+                                user-select: none;
+                                vertical-align: middle;
+                                -moz-appearance: none;
+                                -webkit-appearance: none;
+                                -webkit-text-decoration: none;
+                                text-decoration: none;
+                                color: inherit;
+                                font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+                                font-weight: 500;
+                                font-size: 0.875rem;
+                                line-height: 1.75;
+                                letter-spacing: 0.02857em;
+                                text-transform: uppercase;
+                                min-width: 64px;
+                                padding: 6px 16px;
+                                border: 0;
+                                border-radius: 4px;
+                                -webkit-transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+                                transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+                                color: var(--variant-containedColor);
+                                background-color: var(--variant-containedBg);
+                                box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+                                --variant-textColor: #1976d2;
+                                --variant-outlinedColor: #1976d2;
+                                --variant-outlinedBorder: rgba(25, 118, 210, 0.5);
+                                --variant-containedColor: #fff;
+                                --variant-containedBg: #1976d2;
+                                -webkit-transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+                                transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+                                color: white;
+                                width: 100%;
+                                margin-top: 10px;
+                                background-color: #333;
+                            }
+
+                            .css-3sth73-MuiButtonBase-root-MuiButton-root::-moz-focus-inner {
+                                border-style: none;
+                            }
+
+                            .css-3sth73-MuiButtonBase-root-MuiButton-root.Mui-disabled {
+                                pointer-events: none;
+                                cursor: default;
+                            }
+
+                            @media print {
+                                .css-3sth73-MuiButtonBase-root-MuiButton-root {
+                                    -webkit-print-color-adjust: exact;
+                                    color-adjust: exact;
+                                }
+                            }
+
+                            .css-3sth73-MuiButtonBase-root-MuiButton-root:hover {
+                                -webkit-text-decoration: none;
+                                text-decoration: none;
+                            }
+
+                            .css-3sth73-MuiButtonBase-root-MuiButton-root.Mui-disabled {
+                                color: rgba(0, 0, 0, 0.26);
+                            }
+
+                            .css-3sth73-MuiButtonBase-root-MuiButton-root:hover {
+                                box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+                            }
+
+                            @media (hover: none) {
+                                .css-3sth73-MuiButtonBase-root-MuiButton-root:hover {
+                                    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+                                }
+                            }
+
+                            .css-3sth73-MuiButtonBase-root-MuiButton-root:active {
+                                box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+                            }
+
+                            .css-3sth73-MuiButtonBase-root-MuiButton-root.Mui-focusVisible {
+                                box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+                            }
+
+                            .css-3sth73-MuiButtonBase-root-MuiButton-root.Mui-disabled {
+                                color: rgba(0, 0, 0, 0.26);
+                                box-shadow: none;
+                                background-color: rgba(0, 0, 0, 0.12);
+                            }
+
+                            @media (hover: hover) {
+                                .css-3sth73-MuiButtonBase-root-MuiButton-root:hover {
+                                    --variant-containedBg: #1565c0;
+                                    --variant-textBg: rgba(25, 118, 210, 0.04);
+                                    --variant-outlinedBorder: #1976d2;
+                                    --variant-outlinedBg: rgba(25, 118, 210, 0.04);
+                                }
+                            }
+
+                            .css-3sth73-MuiButtonBase-root-MuiButton-root.MuiButton-loading {
+                                color: transparent;
+                            }
+
+                            .css-3sth73-MuiButtonBase-root-MuiButton-root:hover {
+                                background-color: #555;
+                            }
+                        </style><button
+                            class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary css-3sth73-MuiButtonBase-root-MuiButton-root"
+                            tabindex="0" type="button">仅挂单的</button><button
+                            class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary css-3sth73-MuiButtonBase-root-MuiButton-root"
+                            tabindex="0" type="button">显示全部</button>
+                        <style data-emotion="css ncqs5z-MuiTextField-root">
+                            .css-ncqs5z-MuiTextField-root {
+                                margin-top: 16px;
+                                background-color: #292929;
+                                border-radius: 5px;
+                            }
+                        </style>
+                        <style data-emotion="css 1wfuady-MuiFormControl-root-MuiTextField-root">
+                            .css-1wfuady-MuiFormControl-root-MuiTextField-root {
+                                display: -webkit-inline-box;
+                                display: -webkit-inline-flex;
+                                display: -ms-inline-flexbox;
+                                display: inline-flex;
+                                -webkit-flex-direction: column;
+                                -ms-flex-direction: column;
+                                flex-direction: column;
+                                position: relative;
+                                min-width: 0;
+                                padding: 0;
+                                margin: 0;
+                                border: 0;
+                                vertical-align: top;
+                                width: 100%;
+                                margin-top: 16px;
+                                background-color: #292929;
+                                border-radius: 5px;
+                            }
+                        </style>
+                        <div
+                            class="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root css-1wfuady-MuiFormControl-root-MuiTextField-root">
+                            <style data-emotion="css 1vdo258-MuiInputLabel-root">
+                                .css-1vdo258-MuiInputLabel-root {
+                                    display: block;
+                                    transform-origin: top left;
+                                    white-space: nowrap;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    max-width: 100%;
+                                    position: absolute;
+                                    left: 0;
+                                    top: 0;
+                                    -webkit-transform: translate(0, 20px) scale(1);
+                                    -moz-transform: translate(0, 20px) scale(1);
+                                    -ms-transform: translate(0, 20px) scale(1);
+                                    transform: translate(0, 20px) scale(1);
+                                    -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms, -webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms, max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+                                    transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms, transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms, max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+                                    z-index: 1;
+                                    pointer-events: none;
+                                    -webkit-transform: translate(14px, 16px) scale(1);
+                                    -moz-transform: translate(14px, 16px) scale(1);
+                                    -ms-transform: translate(14px, 16px) scale(1);
+                                    transform: translate(14px, 16px) scale(1);
+                                    max-width: calc(100% - 24px);
+                                }
+                            </style>
+                            <style data-emotion="css 19qnlrw-MuiFormLabel-root-MuiInputLabel-root">
+                                .css-19qnlrw-MuiFormLabel-root-MuiInputLabel-root {
+                                    color: rgba(0, 0, 0, 0.6);
+                                    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+                                    font-weight: 400;
+                                    font-size: 1rem;
+                                    line-height: 1.4375em;
+                                    letter-spacing: 0.00938em;
+                                    padding: 0;
+                                    position: relative;
+                                    display: block;
+                                    transform-origin: top left;
+                                    white-space: nowrap;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    max-width: 100%;
+                                    position: absolute;
+                                    left: 0;
+                                    top: 0;
+                                    -webkit-transform: translate(0, 20px) scale(1);
+                                    -moz-transform: translate(0, 20px) scale(1);
+                                    -ms-transform: translate(0, 20px) scale(1);
+                                    transform: translate(0, 20px) scale(1);
+                                    -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms, -webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms, max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+                                    transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms, transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms, max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+                                    z-index: 1;
+                                    pointer-events: none;
+                                    -webkit-transform: translate(14px, 16px) scale(1);
+                                    -moz-transform: translate(14px, 16px) scale(1);
+                                    -ms-transform: translate(14px, 16px) scale(1);
+                                    transform: translate(14px, 16px) scale(1);
+                                    max-width: calc(100% - 24px);
+                                }
+
+                                .css-19qnlrw-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
+                                    color: #1976d2;
+                                }
+
+                                .css-19qnlrw-MuiFormLabel-root-MuiInputLabel-root.Mui-disabled {
+                                    color: rgba(0, 0, 0, 0.38);
+                                }
+
+                                .css-19qnlrw-MuiFormLabel-root-MuiInputLabel-root.Mui-error {
+                                    color: #d32f2f;
+                                }
+                            </style><label
+                                class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined css-19qnlrw-MuiFormLabel-root-MuiInputLabel-root"
+                                data-shrink="false" for="«R4l6r2m»" id="«R4l6r2m»-label">搜索你的系列</label>
+                            <style data-emotion="css-global 1prfaxn">
+                                @-webkit-keyframes mui-auto-fill {
+                                    from {
+                                        display: block;
+                                    }
+                                }
+
+                                @keyframes mui-auto-fill {
+                                    from {
+                                        display: block;
+                                    }
+                                }
+
+                                @-webkit-keyframes mui-auto-fill-cancel {
+                                    from {
+                                        display: block;
+                                    }
+                                }
+
+                                @keyframes mui-auto-fill-cancel {
+                                    from {
+                                        display: block;
+                                    }
+                                }
+                            </style>
+                            <style data-emotion="css 1blp12k-MuiInputBase-root-MuiOutlinedInput-root">
+                                .css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root {
+                                    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+                                    font-weight: 400;
+                                    font-size: 1rem;
+                                    line-height: 1.4375em;
+                                    letter-spacing: 0.00938em;
+                                    color: rgba(0, 0, 0, 0.87);
+                                    box-sizing: border-box;
+                                    position: relative;
+                                    cursor: text;
+                                    display: -webkit-inline-box;
+                                    display: -webkit-inline-flex;
+                                    display: -ms-inline-flexbox;
+                                    display: inline-flex;
+                                    -webkit-align-items: center;
+                                    -webkit-box-align: center;
+                                    -ms-flex-align: center;
+                                    align-items: center;
+                                    width: 100%;
+                                    position: relative;
+                                    border-radius: 4px;
+                                }
+
+                                .css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root.Mui-disabled {
+                                    color: rgba(0, 0, 0, 0.38);
+                                    cursor: default;
+                                }
+
+                                .css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+                                    border-color: rgba(0, 0, 0, 0.87);
+                                }
+
+                                @media (hover: none) {
+                                    .css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+                                        border-color: rgba(0, 0, 0, 0.23);
+                                    }
+                                }
+
+                                .css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+                                    border-width: 2px;
+                                }
+
+                                .css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+                                    border-color: #1976d2;
+                                }
+
+                                .css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline {
+                                    border-color: #d32f2f;
+                                }
+
+                                .css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root.Mui-disabled .MuiOutlinedInput-notchedOutline {
+                                    border-color: rgba(0, 0, 0, 0.26);
+                                }
+                            </style>
+                            <div
+                                class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root">
+                                <style data-emotion="css 16wblaj-MuiInputBase-input-MuiOutlinedInput-input">
+                                    .css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input {
+                                        font: inherit;
+                                        letter-spacing: inherit;
+                                        color: currentColor;
+                                        padding: 4px 0 5px;
+                                        border: 0;
+                                        box-sizing: content-box;
+                                        background: none;
+                                        height: 1.4375em;
+                                        margin: 0;
+                                        -webkit-tap-highlight-color: transparent;
+                                        display: block;
+                                        min-width: 0;
+                                        width: 100%;
+                                        -webkit-animation-name: mui-auto-fill-cancel;
+                                        animation-name: mui-auto-fill-cancel;
+                                        -webkit-animation-duration: 10ms;
+                                        animation-duration: 10ms;
+                                        padding: 16.5px 14px;
+                                    }
+
+                                    .css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input::-webkit-input-placeholder {
+                                        color: currentColor;
+                                        opacity: 0.42;
+                                        -webkit-transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+                                        transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+                                    }
+
+                                    .css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input::-moz-placeholder {
+                                        color: currentColor;
+                                        opacity: 0.42;
+                                        -webkit-transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+                                        transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+                                    }
+
+                                    .css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input::-ms-input-placeholder {
+                                        color: currentColor;
+                                        opacity: 0.42;
+                                        -webkit-transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+                                        transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+                                    }
+
+                                    .css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input:focus {
+                                        outline: 0;
+                                    }
+
+                                    .css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input:invalid {
+                                        box-shadow: none;
+                                    }
+
+                                    .css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input::-webkit-search-decoration {
+                                        -webkit-appearance: none;
+                                    }
+
+                                    label[data-shrink=false]+.MuiInputBase-formControl .css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input::-webkit-input-placeholder {
+                                        opacity: 0 !important;
+                                    }
+
+                                    label[data-shrink=false]+.MuiInputBase-formControl .css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input::-moz-placeholder {
+                                        opacity: 0 !important;
+                                    }
+
+                                    label[data-shrink=false]+.MuiInputBase-formControl .css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input::-ms-input-placeholder {
+                                        opacity: 0 !important;
+                                    }
+
+                                    label[data-shrink=false]+.MuiInputBase-formControl .css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input:focus::-webkit-input-placeholder {
+                                        opacity: 0.42;
+                                    }
+
+                                    label[data-shrink=false]+.MuiInputBase-formControl .css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input:focus::-moz-placeholder {
+                                        opacity: 0.42;
+                                    }
+
+                                    label[data-shrink=false]+.MuiInputBase-formControl .css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input:focus::-ms-input-placeholder {
+                                        opacity: 0.42;
+                                    }
+
+                                    .css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input.Mui-disabled {
+                                        opacity: 1;
+                                        -webkit-text-fill-color: rgba(0, 0, 0, 0.38);
+                                    }
+
+                                    .css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input:-webkit-autofill {
+                                        -webkit-animation-duration: 5000s;
+                                        animation-duration: 5000s;
+                                        -webkit-animation-name: mui-auto-fill;
+                                        animation-name: mui-auto-fill;
+                                    }
+
+                                    .css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input:-webkit-autofill {
+                                        border-radius: inherit;
+                                    }
+                                </style><input aria-invalid="false" id="«R4l6r2m»" type="text"
+                                    class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input" />
+                                <style data-emotion="css 83yv08-MuiOutlinedInput-notchedOutline">
+                                    .css-83yv08-MuiOutlinedInput-notchedOutline {
+                                        border-color: rgba(0, 0, 0, 0.23);
+                                    }
+                                </style>
+                                <style data-emotion="css 1ll44ll-MuiOutlinedInput-notchedOutline">
+                                    .css-1ll44ll-MuiOutlinedInput-notchedOutline {
+                                        text-align: left;
+                                        position: absolute;
+                                        bottom: 0;
+                                        right: 0;
+                                        top: -5px;
+                                        left: 0;
+                                        margin: 0;
+                                        padding: 0 8px;
+                                        pointer-events: none;
+                                        border-radius: inherit;
+                                        border-style: solid;
+                                        border-width: 1px;
+                                        overflow: hidden;
+                                        min-width: 0%;
+                                        border-color: rgba(0, 0, 0, 0.23);
+                                    }
+                                </style>
+                                <fieldset aria-hidden="true"
+                                    class="MuiOutlinedInput-notchedOutline css-1ll44ll-MuiOutlinedInput-notchedOutline">
+                                    <style data-emotion="css 81qg8w">
+                                        .css-81qg8w {
+                                            float: unset;
+                                            width: auto;
+                                            overflow: hidden;
+                                            display: block;
+                                            padding: 0;
+                                            height: 11px;
+                                            font-size: 0.75em;
+                                            visibility: hidden;
+                                            max-width: 0.01px;
+                                            -webkit-transition: max-width 50ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+                                            transition: max-width 50ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+                                            white-space: nowrap;
+                                        }
+
+                                        .css-81qg8w>span {
+                                            padding-left: 5px;
+                                            padding-right: 5px;
+                                            display: inline-block;
+                                            opacity: 0;
+                                            visibility: visible;
+                                        }
+                                    </style>
+                                    <legend class="css-81qg8w"><span>搜索你的系列</span></legend>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <style data-emotion="css 178yklu">
+                            .css-178yklu {
+                                margin-top: 24px;
+                            }
+                        </style>
+                        <div class="MuiBox-root css-178yklu">
+                            <style data-emotion="css 7ctihp-MuiTypography-root">
+                                .css-7ctihp-MuiTypography-root {
+                                    margin: 0;
+                                    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+                                    font-weight: 400;
+                                    font-size: 0.875rem;
+                                    line-height: 1.43;
+                                    letter-spacing: 0.01071em;
+                                }
+                            </style>
+                            <p class="MuiTypography-root MuiTypography-body2 css-7ctihp-MuiTypography-root">系列</p>
+                            <p class="MuiTypography-root MuiTypography-body2 css-7ctihp-MuiTypography-root">底价</p>
+                            <p class="MuiTypography-root MuiTypography-body2 css-7ctihp-MuiTypography-root">估值</p>
+                            <p class="MuiTypography-root MuiTypography-body2 css-7ctihp-MuiTypography-root">已挂单</p>
+                        </div>
+                        <style data-emotion="css dlo4w0-MuiTypography-root">
+                            .css-dlo4w0-MuiTypography-root {
+                                margin: 0;
+                                font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+                                font-weight: 400;
+                                font-size: 0.875rem;
+                                line-height: 1.43;
+                                letter-spacing: 0.01071em;
+                                color: gray;
+                                margin-top: 16px;
+                            }
+                        </style>
+                        <p class="MuiTypography-root MuiTypography-body2 css-dlo4w0-MuiTypography-root">未找到系列。</p>
+                    </div>
+                </div>
+                <style data-emotion="css mwxoba">
+                    .css-mwxoba {
+                        border-left: 1px solid #2D2D2D;
+                        -webkit-flex: 1;
+                        -ms-flex: 1;
+                        flex: 1;
+                    }
+                </style>
+                <div class="MuiBox-root css-mwxoba">
+                    <style data-emotion="css 8atqhb">
+                        .css-8atqhb {
+                            width: 100%;
+                        }
+                    </style>
+                    <div class="MuiBox-root css-8atqhb">
+                        <style data-emotion="css 16nb5an-MuiTabs-root">
+                            .css-16nb5an-MuiTabs-root {
+                                overflow: hidden;
+                                min-height: 48px;
+                                -webkit-overflow-scrolling: touch;
+                                display: -webkit-box;
+                                display: -webkit-flex;
+                                display: -ms-flexbox;
+                                display: flex;
+                                border-bottom: 1px solid;
+                                border-color: rgba(0, 0, 0, 0.12);
+                            }
+
+                            @media (max-width:599.95px) {
+                                .css-16nb5an-MuiTabs-root .MuiTabs-scrollButtons {
+                                    display: none;
+                                }
+                            }
+                        </style>
+                        <div class="MuiTabs-root css-16nb5an-MuiTabs-root">
+                            <style data-emotion="css s2t35c-MuiTabs-scroller">
+                                .css-s2t35c-MuiTabs-scroller {
+                                    position: relative;
+                                    display: inline-block;
+                                    -webkit-flex: 1 1 auto;
+                                    -ms-flex: 1 1 auto;
+                                    flex: 1 1 auto;
+                                    white-space: nowrap;
+                                    overflow-x: hidden;
+                                    width: 100%;
+                                }
+                            </style>
+                            <div style="overflow:hidden;margin-bottom:0"
+                                class="MuiTabs-scroller MuiTabs-fixed css-s2t35c-MuiTabs-scroller">
+                                <style data-emotion="css hzcega-MuiTabs-list">
+                                    .css-hzcega-MuiTabs-list {
+                                        display: -webkit-box;
+                                        display: -webkit-flex;
+                                        display: -ms-flexbox;
+                                        display: flex;
+                                    }
+                                </style>
+                                <div aria-label="portfolio tabs" role="tablist"
+                                    class="MuiTabs-list MuiTabs-flexContainer css-hzcega-MuiTabs-list">
+                                    <style data-emotion="css pdc7x5-MuiTab-root">
+                                        .css-pdc7x5-MuiTab-root {
+                                            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+                                            font-weight: 500;
+                                            font-size: 0.875rem;
+                                            line-height: 1.25;
+                                            letter-spacing: 0.02857em;
+                                            text-transform: uppercase;
+                                            max-width: 360px;
+                                            min-width: 90px;
+                                            position: relative;
+                                            min-height: 48px;
+                                            -webkit-flex-shrink: 0;
+                                            -ms-flex-negative: 0;
+                                            flex-shrink: 0;
+                                            padding: 12px 16px;
+                                            overflow: hidden;
+                                            white-space: normal;
+                                            text-align: center;
+                                            -webkit-flex-direction: row;
+                                            -ms-flex-direction: row;
+                                            flex-direction: row;
+                                            min-height: 72px;
+                                            padding-top: 9px;
+                                            padding-bottom: 9px;
+                                            color: inherit;
+                                            opacity: 0.6;
+                                        }
+
+                                        .css-pdc7x5-MuiTab-root>.MuiTab-icon {
+                                            margin-right: 8px;
+                                        }
+
+                                        .css-pdc7x5-MuiTab-root.Mui-selected {
+                                            opacity: 1;
+                                        }
+
+                                        .css-pdc7x5-MuiTab-root.Mui-disabled {
+                                            opacity: 0.38;
+                                        }
+                                    </style>
+                                    <style data-emotion="css h0ngr4-MuiButtonBase-root-MuiTab-root">
+                                        .css-h0ngr4-MuiButtonBase-root-MuiTab-root {
+                                            display: -webkit-inline-box;
+                                            display: -webkit-inline-flex;
+                                            display: -ms-inline-flexbox;
+                                            display: inline-flex;
+                                            -webkit-align-items: center;
+                                            -webkit-box-align: center;
+                                            -ms-flex-align: center;
+                                            align-items: center;
+                                            -webkit-box-pack: center;
+                                            -ms-flex-pack: center;
+                                            -webkit-justify-content: center;
+                                            justify-content: center;
+                                            position: relative;
+                                            box-sizing: border-box;
+                                            -webkit-tap-highlight-color: transparent;
+                                            background-color: transparent;
+                                            outline: 0;
+                                            border: 0;
+                                            margin: 0;
+                                            border-radius: 0;
+                                            padding: 0;
+                                            cursor: pointer;
+                                            -webkit-user-select: none;
+                                            -moz-user-select: none;
+                                            -ms-user-select: none;
+                                            user-select: none;
+                                            vertical-align: middle;
+                                            -moz-appearance: none;
+                                            -webkit-appearance: none;
+                                            -webkit-text-decoration: none;
+                                            text-decoration: none;
+                                            color: inherit;
+                                            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+                                            font-weight: 500;
+                                            font-size: 0.875rem;
+                                            line-height: 1.25;
+                                            letter-spacing: 0.02857em;
+                                            text-transform: uppercase;
+                                            max-width: 360px;
+                                            min-width: 90px;
+                                            position: relative;
+                                            min-height: 48px;
+                                            -webkit-flex-shrink: 0;
+                                            -ms-flex-negative: 0;
+                                            flex-shrink: 0;
+                                            padding: 12px 16px;
+                                            overflow: hidden;
+                                            white-space: normal;
+                                            text-align: center;
+                                            -webkit-flex-direction: row;
+                                            -ms-flex-direction: row;
+                                            flex-direction: row;
+                                            min-height: 72px;
+                                            padding-top: 9px;
+                                            padding-bottom: 9px;
+                                            color: inherit;
+                                            opacity: 0.6;
+                                        }
+
+                                        .css-h0ngr4-MuiButtonBase-root-MuiTab-root::-moz-focus-inner {
+                                            border-style: none;
+                                        }
+
+                                        .css-h0ngr4-MuiButtonBase-root-MuiTab-root.Mui-disabled {
+                                            pointer-events: none;
+                                            cursor: default;
+                                        }
+
+                                        @media print {
+                                            .css-h0ngr4-MuiButtonBase-root-MuiTab-root {
+                                                -webkit-print-color-adjust: exact;
+                                                color-adjust: exact;
+                                            }
+                                        }
+
+                                        .css-h0ngr4-MuiButtonBase-root-MuiTab-root>.MuiTab-icon {
+                                            margin-right: 8px;
+                                        }
+
+                                        .css-h0ngr4-MuiButtonBase-root-MuiTab-root.Mui-selected {
+                                            opacity: 1;
+                                        }
+
+                                        .css-h0ngr4-MuiButtonBase-root-MuiTab-root.Mui-disabled {
+                                            opacity: 0.38;
+                                        }
+                                    </style><button
+                                        class="MuiButtonBase-root MuiTab-root MuiTab-labelIcon MuiTab-textColorInherit Mui-selected css-h0ngr4-MuiButtonBase-root-MuiTab-root"
+                                        tabindex="0" type="button" role="tab" aria-selected="true">
+                                        <style data-emotion="css 1umw9bq-MuiSvgIcon-root">
+                                            .css-1umw9bq-MuiSvgIcon-root {
+                                                -webkit-user-select: none;
+                                                -moz-user-select: none;
+                                                -ms-user-select: none;
+                                                user-select: none;
+                                                width: 1em;
+                                                height: 1em;
+                                                display: inline-block;
+                                                -webkit-flex-shrink: 0;
+                                                -ms-flex-negative: 0;
+                                                flex-shrink: 0;
+                                                -webkit-transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+                                                transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+                                                fill: currentColor;
+                                                font-size: 1.5rem;
+                                            }
+                                        </style><svg
+                                            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiTab-iconWrapper MuiTab-icon css-1umw9bq-MuiSvgIcon-root"
+                                            focusable="false" aria-hidden="true" viewBox="0 0 24 24"
+                                            data-testid="Inventory2OutlinedIcon">
+                                            <path
+                                                d="M20 2H4c-1 0-2 .9-2 2v3.01c0 .72.43 1.34 1 1.69V20c0 1.1 1.1 2 2 2h14c.9 0 2-.9 2-2V8.7c.57-.35 1-.97 1-1.69V4c0-1.1-1-2-2-2m-1 18H5V9h14zm1-13H4V4h16z">
+                                            </path>
+                                            <path d="M9 12h6v2H9z"></path>
+                                        </svg>物品<style data-emotion="css 1qltlow-MuiTabs-indicator">
+                                            .css-1qltlow-MuiTabs-indicator {
+                                                position: absolute;
+                                                height: 2px;
+                                                bottom: 0;
+                                                width: 100%;
+                                                -webkit-transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+                                                transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+                                                background-color: #1976d2;
+                                            }
+                                        </style><span class="MuiTabs-indicator css-1qltlow-MuiTabs-indicator"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <style data-emotion="css 19midj6">
+                                .css-19midj6 {
+                                    padding: 16px;
+                                }
+                            </style>
+                            <div class="MuiBox-root css-19midj6">
+                                <style data-emotion="css 70zvr5-MuiTableContainer-root">
+                                    .css-70zvr5-MuiTableContainer-root {
+                                        width: 100%;
+                                        overflow-x: auto;
+                                    }
+                                </style>
+                                <div class="MuiTableContainer-root css-70zvr5-MuiTableContainer-root">
+                                    <style data-emotion="css 1xwxv7r-MuiTable-root">
+                                        .css-1xwxv7r-MuiTable-root {
+                                            display: table;
+                                            width: 100%;
+                                            border-collapse: collapse;
+                                            border-spacing: 0;
+                                        }
+
+                                        .css-1xwxv7r-MuiTable-root caption {
+                                            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+                                            font-weight: 400;
+                                            font-size: 0.875rem;
+                                            line-height: 1.43;
+                                            letter-spacing: 0.01071em;
+                                            padding: 16px;
+                                            color: rgba(0, 0, 0, 0.6);
+                                            text-align: left;
+                                            caption-side: bottom;
+                                        }
+                                    </style>
+                                    <table class="MuiTable-root css-1xwxv7r-MuiTable-root">
+                                        <style data-emotion="css 1yjz207">
+                                            .css-1yjz207 {
+                                                background-color: #292929;
+                                            }
+                                        </style>
+                                        <style data-emotion="css 19fjld9-MuiTableHead-root">
+                                            .css-19fjld9-MuiTableHead-root {
+                                                display: table-header-group;
+                                                background-color: #292929;
+                                            }
+                                        </style>
+                                        <thead class="MuiTableHead-root css-19fjld9-MuiTableHead-root">
+                                            <style data-emotion="css 1xtozoh-MuiTableRow-root">
+                                                .css-1xtozoh-MuiTableRow-root {
+                                                    color: inherit;
+                                                    display: table-row;
+                                                    vertical-align: middle;
+                                                    outline: 0;
+                                                }
+
+                                                .css-1xtozoh-MuiTableRow-root.MuiTableRow-hover:hover {
+                                                    background-color: rgba(0, 0, 0, 0.04);
+                                                }
+
+                                                .css-1xtozoh-MuiTableRow-root.Mui-selected {
+                                                    background-color: rgba(25, 118, 210, 0.08);
+                                                }
+
+                                                .css-1xtozoh-MuiTableRow-root.Mui-selected:hover {
+                                                    background-color: rgba(25, 118, 210, 0.12);
+                                                }
+                                            </style>
+                                            <tr class="MuiTableRow-root MuiTableRow-head css-1xtozoh-MuiTableRow-root">
+                                                <style data-emotion="css kbn7if">
+                                                    .css-kbn7if {
+                                                        color: white;
+                                                    }
+                                                </style>
+                                                <style data-emotion="css 1yl3fr5-MuiTableCell-root">
+                                                    .css-1yl3fr5-MuiTableCell-root {
+                                                        font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+                                                        font-weight: 400;
+                                                        font-size: 0.875rem;
+                                                        line-height: 1.43;
+                                                        letter-spacing: 0.01071em;
+                                                        display: table-cell;
+                                                        vertical-align: inherit;
+                                                        border-bottom: 1px solid rgba(224, 224, 224, 1);
+                                                        text-align: left;
+                                                        padding: 16px;
+                                                        color: rgba(0, 0, 0, 0.87);
+                                                        line-height: 1.5rem;
+                                                        font-weight: 500;
+                                                        color: white;
+                                                    }
+                                                </style>
+                                                <th class="MuiTableCell-root MuiTableCell-head MuiTableCell-sizeMedium css-1yl3fr5-MuiTableCell-root"
+                                                    scope="col"></th>
+                                                <th class="MuiTableCell-root MuiTableCell-head MuiTableCell-sizeMedium css-1yl3fr5-MuiTableCell-root"
+                                                    scope="col">类型</th>
+                                                <th class="MuiTableCell-root MuiTableCell-head MuiTableCell-sizeMedium css-1yl3fr5-MuiTableCell-root"
+                                                    scope="col">物品</th>
+                                                <th class="MuiTableCell-root MuiTableCell-head MuiTableCell-sizeMedium css-1yl3fr5-MuiTableCell-root"
+                                                    scope="col">稀有度</th>
+                                                <th class="MuiTableCell-root MuiTableCell-head MuiTableCell-sizeMedium css-1yl3fr5-MuiTableCell-root"
+                                                    scope="col">价格</th>
+                                                <th class="MuiTableCell-root MuiTableCell-head MuiTableCell-sizeMedium css-1yl3fr5-MuiTableCell-root"
+                                                    scope="col">最高出价</th>
+                                                <th class="MuiTableCell-root MuiTableCell-head MuiTableCell-sizeMedium css-1yl3fr5-MuiTableCell-root"
+                                                    scope="col">从-至</th>
+                                                <th class="MuiTableCell-root MuiTableCell-head MuiTableCell-sizeMedium css-1yl3fr5-MuiTableCell-root"
+                                                    scope="col">有效期</th>
+                                                <th class="MuiTableCell-root MuiTableCell-head MuiTableCell-sizeMedium css-1yl3fr5-MuiTableCell-root"
+                                                    scope="col">状态</th>
+                                                <th class="MuiTableCell-root MuiTableCell-head MuiTableCell-sizeMedium css-1yl3fr5-MuiTableCell-root"
+                                                    scope="col">操作</th>
+                                            </tr>
+                                        </thead>
+                                        <style data-emotion="css gmh7jj-MuiTableBody-root">
+                                            .css-gmh7jj-MuiTableBody-root {
+                                                display: table-row-group;
+                                            }
+                                        </style>
+                                        <tbody class="MuiTableBody-root css-gmh7jj-MuiTableBody-root">
+                                            <tr class="MuiTableRow-root css-1xtozoh-MuiTableRow-root">
+                                                <style data-emotion="css 15y0rjy-MuiTableCell-root">
+                                                    .css-15y0rjy-MuiTableCell-root {
+                                                        font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+                                                        font-weight: 400;
+                                                        font-size: 0.875rem;
+                                                        line-height: 1.43;
+                                                        letter-spacing: 0.01071em;
+                                                        display: table-cell;
+                                                        vertical-align: inherit;
+                                                        border-bottom: 1px solid rgba(224, 224, 224, 1);
+                                                        text-align: left;
+                                                        padding: 16px;
+                                                        color: rgba(0, 0, 0, 0.87);
+                                                        text-align: center;
+                                                        color: gray;
+                                                    }
+                                                </style>
+                                                <td class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter MuiTableCell-sizeMedium css-15y0rjy-MuiTableCell-root"
+                                                    colSpan="10">暂时没有数据。</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <section class="Toastify" aria-live="polite" aria-atomic="false" aria-relevant="additions text"
+                aria-label="Notifications Alt+T"></section>
+        </div>
+    </div>
+    <script src="/_next/static/chunks/react-refresh.js"></script>
+    <script id="__NEXT_DATA__"
+        type="application/json">{"props":{"pageProps":{}},"page":"/my-collection","query":{},"buildId":"development","nextExport":true,"autoExport":true,"isFallback":false,"scriptLoader":[]}</script>
+</body>
+
+</html>

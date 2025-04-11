@@ -12,14 +12,20 @@ import DataTable from "../../../components/Table";
 import { getRandomNftImage } from "../../../utils/tools";
 import { MakeOrder } from "../../../components/Order";
 import { formatEther } from "viem";
+import useNFTs from "../../../hooks/useNFTs";
+import useMintTokens from "../../../hooks/useMintTokens";
+import BidModal from "./bidModal"
+import { toast } from "react-toastify";
 
-const TableView = (props: any) => {
-    const { orderList = [] } = props;
+const BidTableView = (props: any) => {
+    const { tokenList } = useNFTs()
+    const { mintTokens } = useMintTokens()
     const [orderDialogCfg, setOrderDialogCfg] = useState({
         open: false,
         order: {},
-        title: "编辑",
+        title: "出价",
         type: 'edit',
+        assets:[]
     })
     const { writeContractAsync } = useWriteContract()
     const handleCancel = async (item) => {
@@ -33,7 +39,7 @@ const TableView = (props: any) => {
             // fetchPoolList()
             // handleClose()
         } catch (error) {
-            console.log(error, "error eeror")
+            // console.log(error, "error eeror")
         }
     }
     const columns = [
@@ -42,44 +48,46 @@ const TableView = (props: any) => {
             field: "collection_name",
             render: (item) => (
                 <div className="flex items-center gap-2">
-                    <img src={item.image_url || getRandomNftImage()} alt="" className="w-8 h-8 rounded-lg" />
-                    <div>{item.collection_name}</div>
-                    <div className="text-sm text-gray-500">{item.nft?.tokenId}</div>
+                    <img src={getRandomNftImage(item.tokenId)} alt="" className="w-8 h-8 rounded-lg" />
+                    <div>{item.name}</div>
+                    <div className="text-sm text-gray-500">{item.tokenId}</div>
                 </div>
             ),
         },
-        { label: "稀有度", field: "rarity?.name" },
-        { label: "价格", field: "price", render: (item) => `${formatEther(item.price)} ETH` },
-        { label: "最高出价", field: "highestBid" },
-        { label: "从", field: "from" },
-        { label: "至", field: "to" },
-        { label: "时间", field: "event_time", render: (item) => item.expiry },
+
         {
             label: "操作", field: "type", render: (item) => {
                 return <Box>
                     <Button variant="contained" onClick={() => {
-                        handleCancel(item)
-                    }}>取消</Button>
-                    <Button variant="contained" onClick={() => {
-                        setOrderDialogCfg((prev) => {
-                            return {
-                                ...prev,
-                                open: true,
-                                order: item
-                            }
+                        
+                        if (tokenList.map(item=>item.tokenId).includes(item.tokenId)) {
+                            toast.error("NFT belong to you ")
+                            return
+                        }
+                        setOrderDialogCfg({
+                            open: true,
+                            order: item,
+                            title: "出价",
+                            type: 'edit',
+                            assets:[item]
                         })
-                    }}>
-                        编辑
-                    </Button>
+                    }}>出价</Button>
                 </Box>
             }
         },
     ];
 
+    const dataSource = mintTokens.map((item) => {
+        return {
+            ...item
+        }
+    })
+
     return <>
-        <MakeOrder open={orderDialogCfg.open}
+        <BidModal open={orderDialogCfg.open}
             title={orderDialogCfg.title}
             order={orderDialogCfg.order}
+            assets={orderDialogCfg.assets}
             type={'edit'}
             onCancel={() => {
                 setOrderDialogCfg((prev) => {
@@ -89,10 +97,10 @@ const TableView = (props: any) => {
                     }
                 })
             }} />
-        <DataTable columns={columns} data={orderList} />
+        <DataTable columns={columns} data={dataSource} />
     </>
 
 
 }
 
-export default TableView;
+export default BidTableView;

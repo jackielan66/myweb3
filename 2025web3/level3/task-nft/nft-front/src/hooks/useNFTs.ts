@@ -9,6 +9,17 @@ import { getOwnedTokenIds } from './getOwnedTokenIds'
 const useNFTs = () => {
     const [tokenList, setTokenList] = useState([])
     const account = useAccount()
+
+    const isApprovedForAll = useReadContract({
+        address: ADDRESS_CONTRACT.TestERC721,
+        abi: erc721Abi,
+        functionName: 'isApprovedForAll',
+        args: account.address ? [account.address, ADDRESS_CONTRACT.EasySwapVault] : undefined,
+        query: {
+            enabled: !!account.address
+        }
+    })
+
     const balanceOf = useReadContract({
         address: ADDRESS_CONTRACT.TestERC721,
         abi: erc721Abi,
@@ -18,24 +29,29 @@ const useNFTs = () => {
             enabled: !!account.address
         }
     })
+
     async function getLogs(contractAddress: `0x${string}`, ownerAddress: `0x${string}`) {
         let tokens = await getOwnedTokenIds(contractAddress, ownerAddress)
         setTokenList(tokens)
     }
 
-    useEffect(() => {
-        refetch()
-    }, [account.address])
-
     const refetch = useCallback(() => {
         if (account.address) {
             getLogs(ADDRESS_CONTRACT.TestERC721, account.address)
         }
-    }, [])
+    }, [account.address]);
+
+    useEffect(() => {
+        refetch()
+    }, [account.address]);
+
+
 
     return {
         tokenList,
+        myTokenList: tokenList,
         count: balanceOf.data,
+        isApproved: isApprovedForAll.data,
         refetch
     }
 }

@@ -9,24 +9,25 @@ import { Tab } from '@mui/material';
 import { ABI_CONTRACT, ADDRESS_CONTRACT } from "../../../utils/contractConfig";
 import { useAccount, useWriteContract } from "wagmi";
 import DataTable from "../../../components/Table";
-import { formatDate, getRandomNftImage } from "../../../utils/tools";
+import { formatDate, getRandomNftImage, secureAddress } from "../../../utils/tools";
 import { BuyCustomModal } from "../../../components/Order";
 import { formatEther } from "viem";
 import useNFTs from "../../../hooks/useNFTs";
 import { Check, CheckBox } from "@mui/icons-material";
 import useGetEventLog from "../../../hooks/useGetEventLog";
-import { OrderStatue, Side } from "../../../types/global";
+import { IOrder, OrderStatue, Side } from "../../../types/global";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const StockListTableView = (props: any) => {
     const account = useAccount()
-    const { makeOrders, allOrderList, bidOrderList, sellOrderList } = useGetEventLog()
-    const { tokenList, refetch: reFetchNFTs } = useNFTs()
+    const {  allOrderList,refetch:refetchOrder } = useGetEventLog()
+    const { tokenList, refetch: reFetchNFTs,isApproved } = useNFTs()
     const [orderDialogCfg, setOrderDialogCfg] = useState({
         open: false,
         order: {},
         title: "购买",
         type: 'edit',
-    })
+    });
 
     const columns = [
         {
@@ -66,8 +67,12 @@ const StockListTableView = (props: any) => {
             }
         },
         { label: "最高出价", field: "highestBid" },
-        { label: "从", field: "from" },
-        { label: "至", field: "to" },
+        { label: "从-至", field: "seller", render: (item:IOrder) => {
+            return <Box>
+                <Typography>{secureAddress(item.seller) }</Typography>
+                <Typography>{secureAddress(item.buyer)}</Typography>
+            </Box>
+        }},
         { label: "有效期", field: "expire", render: (item) => formatDate(Number(item.expiry) * 1000) },
         {
             label: "状态", field: "status", render: (item) => {
@@ -85,8 +90,9 @@ const StockListTableView = (props: any) => {
         {
             label: "操作", field: "type", render: (item) => {
                 return <Box>
+                    
                     {
-                       item.status == OrderStatue.Process && item.side == 0 && item.maker != account.address && <Button variant="contained" onClick={() => {
+                      account.isConnected && item.status == OrderStatue.Process && item.side == 0 && item.maker != account.address && <Button variant="contained" onClick={() => {
                             setOrderDialogCfg((prev) => {
                                 return {
                                     ...prev,
@@ -98,6 +104,22 @@ const StockListTableView = (props: any) => {
                             购买
                         </Button>
                     }
+                    {
+                        account.isConnected && item.status == OrderStatue.Process && item.side == 1 && item.maker != account.address && <Button variant="contained" onClick={() => {
+                            setOrderDialogCfg((prev) => {
+                                return {
+                                    ...prev,
+                                    open: true,
+                                    order: item
+                                }
+                            })
+                        }}>
+                           出价
+                        </Button>
+                    }
+                    {
+                        !account.isConnected && <ConnectButton></ConnectButton>
+                    }
 
                 </Box>
             }
@@ -105,19 +127,13 @@ const StockListTableView = (props: any) => {
     ];
 
     const dataSource = useMemo(() => {
-        return allOrderList.filter(item => {
-            // 过滤调自己挂单
-            if (item.side == Side.List && item.maker === account.address) {
-                return false
-            }
-            return true
-        }).sort((a, b) => Number(b.expiry) - Number(a.expiry))
+        return allOrderList
     }, [allOrderList, account.address]);
 
     return <>
         {
             orderDialogCfg.open && <BuyCustomModal
-                title={orderDialogCfg.title}
+                title={"购买物资"}
                 assets={[orderDialogCfg.order]}
                 orderList={[orderDialogCfg.order]}
                 open={orderDialogCfg.open} handleClose={() => {
@@ -129,7 +145,7 @@ const StockListTableView = (props: any) => {
                     })
                 }}
                 onSuccess={() => {
-                    // reFetchNFTs()
+                    refetchOrder()
                 }}
             />
         }

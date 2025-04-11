@@ -1,5 +1,6 @@
 import { useReadContract } from "wagmi";
 import { ABI_CONTRACT } from "../utils/contractConfig";
+import { erc20Abi } from "viem";
 
 
 const mapTokenInfo:any={
@@ -8,7 +9,7 @@ const mapTokenInfo:any={
 const useGetERC20TokenInfo = (tokenAddress:any) => {
     const erc20baseConfig = {
         address: tokenAddress,
-        abi: ABI_CONTRACT.RccToken,
+        abi: erc20Abi,
         query: {
             enabled: !!tokenAddress
         }

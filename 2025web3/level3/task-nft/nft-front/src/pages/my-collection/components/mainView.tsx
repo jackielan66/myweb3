@@ -5,7 +5,7 @@ import HistoryOutlinedIcon from '@mui/icons-material/HistoryOutlined';
 import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
 import useGetEventLog from '../../../hooks/useGetEventLog';
-import TableView from './tableView';
+import BidTableView from './bidTableView';
 import MakeListTableView from './makeListTableView'
 import StockListTableView from './stockListTableView'
 
@@ -21,9 +21,8 @@ const TabPanel = ({ children, value, index }: any) => {
     );
 };
 
-export default function PortfolioTabs() {
+export default function MainView() {
 
-    const { makeOrders, cancelOrders } = useGetEventLog()
 
     const [value, setValue] = useState(0);
 
@@ -44,6 +43,7 @@ export default function PortfolioTabs() {
                 }}
             >
                 <Tab icon={<Inventory2OutlinedIcon />} iconPosition="start" label="物品" />
+                <Tab icon={<AttachMoneyOutlinedIcon />} iconPosition="start" label="出价" />
                 {/* <Tab icon={<HistoryOutlinedIcon />} iconPosition="start" label="历史" />
                 <Tab icon={<AttachMoneyOutlinedIcon />} iconPosition="start" label="出价" />
                 <Tab icon={<AccountBalanceWalletOutlinedIcon />} iconPosition="start" label="取消" /> */}
@@ -52,6 +52,9 @@ export default function PortfolioTabs() {
             {/* Tab 内容区域 */}
             <TabPanel value={value} index={0}>
                 <StockListTableView />
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+                <BidTableView />
             </TabPanel>
             {/* <TabPanel value={value} index={1}>
                 <TableView orderList={makeOrders} />

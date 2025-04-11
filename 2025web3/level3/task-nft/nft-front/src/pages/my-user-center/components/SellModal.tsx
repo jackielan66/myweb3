@@ -2,16 +2,14 @@ import React, { use, useState } from "react";
 import { Modal, Box, Typography, Button, Grid, TextField, Switch, FormControlLabel } from "@mui/material";
 import { styled } from "@mui/system";
 import { useTheme } from '@mui/material/styles';
-import useGetERC20TokenInfo from '../../hooks/useGetTokenInfo';
-import { IOrder, SaleKind, Side } from '../../types/global';
-import useUpdateContract from '../../hooks/useUpdateContract';
-import { ABI_CONTRACT, ADDRESS_CONTRACT } from '../../utils/contractConfig'
+import { IOrder, SaleKind, Side } from '../../../types/global';
+import useUpdateContract from '../../../hooks/useUpdateContract';
+import { ABI_CONTRACT, ADDRESS_CONTRACT } from '../../../utils/contractConfig'
 import { toast } from "react-toastify";
 import { formatEther, parseEther } from "viem";
 import { useAccount } from "wagmi";
-import NftAsset from './NftAsset'
-import DataTable from "../Table";
-import { getRandomNftImage } from "../../utils/tools";
+import { getRandomNftImage } from "../../../utils/tools";
+import DataTable from "../../../components/Table";
 
 // 自定义样式
 const StyledModal = styled(Modal)(({ theme }) => ({
@@ -43,13 +41,13 @@ const InputRow = styled(Grid)(({ theme }) => ({
     marginBottom: "10px",
 }));
 
-const BuyCustomModal = (props) => {
+const SellModal = (props) => {
     const { open,
-        handleClose,
+        
         assets,
         onSuccess,
         orderList,
-        title = "购买"
+        title = "接收报价",
     } = props;
     const account = useAccount()
     const [inputValue, setInputValue] = useState("");
@@ -57,10 +55,14 @@ const BuyCustomModal = (props) => {
     const [loading, setLoading] = useState(false)
     const { updateContractData } = useUpdateContract();
 
+    const handleClose = () => {
+        setLoading(false)
+        props.onCancel()
+    }
     const setApprovalForAll = async () => {
         try {
             setLoading(true)
-            let sellOrder:IOrder = {
+            let buyOrder = {
                 side:  orderList[0].side,
                 saleKind:orderList[0].saleKind,
                 maker:orderList[0].maker,
@@ -68,31 +70,40 @@ const BuyCustomModal = (props) => {
                 price: orderList[0].price,
                 expiry: orderList[0].expiry,
                 salt: orderList[0].salt,
+                // side: Side.Bid,
+                // saleKind: sellOrder.saleKind,
+                // price: sellOrder.price,
+                // nft: sellOrder.nft,
+                // maker: account.address,
+                // expiry: expiry,
+                // salt: salt,
             }
+
             // orderList[0];
             // console.log(sellOrder, "sellOrder");
             // sellOrder.nft.amount = 10;
-            let expiry = sellOrder.expiry;
+            let expiry = buyOrder.expiry;
             let salt = Math.floor(Math.random() * 1000);
-            let buyOrder = {
-                side: Side.Bid,
-                saleKind: sellOrder.saleKind,
-                price: sellOrder.price,
-                nft: sellOrder.nft,
+
+            let sellOrder:IOrder = {
+                side: Side.List,
+                saleKind: buyOrder.saleKind,
+                price: buyOrder.price,
+                nft: buyOrder.nft,
                 maker: account.address,
                 expiry: expiry,
                 salt: salt,
             }
+         
             try {
                 let receipt = await updateContractData({
                     address: ADDRESS_CONTRACT.EasySwapOrderBook,
                     abi: ABI_CONTRACT.EasySwapOrderBook,
                     functionName: 'matchOrder',
                     args: [sellOrder, buyOrder],
-                    value: buyOrder.price,
                 })
                 if (receipt.status === 'success') {
-                    toast.success('购买成功')
+                    toast.success(title+'成功')
                     onSuccess && onSuccess()
                     handleClose()
                 } else {
@@ -161,7 +172,7 @@ const BuyCustomModal = (props) => {
                         loading={loading}
                         onClick={() => {
                             setApprovalForAll()
-                        }}>购买{assets.length} 个物品</ButtonStyle>
+                        }}>{title}{assets.length} 个物品</ButtonStyle>
                 </Box>
 
             </ModalContent>
@@ -169,4 +180,4 @@ const BuyCustomModal = (props) => {
     );
 };
 
-export default BuyCustomModal;
+export default SellModal;
