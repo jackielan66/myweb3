@@ -1,6 +1,7 @@
 # 前端
 
-## ethers.js
+
+# ethers.js
 ```
 与更早出现的 web3.js 相比，它有以下优点：
 
@@ -183,9 +184,23 @@ const tx = await contract.函数名.staticCall( 参数, {override})
 ## 批量归集
 在链上交互、撸毛之后，就需要将多个钱包的资产进行归集管理。你可以用 HD 钱包或者保存多份密钥的方式操作多个钱包，然后用 ethers.js 脚本完成归集。下面我们分别示范归集 ETH（原生代币）和 WETH（ERC20 代币）。
 
-export http_proxy=http://127.0.0.1:1087;export https_proxy=http://127.0.0.1:1087;
+# Viem 使用方法
+## getContract 获取合约实例
+```
+   getContract({
+        abi,
+        address,
+        client: {
+          public: publicClient, // 可以读
+          wallet: walletClient, // 可以写合约  
+        },
+   })
+```
 
-## wagmi 
+## readContract
+ 
+
+# wagmi 
 1. createConfig
 
 - chains:[] 目前链接是哪些节点
@@ -214,6 +229,7 @@ export http_proxy=http://127.0.0.1:1087;export https_proxy=http://127.0.0.1:1087
     直接调用会返回一个后端签名信息，这个就可以证明这个合约是你的
     更多场景应用？
     这个还有哪些场景，请举例下
+
 文件内容提到了签名的概念，特别是使用ECDSA（椭圆曲线数字签名算法）进行签名。以下是文件中提到的关键点：
 
 身份认证：签名可以证明你拥有某个地址的私钥。
@@ -227,6 +243,13 @@ export http_proxy=http://127.0.0.1:1087;export https_proxy=http://127.0.0.1:1087
 这些概念在区块链和加密通信中非常重要，用于确保数据的安全性和真实性。
 
 怎么自定义钱包链接
+
+ 8. useChainId 获取配置中wagmi.ts 配置中 chains数组的第一个链id
+
+ 9. useWalletClient 返回一个以太坊钱包对象,来检索账号，执行交易、签名信息等
+
+ 10. useBalance 返回原生代币或者token的余额
+
 
 
 
