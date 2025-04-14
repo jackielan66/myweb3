@@ -12,6 +12,7 @@ import DataTable from "../../../components/Table";
 import { getRandomNftImage } from "../../../utils/tools";
 import { MakeOrder } from "../../../components/Order";
 import { formatEther } from "viem";
+import { IOrder } from "../../../types/global";
 
 const MakeListTableView = (props: any) => {
     const { orderList = [] } = props;
@@ -22,7 +23,7 @@ const MakeListTableView = (props: any) => {
         type: 'edit',
     })
     const { writeContractAsync } = useWriteContract()
-    const handleCancel = async (item) => {
+    const handleCancel = async (item:IOrder) => {
         try {
             await writeContractAsync({
                 address: ADDRESS_CONTRACT.EasySwapOrderBook,
@@ -40,22 +41,21 @@ const MakeListTableView = (props: any) => {
         {
             label: "物品",
             field: "collection_name",
-            render: (item) => (
+            render: (item:IOrder) => (
                 <div className="flex items-center gap-2">
-                    <img src={item.image_url || getRandomNftImage()} alt="" className="w-8 h-8 rounded-lg" />
-                    <div>{item.collection_name}</div>
-                    <div className="text-sm text-gray-500">{item.nft?.tokenId}</div>
+                    <img src={getRandomNftImage(item.nft.tokenId)} alt="" className="w-8 h-8 rounded-lg" />
+                    <div className="text-sm text-gray-500">{item.nft.tokenId}</div>
                 </div>
             ),
         },
         { label: "稀有度", field: "rarity?.name" },
-        { label: "价格", field: "price", render: (item) => `${formatEther(item.price)} ETH` },
+        { label: "价格", field: "price", render: (item:IOrder) => `${formatEther(item.price)} ETH` },
         { label: "最高出价", field: "highestBid" },
         { label: "从", field: "from" },
         { label: "至", field: "to" },
-        { label: "时间", field: "event_time", render: (item) => item.expiry },
+        { label: "时间", field: "event_time", render: (item:IOrder) => item.expiry },
         {
-            label: "操作", field: "type", render: (item) => {
+            label: "操作", field: "type", render: (item:IOrder) => {
                 return <Box>
                     <Button variant="contained" onClick={() => {
                         handleCancel(item)

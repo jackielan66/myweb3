@@ -18,7 +18,7 @@ import useUpdateContract from "../../../hooks/useUpdateContract";
 import { toast } from "react-toastify";
 
 const HistoryTableView = (props: {
-    address: `0x${string}`
+    address: `0x${string}` | ''
 }) => {
     const { address } = props;
     const { allOrderList, refetch: refetchLog } = useGetEventLog();

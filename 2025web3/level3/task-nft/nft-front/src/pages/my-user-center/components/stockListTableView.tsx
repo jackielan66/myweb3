@@ -14,9 +14,10 @@ import { MakeOrder, MakeCustomModal } from "../../../components/Order";
 import { formatEther } from "viem";
 import useNFTs from "../../../hooks/useNFTs";
 import { Check, CheckBox } from "@mui/icons-material";
+import { INFT, IOrder } from "../../../types/global";
 
 const StockListTableView = (props: any) => {
-    const { tokenList, count, refetch: reFetchNFTs, isApproved } = useNFTs()
+    const { tokenList, count, refetch: reFetchNFTs, isApproved=false} = useNFTs()
     const [orderDialogCfg, setOrderDialogCfg] = useState({
         open: false,
         order: {},
@@ -24,20 +25,7 @@ const StockListTableView = (props: any) => {
         type: 'edit',
     })
     const { writeContractAsync } = useWriteContract()
-    const handleCancel = async (item) => {
-        try {
-            await writeContractAsync({
-                address: ADDRESS_CONTRACT.EasySwapOrderBook,
-                abi: ABI_CONTRACT.EasySwapOrderBook,
-                functionName: 'cancelOrders',
-                args: [[item.orderKey]]
-            })
-            // fetchPoolList()
-            // handleClose()
-        } catch (error) {
-            console.log(error, "error eeror")
-        }
-    }
+
     const columns = [
         {
             label: "",
@@ -46,7 +34,7 @@ const StockListTableView = (props: any) => {
         {
             label: "物品",
             field: "collection_name",
-            render: (item) => (
+            render: (item:INFT) => (
                 <div className="flex items-center gap-2">
                     <img src={getRandomNftImage(item.tokenId)} alt="" className="w-8 h-8 rounded-lg" />
                     <div>{item.name}</div>
@@ -61,7 +49,7 @@ const StockListTableView = (props: any) => {
         { label: "至", field: "to" },
         { label: "时间", field: "event_time" },
         {
-            label: "操作", field: "type", render: (item) => {
+            label: "操作", field: "type", render: (item:INFT) => {
                 return <Box>
                     <Button variant="contained" onClick={() => {
                         setOrderDialogCfg((prev) => {
@@ -86,18 +74,6 @@ const StockListTableView = (props: any) => {
     }, [tokenList])
 
     return <>
-        {/* <MakeOrder open={orderDialogCfg.open}
-            title={orderDialogCfg.title}
-            order={orderDialogCfg.order}
-            type={'edit'}
-            onCancel={() => {
-                setOrderDialogCfg((prev) => {
-                    return {
-                        ...prev,
-                        open: false,
-                    }
-                })
-            }} /> */}
         {
             orderDialogCfg.open && <MakeCustomModal
                 assetsIsApproved={isApproved}

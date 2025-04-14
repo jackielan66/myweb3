@@ -1,9 +1,8 @@
 import { useAccount, useWatchContractEvent } from "wagmi"
 import { ABI_CONTRACT, ADDRESS_CONTRACT } from "../utils/contractConfig"
-import { createPublicClient, createWalletClient, http } from 'viem'
+import { createPublicClient, createWalletClient, http, Log } from 'viem'
 import { config } from '../wagmi'
 import { use, useEffect, useMemo, useState } from "react"
-import { parseAbiItem } from 'viem'
 import { OrderStatue, IOrder } from "../types/global"
 
 const fromBlock = 'earliest' // 起始区块
@@ -14,19 +13,42 @@ const client = createPublicClient({
   transport: http()
 });
 
+
+
+// 定义事件日志的类型
+type LogMakeArgs = {
+  orderKey: string;
+  maker: string;
+  status?: OrderStatue;
+  _sortKey?: number;
+};
+
+type LogCancelArgs = {
+  orderKey: string;
+};
+
+
+type LogMatchArgs = {
+  makeOrderKey: string;
+  takeOrderKey: string;
+  makeOrder: IOrder & { _sortKey?: number };
+  takeOrder: IOrder & { _sortKey?: number };
+  _sortKey?: number;
+};
+
 // 监听合约事件，返回我的订单,所有的订单
 const useGetEventLog = () => {
   const account = useAccount()
   const [makeOrders, setMakeOrders] = useState<(IOrder & { _sortKey?: number })[]>([]);
-  const [cancelOrders, setCancelOrders] = useState([]);
-  const [matchOrders, setMatchOrders] = useState([]);
+  const [cancelOrders, setCancelOrders] = useState<LogCancelArgs[]>([]);
+  const [matchOrders, setMatchOrders] = useState<LogMatchArgs[]>([]);
   // 获取创建订单日志，所有订单列表
   async function getLogMakeLogs() {
     const logMakeEventAbi = ABI_CONTRACT.EasySwapOrderBook.filter(item => item.name === 'LogMake');
-
     const orderLogs = await client.getLogs({
       address: ADDRESS_CONTRACT.EasySwapOrderBook,
-      event: logMakeEventAbi[0],
+      // @ts-ignore
+      event: (logMakeEventAbi[0]),
       fromBlock,
       toBlock,
     })
@@ -40,6 +62,7 @@ const useGetEventLog = () => {
     const eventAbi = ABI_CONTRACT.EasySwapOrderBook.filter(item => item.name === 'LogCancel');
     const orderLogs = await client.getLogs({
       address: ADDRESS_CONTRACT.EasySwapOrderBook,
+      // @ts-ignore
       event: eventAbi[0],
       fromBlock,
       toBlock,
@@ -47,6 +70,7 @@ const useGetEventLog = () => {
     let _order = orderLogs.map((item: any) => {
       return item.args
     })
+    // @ts-ignore
     setCancelOrders(_order)
   }
 
@@ -55,14 +79,16 @@ const useGetEventLog = () => {
     const eventAbi = ABI_CONTRACT.EasySwapOrderBook.filter(item => item.name === 'LogMatch');
     const orderLogs = await client.getLogs({
       address: ADDRESS_CONTRACT.EasySwapOrderBook,
+      // @ts-ignore
       event: eventAbi[0],
       fromBlock,
       toBlock,
     })
     let _order = orderLogs.map((item: any) => {
-      console.log('item make order', item);
+      // console.log('item make order', item);
       return item.args
     })
+    // @ts-ignore
     setMatchOrders(_order)
   }
 
@@ -83,7 +109,9 @@ const useGetEventLog = () => {
     makeOrders.forEach((item, index) => {
       item.status = OrderStatue.Process;
       item._sortKey = index;
-      tempObj[item.orderKey] = item;
+      if (item.orderKey != undefined) {
+        tempObj[item.orderKey] = item;
+      }
     })
     // @ts-ignore
     matchOrders.forEach((item) => {
@@ -97,21 +125,16 @@ const useGetEventLog = () => {
         buyer: item.makeOrder.maker,
       }
       // console.log('item extraObj', extraObj);
-      // @ts-ignore
       item.makeOrder.status = OrderStatue.Complete;
       item.makeOrder.seller = extraObj.seller;
       item.makeOrder.buyer = extraObj.buyer;
       item.makeOrder._sortKey = _sortKeyFromTemp;
-      // @ts-ignore
       tempObj[item.makeOrderKey] = item.makeOrder;
-      // @ts-ignore
       item.takeOrder.status = OrderStatue.Complete;
-      // @ts-ignore
       tempObj[item.takeOrderKey] = item.takeOrder;
       item.takeOrder.seller = extraObj.seller;
       item.takeOrder.buyer = extraObj.buyer;
       item.takeOrder._sortKey = _sortKeyFromTemp
-      // // @ts-ignore
 
     })
 
@@ -122,7 +145,7 @@ const useGetEventLog = () => {
       }
     })
 
-    return Object.values(tempObj).sort((a,b)=>b._sortKey! - a._sortKey!)
+    return Object.values(tempObj).sort((a, b) => b._sortKey! - a._sortKey!)
   }, [makeOrders, cancelOrders, matchOrders])
 
   // console.log('makeOrders', makeOrders)
@@ -137,18 +160,13 @@ const useGetEventLog = () => {
     return [...makeOrders]
   }, [makeOrders])
 
-  const bidOrderList = useMemo(() => {
-    return matchOrders.map((item) => {
-      return item.makeOrder
-    })
-  }, [matchOrders]);
+
 
 
 
   return {
     makeOrders,
     sellOrderList,
-    bidOrderList,
     allOrderList,
     refetch
   }

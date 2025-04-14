@@ -135,6 +135,7 @@ const MainContent = () => {
           </TableHeader>
           <TableBody>
             {
+              // @ts-ignore
               result.length > 0 && result.map((item, index) => {
                 return <TableRow key={index} >
                   <CustomTableCell>  {item.type === "sell" ? "销售" : "挂单"}</CustomTableCell>

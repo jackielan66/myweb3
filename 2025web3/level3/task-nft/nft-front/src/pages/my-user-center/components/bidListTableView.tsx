@@ -20,11 +20,16 @@ import useNFTs from "../../../hooks/useNFTs";
 import SellModal from "./SellModal";
 
 const BidListTableView = (props: {
-    address: `0x${string}`
+    address: `0x${string}` | ''
 }) => {
     const { allOrderList, refetch: refetchLog } = useGetEventLog();
     const { myTokenList } = useNFTs()
-    const [orderDialogCfg, setOrderDialogCfg] = useState({
+    const [orderDialogCfg, setOrderDialogCfg] = useState<{
+        open: boolean,
+        order: IOrder | {},
+        title: string,
+        type: 'edit' | 'add'
+    }>({
         open: false,
         order: {},
         title: "编辑",
@@ -139,8 +144,6 @@ const BidListTableView = (props: {
 
     return <>{
         orderDialogCfg.open && <SellModal open={orderDialogCfg.open}
-            order={orderDialogCfg.order}
-            type={'edit'}
             assets={[orderDialogCfg.order]}
             orderList={[orderDialogCfg.order]}
             onCancel={() => {

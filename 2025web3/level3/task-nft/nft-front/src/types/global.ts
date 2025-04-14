@@ -41,3 +41,11 @@ export interface IOrder {
     // 卖家
     seller?: string;
 }
+
+export interface INFT{
+    name:string,
+    symbol:string,
+    tokenId:string | bigint,
+    address?:string,
+}
+

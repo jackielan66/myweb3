@@ -8,11 +8,29 @@ import { getPortfolioBids, getPortfolioCollections, getPortfolioList, getUserSta
 import { useAccount, useChainId } from "wagmi";
 import useGetUserLoginStatus from "../../hooks/useGetUserLoginStatus";
 import MainView from "./components/mainView";
-const MyUserCenterPage = () => {
+import { GetServerSideProps } from "next";
+import Head from "next/head";
+import { formatDate } from "../../utils/tools";
+
+export async function getServerSideProps(context: GetServerSideProps) {
+    let currentDate = new Date();
+
+    return {
+        props: {
+            title: "我的个人中心 - NFT market" + formatDate(currentDate),
+        }
+    }
+}
+
+const MyUserCenterPage = (props: { title: string }) => {
+    const { title } = props
     // const [isSigned, handleSign] = useGetUserLoginStatus();
 
     return (
         <>
+            <Head>
+                <title>{title}</title>
+            </Head>
             <Header />
             {/* {
                 !isSigned && <Box sx={{
@@ -26,7 +44,7 @@ const MyUserCenterPage = () => {
                 }} >请登录</Button></Box>
             } */}
             {
-                 <Box sx={{ display: 'flex' }} >
+                <Box sx={{ display: 'flex' }} >
                     <PortfolioSidebar />
                     <Box sx={{ borderLeft: '1px solid #2D2D2D', flex: 1 }}  >
                         <MainView />

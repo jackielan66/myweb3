@@ -11,7 +11,18 @@ const CustomTableCell = styled(TableCell)(({ theme }) => ({
   color: "white",
 }));
 
-const DataTable = ({ columns, data }) => {
+interface Column {
+  field: string;
+  label: string;
+  render?: (item: any,index:number) => React.ReactNode;
+}
+
+interface DataTableProps {
+  columns: Column[];
+  data: any[];
+}
+
+const DataTable:React.FC<DataTableProps> = ({ columns, data }) => {
   return (
     <TableContainer>
       <Table>

@@ -6,8 +6,9 @@ import { useCallback, useEffect, useState } from "react";
 const fromBlock = 'earliest' // 起始区块
 const toBlock = 'latest' // 到最新区块
 import { getOwnedTokenIds } from './getOwnedTokenIds'
+import { INFT } from "../types/global";
 const useNFTs = () => {
-    const [tokenList, setTokenList] = useState([])
+    const [tokenList, setTokenList] = useState<INFT[]>([])
     const account = useAccount()
 
     const isApprovedForAll = useReadContract({
@@ -31,7 +32,7 @@ const useNFTs = () => {
     })
 
     async function getLogs(contractAddress: `0x${string}`, ownerAddress: `0x${string}`) {
-        let tokens = await getOwnedTokenIds(contractAddress, ownerAddress)
+        let tokens = await getOwnedTokenIds(contractAddress, ownerAddress) as INFT[];
         setTokenList(tokens)
     }
 
@@ -51,7 +52,7 @@ const useNFTs = () => {
         tokenList,
         myTokenList: tokenList,
         count: balanceOf.data,
-        isApproved: isApprovedForAll.data,
+        isApproved: isApprovedForAll.data || false,
         refetch
     }
 }

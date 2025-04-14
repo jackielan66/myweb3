@@ -19,6 +19,11 @@ const MyCollectionPage = () => {
         total_supply: string | number,
     }>({
         name: 'aabbb',
+        image_uri: 'https://images.blur.io/_blur-prod/0x8a90cab2b38dba80c64b7734e58ee1db38b8992e/7522-a0e3ae3f8d77961e?w=128',
+        volume_24h: 0,
+        volume_total: 0,
+        owner_amount: 0,
+        total_supply: 0,
     });
     useEffect(() => {
         // 随机数字大于0

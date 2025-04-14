@@ -7,12 +7,10 @@ import { ABI_CONTRACT, ADDRESS_CONTRACT } from '../../utils/contractConfig'
 import { parseEther, keccak256, toBytes, formatEther } from 'viem';
 import React, { use, useMemo, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-import useStakeBase from '../../hooks/useStakeBase';
-import { useGetPoolList } from '../../hooks/useGetPoolList';
 import { useRouter } from 'next/router';
 import useGetERC20TokenInfo from '../../hooks/useGetTokenInfo';
-import { SaleKind, Side } from '../../utils/constant';
 import useUpdateContract from '../../hooks/useUpdateContract';
+import { IOrder } from '../../types/global';
 const ADMIN_ROLE = keccak256(toBytes("ADMIN_ROLE")); // 计算 ADMIN_ROLE 哈希值
 
 interface TProps {
@@ -26,29 +24,16 @@ const MakeOrder: React.FC<TProps> = (props) => {
     const { open, onCancel, title = "挂单", order, type } = props;
     const account = useAccount();
     const { data: currentBlockNumber } = useBlockNumber();
-    const { startBlock, endBlock, rccPerBlock } = useStakeBase()
     const { updateContractData } = useUpdateContract()
 
-    const { poolList, fetchPoolList } = useGetPoolList();
 
-    const stTokenInfoA = useGetERC20TokenInfo(ADDRESS_CONTRACT.TokenA);
-    const stTokenInfoB = useGetERC20TokenInfo(ADDRESS_CONTRACT.TokenB);
-    const rccTokenInfo = useGetERC20TokenInfo(ADDRESS_CONTRACT.RccToken)
-    const mapTokenInfo = {
-        [ADDRESS_CONTRACT.TokenA]: stTokenInfoA,
-        [ADDRESS_CONTRACT.TokenB]: stTokenInfoB,
-        [ADDRESS_CONTRACT.RccToken]: rccTokenInfo,
-        [ADDRESS_CONTRACT.AddressZero]: {
-            name: 'ETH',
-            symbol: 'ETH',
-            decimals: 18,
-        }
-    }
+  
+
 
     const { writeContractAsync, writeContract, error } = useWriteContract();
 
 
-    const handleMakeOrder = async (formData) => {
+    const handleMakeOrder = async (formData:IOrder) => {
         try {
             let orderList = [formData]
             let receipt = await updateContractData({
@@ -69,7 +54,7 @@ const MakeOrder: React.FC<TProps> = (props) => {
         }
     }
 
-    const handleEditOrders = async (formData) => {
+    const handleEditOrders = async (formData: IOrder) => {
         try {
             let editDetail = {
                 oldOrderKey: order.orderKey,
@@ -131,7 +116,7 @@ const MakeOrder: React.FC<TProps> = (props) => {
                             formJson.salt = salt;
                             formJson.price = parseEther(formJson.price)
                             formJson.nft = [10, ADDRESS_CONTRACT.TestERC721, 1];
-                            handleMakeOrder(formJson)
+                            // handleMakeOrder(formJson)
                         }
 
 

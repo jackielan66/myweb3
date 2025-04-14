@@ -8,8 +8,18 @@ import { getLoginMessage, getUserStatus, handleUserLogin } from "../../api/commo
 import { toast } from "react-toastify";
 import useGetUserLoginStatus from "../../hooks/useGetUserLoginStatus";
 
+export async function getServerSideProps(){
+    return {
+        props: {
+            title: "我的NFT",
+            chainId: "1221",
+            a:"clearg "
+        }
+    }
+}
+
 const MyNFTPage = () => {
-    const [isSigned, handleSign] = useGetUserLoginStatus()
+    const {isSigned, handleSign} = useGetUserLoginStatus()
     
     return (
         <>
@@ -23,7 +33,7 @@ const MyNFTPage = () => {
             }
             {
                 !isSigned && <Box sx={{ display: 'flex', alignContent: 'center', justifyContent: 'center', height: '100vh' }} >
-                    <Button variant="" onClick={() => { handleSign() }}>
+                    <Button  onClick={() => { handleSign() }}>
                         请先登录
                     </Button>
                 </Box>

@@ -41,7 +41,15 @@ const InputRow = styled(Grid)(({ theme }) => ({
     marginBottom: "10px",
 }));
 
-const SellModal = (props) => {
+interface IProps {
+    open: boolean;
+    assets: any[];
+    onSuccess?: () => void;
+    onCancel: () => void;
+    orderList: any[];
+    title?: string;
+}
+const SellModal = (props:IProps) => {
     const { open,
         
         assets,
@@ -90,7 +98,7 @@ const SellModal = (props) => {
                 saleKind: buyOrder.saleKind,
                 price: buyOrder.price,
                 nft: buyOrder.nft,
-                maker: account.address,
+                maker: account.address || '',
                 expiry: expiry,
                 salt: salt,
             }
@@ -107,7 +115,7 @@ const SellModal = (props) => {
                     onSuccess && onSuccess()
                     handleClose()
                 } else {
-                    toast.error('make failed',receipt.message)
+                    toast.error('make failed')
                 }
                 setLoading(false)
 
@@ -130,24 +138,23 @@ const SellModal = (props) => {
         {
             label: "物品",
             field: "collection_name",
-            render: (item) => (
+            render: (item:IOrder) => (
                 <div className="flex items-center gap-2">
-                    <img src={item.image_url || getRandomNftImage(item.nft?.tokenId)} alt="" className="w-8 h-8 rounded-lg" />
-                    <div>{item.name}</div>
+                    <img src={ getRandomNftImage(item.nft?.tokenId)} alt="" className="w-8 h-8 rounded-lg" />
                     <div className="text-sm text-gray-500">{item.nft?.tokenId}</div>
                 </div>
             ),
         },
-        { label: "稀有度", field: "nft.amount", render: (item) => item.nft?.amount },
+        { label: "稀有度", field: "nft.amount", render: (item:IOrder) => item.nft?.amount },
         {
             label: "价格", field: "price",
-            render: (item) => {
+            render: (item:IOrder) => {
                 return formatEther(item.price) + ' ETH'
             }
         },
     ];
-    const totalAmount = assets.reduce((acc, cur) => acc + Number(formatEther(cur.price)), 0)
-    const dataSource = assets.map(item => item)
+    const totalAmount = assets.reduce((acc:number, cur:IOrder) => acc + Number(formatEther(cur.price)), 0)
+    const dataSource = assets.map((item:IOrder) => item)
 
 
     return (

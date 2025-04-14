@@ -24,8 +24,8 @@ const TabPanel = ({ children, value, index }: any) => {
 };
 
 export default function MainView() {
-    const account =  useAccount()
-    const {  } = useGetEventLog()
+    const account = useAccount()
+    const { } = useGetEventLog()
 
     const [value, setValue] = useState(0);
 
@@ -55,10 +55,10 @@ export default function MainView() {
                 <StockListTableView />
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <HistoryTableView address={account.address} />
+                <HistoryTableView address={account.address || ''} />
             </TabPanel>
             <TabPanel value={value} index={2}>
-                <BidListTableView address={account.address}/>
+                <BidListTableView address={account.address || ''} />
             </TabPanel>
             <TabPanel value={value} index={3}>
 

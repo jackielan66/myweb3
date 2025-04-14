@@ -1,8 +1,17 @@
 import React from 'react';
 import { Box, Container, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from '@mui/material';
 
+const calculatePercentage = (ownerAmount: string | number, totalSupply: string | number): string => {
+  const numOwnerAmount = Number(ownerAmount);
+  const numTotalSupply = Number(totalSupply);
 
-const CollectionStats = (props:{
+  if (isNaN(numOwnerAmount) || isNaN(numTotalSupply) || numTotalSupply === 0) {
+    return 'N/A'; // 处理无效值或除以零的情况
+  }
+
+  return ((numOwnerAmount / numTotalSupply) * 100).toFixed(2);
+};
+const CollectionStats = (props: {
   data: {
     name: string,
     image_uri: string,
@@ -14,7 +23,7 @@ const CollectionStats = (props:{
 }) => {
   const { data } = props
   return (
-    <Box sx={{borderBottom: '1px solid #fff',py:'10px'}} >
+    <Box sx={{ borderBottom: '1px solid #fff', py: '10px' }} >
       <Container sx={{ display: 'flex', justifyContent: "space-between", alignItems: 'center', gap: '10px' }}>
         <Typography variant="h6" component="h2" gutterBottom>
           <img
@@ -40,20 +49,19 @@ const CollectionStats = (props:{
               </TableRow>
               <TableRow>
                 <TableCell sx={{ border: 'none', color: "white" }}>
-                  <div>{parseFloat(data?.volume_24h).toFixed(2)}ETH</div>
+                  <div>{data?.volume_24h}ETH</div>
 
                 </TableCell>
                 <TableCell sx={{ border: 'none', color: "white" }}>
-                  <div>{parseFloat(data?.volume_total).toFixed(2)}ETH</div>
+                  <div>{data?.volume_total}ETH</div>
 
                 </TableCell>
                 <TableCell sx={{ border: 'none', color: "white" }}>
                   <span>{data?.owner_amount}</span>
                   <span>
-                    (
-                    {((data?.owner_amount /
-                      data?.total_supply) * 100).toFixed(2)}%
-                    )
+                    {
+                      calculatePercentage(data?.owner_amount, data.total_supply)
+                    }%
                   </span>
                 </TableCell>
                 <TableCell sx={{ border: 'none', color: "white" }}>{

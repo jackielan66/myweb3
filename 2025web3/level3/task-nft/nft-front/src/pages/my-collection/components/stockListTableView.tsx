@@ -22,7 +22,12 @@ const StockListTableView = (props: any) => {
     const account = useAccount()
     const {  allOrderList,refetch:refetchOrder } = useGetEventLog()
     const { tokenList, refetch: reFetchNFTs,isApproved } = useNFTs()
-    const [orderDialogCfg, setOrderDialogCfg] = useState({
+    const [orderDialogCfg, setOrderDialogCfg] = useState<{
+        open: boolean,
+        order: IOrder | {}, 
+        title: string,
+        type: 'edit' | 'add'
+    }>({
         open: false,
         order: {},
         title: "购买",
@@ -44,25 +49,24 @@ const StockListTableView = (props: any) => {
         {
             label: "类型",
             field: "side",
-            render: (item) => {
+            render: (item:IOrder) => {
                 return <div>{item.side == 0 ? "挂单" : "出价"}</div>
             }
         },
         {
             label: "物品",
             field: "collection_name",
-            render: (item) => (
+            render: (item:IOrder) => (
                 <div className="flex items-center gap-2">
-                    <img src={item.image_url || getRandomNftImage(item.nft?.tokenId)} alt="" className="w-8 h-8 rounded-lg" />
-                    <div>{item.name}</div>
+                    <img src={ getRandomNftImage(item.nft?.tokenId)} alt="" className="w-8 h-8 rounded-lg" />
                     <div className="text-sm text-gray-500">{item.nft?.tokenId}</div>
                 </div>
             ),
         },
-        { label: "稀有度", field: "nft.amount", render: (item) => item.nft?.amount },
+        { label: "稀有度", field: "nft.amount", render: (item:IOrder) => item.nft?.amount },
         {
             label: "价格", field: "price",
-            render: (item) => {
+            render: (item:IOrder) => {
                 return item.price ? formatEther(item.price) + ' ETH' : ' '
             }
         },
@@ -73,9 +77,9 @@ const StockListTableView = (props: any) => {
                 <Typography>{secureAddress(item.buyer)}</Typography>
             </Box>
         }},
-        { label: "有效期", field: "expire", render: (item) => formatDate(Number(item.expiry) * 1000) },
+        { label: "有效期", field: "expire", render: (item:IOrder) => formatDate(Number(item.expiry) * 1000) },
         {
-            label: "状态", field: "status", render: (item) => {
+            label: "状态", field: "status", render: (item:IOrder) => {
                 if (item.status == OrderStatue.Cancel) {
                     return <div className="text-red-500">取消</div>
                 }
@@ -88,7 +92,7 @@ const StockListTableView = (props: any) => {
             }
         },
         {
-            label: "操作", field: "type", render: (item) => {
+            label: "操作", field: "type", render: (item:IOrder) => {
                 return <Box>
                     
                     {
@@ -135,6 +139,7 @@ const StockListTableView = (props: any) => {
             orderDialogCfg.open && <BuyCustomModal
                 title={"购买物资"}
                 assets={[orderDialogCfg.order]}
+                // @ts-ignore
                 orderList={[orderDialogCfg.order]}
                 open={orderDialogCfg.open} handleClose={() => {
                     setOrderDialogCfg((prev) => {

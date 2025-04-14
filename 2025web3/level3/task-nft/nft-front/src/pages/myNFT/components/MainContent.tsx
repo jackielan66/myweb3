@@ -8,6 +8,7 @@ import { useChainId, useAccount } from "wagmi";
 import { formatEther } from "viem";
 import DataTable from "../../../components/Table";
 import useNFTs from "../../../hooks/useNFTs";
+import { INFT } from "../../../types/global";
 
 function formatTime(seconds: number): string {
   //   const minutes = Math.floor(seconds / 60);
@@ -106,7 +107,7 @@ const MainContent = () => {
     {
       label: "资产名称",
       field: "collection_name",
-      render: (item) => (
+      render: (item:INFT) => (
         <div className="flex items-center gap-2">
           <div>{item.name}({item.symbol})</div>
         </div>
@@ -115,16 +116,16 @@ const MainContent = () => {
     {
       label: "物品",
       field: "collection_name",
-      render: (item) => (
+      render: (item:INFT) => (
         <div className="flex items-center gap-2">
-          <img src={item.image_url || getRandomNftImage()} alt="" className="w-8 h-8 rounded-lg" />
+          <img src={getRandomNftImage()} alt="" className="w-8 h-8 rounded-lg" />
           <div>{item.name}</div>
           <div className="text-sm text-gray-500">{item.tokenId}</div>
         </div>
       ),
     },
     {
-      label: "操作", field: "type", render: (item) => {
+      label: "操作", field: "type", render: (item:INFT) => {
         return <Box>
           {/* <Button variant="contained" onClick={() => {
             handleCancel(item)

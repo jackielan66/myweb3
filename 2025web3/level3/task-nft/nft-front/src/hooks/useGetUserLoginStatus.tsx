@@ -30,7 +30,7 @@ const useGetUserLoginStatus = () => {
             }
             try {
                 let signature = await signMessageAsync({ message: account.address + ' is my signature' });
-                let loginInfo = await getLoginMessage({ address: account.address })
+                let loginInfo = await getLoginMessage({ address: account.address + '' })
                 await handleUserLogin({
                     chain_id: chainId,
                     signature: signature,
@@ -54,7 +54,9 @@ const useGetUserLoginStatus = () => {
         getLoginStatus()
     }, [account.address])
 
-    return [isSigned, handleSign]
+    return {
+        isSigned, handleSign
+    }
 }
 
 export default useGetUserLoginStatus;

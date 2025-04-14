@@ -11,7 +11,7 @@ import { useAccount } from "wagmi";
 import DataTable from "../Table";
 import { getRandomNftImage } from "../../utils/tools";
 import dayjs from "dayjs";
-import { SaleKind, Side } from "../../types/global";
+import { INFT, IOrder, SaleKind, Side } from "../../types/global";
 
 // 自定义样式
 const StyledModal = styled(Modal)(({ theme }) => ({
@@ -39,11 +39,15 @@ const ButtonStyle = styled(Button)(({ theme }) => ({
     },
 }));
 
-const InputRow = styled(Grid)(({ theme }) => ({
-    marginBottom: "10px",
-}));
+interface IProps{
+    open: boolean,
+    handleClose: () => void,
+    assets: any[],
+    onSuccess: () => void,
+    assetsIsApproved: boolean
+}
 
-const MakeCustomModal = (props) => {
+const MakeCustomModal = (props:IProps) => {
     const { open, handleClose,
         assets,
         onSuccess,
@@ -60,7 +64,7 @@ const MakeCustomModal = (props) => {
             return
         }
         try {
-            let receipt;
+            let receipt = {status: 'loading'};
             if (!assetsIsApproved) {
                 receipt = await updateContractData({
                     address: ADDRESS_CONTRACT.TestERC721,
@@ -88,10 +92,19 @@ const MakeCustomModal = (props) => {
             let tokenId = assets[0].tokenId;
             let salt = Math.floor(Math.random() * 100);
             let formJson = {
-                maker: account.address,
+                maker: account.address || '',
                 salt: salt,
                 expiry: parseInt((dayjs().add(expiry, 'd').valueOf() / 1000) + ''),
-                nft: [tokenId, ADDRESS_CONTRACT.TestERC721, 1],
+                nft:{
+                    tokenId: tokenId,
+                    collection: ADDRESS_CONTRACT.TestERC721,
+                    amount: 1
+                },
+                // side: Side.List,
+                // saleKind: SaleKind.FixedPriceForItem,
+                // price: parseEther(inputValue)
+                // },
+                //  [tokenId, ADDRESS_CONTRACT.TestERC721, 1],
                 side: Side.List,
                 saleKind: SaleKind.FixedPriceForItem,
                 price: parseEther(inputValue)
@@ -99,11 +112,11 @@ const MakeCustomModal = (props) => {
             handleMakeOrder(formJson)
         } catch (error) {
             console.log(error, "error eeror")
-            toast.error('授权失败', error.toString())
+            toast.error('授权失败')
         }
 
     }
-    const handleMakeOrder = async (formData) => {
+    const handleMakeOrder = async (formData:IOrder) => {
         try {
             let orderList = [formData]
             let receipt = await updateContractData({
@@ -128,9 +141,9 @@ const MakeCustomModal = (props) => {
         {
             label: "物品",
             field: "name",
-            render: (item) => (
+            render: (item:INFT) => (
                 <div className="flex items-center gap-2">
-                    <img src={item.image_url || getRandomNftImage(item.tokenId)} alt="" className="w-8 h-8 rounded-lg" />
+                    <img src={ getRandomNftImage(item.tokenId)} alt="" className="w-8 h-8 rounded-lg" />
                     <div>{item.name}</div>
                     <div className="text-sm text-gray-500">{item.symbol}</div>
                 </div>
@@ -140,6 +153,7 @@ const MakeCustomModal = (props) => {
         {
             label: "价格",
             field: "name",
+            // @ts-ignore
             render: (item, index) => (
                 <>
                     <TextField

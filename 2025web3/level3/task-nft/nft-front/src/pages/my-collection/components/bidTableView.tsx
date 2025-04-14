@@ -16,37 +16,31 @@ import useNFTs from "../../../hooks/useNFTs";
 import useMintTokens from "../../../hooks/useMintTokens";
 import BidModal from "./bidModal"
 import { toast } from "react-toastify";
+import { INFT, IOrder } from "../../../types/global";
 
 const BidTableView = (props: any) => {
     const { tokenList } = useNFTs()
     const { mintTokens } = useMintTokens()
-    const [orderDialogCfg, setOrderDialogCfg] = useState({
+    const [orderDialogCfg, setOrderDialogCfg] = useState<{
+        open: boolean,
+        order: any,
+        title: string,
+        type: string,
+        assets: INFT[]
+    }>({
         open: false,
         order: {},
         title: "出价",
         type: 'edit',
-        assets:[]
+        assets: []
     })
     const { writeContractAsync } = useWriteContract()
-    const handleCancel = async (item) => {
-        try {
-            await writeContractAsync({
-                address: ADDRESS_CONTRACT.EasySwapOrderBook,
-                abi: ABI_CONTRACT.EasySwapOrderBook,
-                functionName: 'cancelOrders',
-                args: [[item.orderKey]]
-            })
-            // fetchPoolList()
-            // handleClose()
-        } catch (error) {
-            // console.log(error, "error eeror")
-        }
-    }
+
     const columns = [
         {
             label: "物品",
             field: "collection_name",
-            render: (item) => (
+            render: (item: INFT) => (
                 <div className="flex items-center gap-2">
                     <img src={getRandomNftImage(item.tokenId)} alt="" className="w-8 h-8 rounded-lg" />
                     <div>{item.name}</div>
@@ -56,11 +50,11 @@ const BidTableView = (props: any) => {
         },
 
         {
-            label: "操作", field: "type", render: (item) => {
+            label: "操作", field: "type", render: (item: INFT) => {
                 return <Box>
                     <Button variant="contained" onClick={() => {
-                        
-                        if (tokenList.map(item=>item.tokenId).includes(item.tokenId)) {
+
+                        if (tokenList.map(item => item.tokenId).includes(item.tokenId)) {
                             toast.error("NFT belong to you ")
                             return
                         }
@@ -69,7 +63,7 @@ const BidTableView = (props: any) => {
                             order: item,
                             title: "出价",
                             type: 'edit',
-                            assets:[item]
+                            assets: [item]
                         })
                     }}>出价</Button>
                 </Box>
@@ -77,7 +71,7 @@ const BidTableView = (props: any) => {
         },
     ];
 
-    const dataSource = mintTokens.map((item) => {
+    const dataSource = mintTokens.map((item: INFT) => {
         return {
             ...item
         }
@@ -86,9 +80,7 @@ const BidTableView = (props: any) => {
     return <>
         <BidModal open={orderDialogCfg.open}
             title={orderDialogCfg.title}
-            order={orderDialogCfg.order}
             assets={orderDialogCfg.assets}
-            type={'edit'}
             onCancel={() => {
                 setOrderDialogCfg((prev) => {
                     return {
@@ -96,7 +88,12 @@ const BidTableView = (props: any) => {
                         open: false,
                     }
                 })
-            }} />
+            }}
+            onSuccess={() => {
+
+            }}
+            assetsIsApproved
+        />
         <DataTable columns={columns} data={dataSource} />
     </>
 

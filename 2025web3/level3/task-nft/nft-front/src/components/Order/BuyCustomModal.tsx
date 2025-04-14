@@ -39,11 +39,16 @@ const ButtonStyle = styled(Button)(({ theme }) => ({
     },
 }));
 
-const InputRow = styled(Grid)(({ theme }) => ({
-    marginBottom: "10px",
-}));
 
-const BuyCustomModal = (props) => {
+interface IProps {
+    open: boolean;
+    handleClose: () => void;
+    assets: any[];
+    onSuccess?: () => void;
+    orderList: IOrder[];
+    title?: string;
+}
+const BuyCustomModal = (props:IProps) => {
     const { open,
         handleClose,
         assets,
@@ -96,7 +101,7 @@ const BuyCustomModal = (props) => {
                     onSuccess && onSuccess()
                     handleClose()
                 } else {
-                    toast.error('make failed',receipt.message)
+                    toast.error('make failed')
                 }
                 setLoading(false)
 
@@ -119,18 +124,18 @@ const BuyCustomModal = (props) => {
         {
             label: "物品",
             field: "collection_name",
-            render: (item) => (
+            render: (item:IOrder) => (
                 <div className="flex items-center gap-2">
-                    <img src={item.image_url || getRandomNftImage(item.nft?.tokenId)} alt="" className="w-8 h-8 rounded-lg" />
-                    <div>{item.name}</div>
+                    <img src={getRandomNftImage(item.nft?.tokenId)} alt="" className="w-8 h-8 rounded-lg" />
+                    {/* <div>{item.name}</div> */}
                     <div className="text-sm text-gray-500">{item.nft?.tokenId}</div>
                 </div>
             ),
         },
-        { label: "稀有度", field: "nft.amount", render: (item) => item.nft?.amount },
+        { label: "稀有度", field: "nft.amount", render: (item:IOrder) => item.nft?.amount },
         {
             label: "价格", field: "price",
-            render: (item) => {
+            render: (item:IOrder) => {
                 return formatEther(item.price) + ' ETH'
             }
         },

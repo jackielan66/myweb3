@@ -10,18 +10,20 @@ const useUpdateContract = () => {
         transport: http(),
     })
 
-    const updateContractData = async (params: any) => {
+    const updateContractData = async (params: any):Promise<{status:string,message?:string}> => {
         try {
             const { contractAddress, functionName, args, chainId } = params;
             const txHash = await writeContractAsync({
                 ...params,
             });
-            const receipt = await publicClient.waitForTransactionReceipt({ hash: txHash });
-            console.log(receipt,"receipt~~~~");
+            const receipt:{status:string} = await publicClient.waitForTransactionReceipt({ hash: txHash });
+            // console.log(receipt,"receipt~~~~");
             return receipt;
         } catch (error) {
-            console.log(error);
-            return error;
+            // console.log(error);
+            return {
+                status: 'error'
+            };
         }
     }
 

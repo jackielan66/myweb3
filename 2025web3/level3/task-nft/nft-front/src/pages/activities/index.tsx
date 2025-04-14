@@ -9,8 +9,8 @@ import { toast } from "react-toastify";
 import useGetUserLoginStatus from "../../hooks/useGetUserLoginStatus";
 
 const ActivitiesPage = () => {
-    const [isSigned, handleSign] = useGetUserLoginStatus()
-    
+    const { isSigned, handleSign } = useGetUserLoginStatus()
+
     return (
         <>
             <Header />
@@ -28,7 +28,7 @@ const ActivitiesPage = () => {
             }
             {
                 !isSigned && <Box sx={{ display: 'flex', alignContent: 'center', justifyContent: 'center', height: '100vh' }} >
-                    <Button variant="" onClick={() => { handleSign() }}>
+                    <Button onClick={() => { handleSign() }}>
                         请先登录
                     </Button>
                 </Box>
