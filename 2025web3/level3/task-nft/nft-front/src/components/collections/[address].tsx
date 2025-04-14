@@ -6,8 +6,8 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { getCollectionsAddress, getCollectionsRanking, getCollectionsItems } from "../../api/common-api";
 import { styled } from "@mui/system";
-import OrderDexStats from "../../components/collections/_components/OrderDexStats";
-import OrderDexDetail from "../../components/collections/_components/OrderDexDetail";
+import OrderDexStats from "./_components/OrderDexStats";
+import OrderDexDetail from "./_components/OrderDexDetail";
 import { useParams } from "next/navigation";
 import { Tab } from '@mui/material';
 

@@ -1,7 +1,7 @@
 
 import { Box, Button, Container } from "@mui/material";
 import Header from "../../components/Header";
-import { Sidebar, MainContent } from "./components"
+import { Sidebar, MainContent } from "../../components/myNFT"
 import React, { use, useEffect, useState } from "react";
 import { useAccount, useChainId, useSignMessage } from "wagmi";
 import { getLoginMessage, getUserStatus, handleUserLogin } from "../../api/common-api";

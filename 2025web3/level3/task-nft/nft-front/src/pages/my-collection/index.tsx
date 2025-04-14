@@ -1,9 +1,9 @@
 
 import { Box, Button, Container } from "@mui/material";
 import Header from "../../components/Header";
-import Sidebar from "./components/sidebar"
+import Sidebar from "../../components/my-collection/sidebar"
 import React, { use, useEffect } from "react";
-import MainView from "./components/mainView";
+import MainView from "../../components/my-collection/mainView";
 import Head from "next/head";
 import { CollectionStats } from "../../components/Collection";
 import { ADDRESS_CONTRACT } from "../../utils/contractConfig";
