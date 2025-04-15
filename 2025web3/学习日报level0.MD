@@ -15,6 +15,10 @@ tang老师推荐的项目
 GraphQL 语法，哪些场景使用
 The Graph (GRT) 
 
+部署到币安测试链   
+
+为什么：本地hardhat模拟的10个账号，在sepolia网站无法接收余额
+
 ### **项目经验**
 
 #### **KaerStake - 去中心化质押与奖励合约**
