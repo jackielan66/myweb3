@@ -10,7 +10,8 @@ import { config } from '../wagmi';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import useGetEventLog from '../hooks/useGetEventLog';
+import Providers from '../Providers'
+
 const client = new QueryClient();
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -20,10 +21,12 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={client}>
-        <RainbowKitProvider>
-          <Component {...pageProps} />
-          <ToastContainer position='top-center' />
-        </RainbowKitProvider>
+        <Providers>
+          <RainbowKitProvider>
+            <Component {...pageProps} />
+            <ToastContainer position='top-center' />
+          </RainbowKitProvider>
+        </Providers>
       </QueryClientProvider>
     </WagmiProvider>
   );

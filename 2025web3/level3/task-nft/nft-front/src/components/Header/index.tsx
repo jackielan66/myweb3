@@ -32,11 +32,11 @@ const routes = [
     {
         name: '我的用户中心',
         path: '/my-user-center'
-    }
-    // {
-    //     name: 'Withdraw',
-    //     path: '/withdraw'
-    // },
+    },
+    {
+        name: 'Test',
+        path: '/test'
+    },
     // {
     //     name: 'RCC Reward',
     //     path: '/rccReward'
