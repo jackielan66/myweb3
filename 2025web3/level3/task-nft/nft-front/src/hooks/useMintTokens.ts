@@ -1,16 +1,17 @@
 import { createPublicClient, erc721Abi, http } from 'viem'
 import { mainnet } from 'viem/chains'
 import { config } from '../wagmi';
-import { useEffect ,useState} from 'react';
+import { useEffect, useState } from 'react';
 import { ADDRESS_CONTRACT } from '../utils/contractConfig';
 import { INFT } from '../types/global';
+import { useChainId, useChains, useSwitchChain } from 'wagmi';
 
-const fromBlock = 'earliest' // 起始区块
+const fromBlock = BigInt('8117300'); // 起始区块
 const toBlock = 'latest' // 到最新区块
-async function getMintTokens(contractAddress: `0x${string}`): Promise<INFT[]> {
-
+async function getMintTokens(contractAddress: `0x${string}`, currentChain: any): Promise<INFT[]> {
+  // console.log('contractAddress', contractAddress)
   const client = createPublicClient({
-    chain: config.chains[0],
+    chain: currentChain,
     transport: http()
   });
 
@@ -39,49 +40,43 @@ async function getMintTokens(contractAddress: `0x${string}`): Promise<INFT[]> {
       ]
     },
     args: {
-      from:ADDRESS_CONTRACT.AddressZero 
+      from: ADDRESS_CONTRACT.AddressZero
     },
     fromBlock: fromBlock,
     toBlock: toBlock
   })
-  // return new Promise((resolve, reject) => {
-  //   resolve(incomingLogs.map(item=>{
-  //     return {
-  //       tokenId:item.args.tokenId,
-  //       name,
-  //       symbol,
-  //       address: contractAddress
-  //     }
-  //   }))
-  // })
-  return incomingLogs.map(item=>{
+
+  return incomingLogs.map(item => {
+    // console.log('item nft token', item)
     return {
-      tokenId:item.args.tokenId || '',
-      name:name||'',
-      symbol:symbol||'',
+      tokenId: item.args.tokenId || '',
+      name: name || '',
+      symbol: symbol || '',
       address: contractAddress
     }
   })
 }
 
 
-let storeData:any[] = []
-export default function useMintTokens (contractAddress: `0x${string}`=ADDRESS_CONTRACT.TestERC721){
+let storeData: any[] = []
+export default function useMintTokens(contractAddress: `0x${string}` = ADDRESS_CONTRACT.TestERC721) {
 
-  let [mintTokens, setMintTokens]= useState<INFT[]>(storeData);
-
+  let [mintTokens, setMintTokens] = useState<INFT[]>(storeData);
+  const chainId = useChainId();
+  const { chains } = useSwitchChain();
+  let currentChain = chains.find(item => item.id === chainId)
   useEffect(() => {
-    if(storeData.length>0){
+    if (storeData.length > 0) {
       // setMintTokens(res)
-      return 
+      return
     }
-    if(contractAddress  ){
-      getMintTokens(contractAddress).then((res)=>{
+    if (contractAddress) {
+      getMintTokens(contractAddress,currentChain).then((res) => {
         setMintTokens(res)
         storeData = res;
       })
     }
-  }, [contractAddress])
+  }, [contractAddress,currentChain])
 
   return {
     mintTokens

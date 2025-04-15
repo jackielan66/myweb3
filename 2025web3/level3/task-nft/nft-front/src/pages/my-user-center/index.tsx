@@ -6,7 +6,7 @@ import { MakeOrder } from "../../components/Order";
 import React, { use, useEffect } from "react";
 import { getPortfolioBids, getPortfolioCollections, getPortfolioList, getUserStatus } from "../../api/common-api";
 import { useAccount, useChainId } from "wagmi";
-import MainView from "../../components/my-collection/mainView";
+import MainView from "../../components/my-user-center/components/mainView";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { formatDate } from "../../utils/tools";

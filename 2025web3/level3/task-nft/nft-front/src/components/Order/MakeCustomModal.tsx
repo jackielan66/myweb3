@@ -39,7 +39,7 @@ const ButtonStyle = styled(Button)(({ theme }) => ({
     },
 }));
 
-interface IProps{
+interface IProps {
     open: boolean,
     handleClose: () => void,
     assets: any[],
@@ -47,7 +47,7 @@ interface IProps{
     assetsIsApproved: boolean
 }
 
-const MakeCustomModal = (props:IProps) => {
+const MakeCustomModal = (props: IProps) => {
     const { open, handleClose,
         assets,
         onSuccess,
@@ -57,14 +57,14 @@ const MakeCustomModal = (props:IProps) => {
     const [inputValue, setInputValue] = useState("");
     const [expiry, setExpiry] = useState(1);
     const { updateContractData } = useUpdateContract();
-
+    const [loading, setLoading] = useState(false);
     const setApprovalForAll = async () => {
         if (!inputValue) {
             toast.error('请输入价格')
             return
         }
         try {
-            let receipt = {status: 'loading'};
+            let receipt = { status: 'loading' };
             if (!assetsIsApproved) {
                 receipt = await updateContractData({
                     address: ADDRESS_CONTRACT.TestERC721,
@@ -82,20 +82,19 @@ const MakeCustomModal = (props:IProps) => {
             if (!assetsIsApproved) {
                 if (receipt.status === 'success') {
                     toast.success('授权成功')
-    
+
                 } else {
                     toast.error('授权失败')
                     return
                 }
             }
-         
             let tokenId = assets[0].tokenId;
             let salt = Math.floor(Math.random() * 100);
             let formJson = {
                 maker: account.address || '',
                 salt: salt,
                 expiry: parseInt((dayjs().add(expiry, 'd').valueOf() / 1000) + ''),
-                nft:{
+                nft: {
                     tokenId: tokenId,
                     collection: ADDRESS_CONTRACT.TestERC721,
                     amount: 1
@@ -116,8 +115,9 @@ const MakeCustomModal = (props:IProps) => {
         }
 
     }
-    const handleMakeOrder = async (formData:IOrder) => {
+    const handleMakeOrder = async (formData: IOrder) => {
         try {
+            setLoading(true);
             let orderList = [formData]
             let receipt = await updateContractData({
                 address: ADDRESS_CONTRACT.EasySwapOrderBook,
@@ -132,8 +132,12 @@ const MakeCustomModal = (props:IProps) => {
             } else {
                 toast.error('make failed')
             }
+            setLoading(false);
+
         } catch (error) {
             console.log(error, "error eeror")
+            setLoading(false);
+
         }
     }
 
@@ -141,9 +145,9 @@ const MakeCustomModal = (props:IProps) => {
         {
             label: "物品",
             field: "name",
-            render: (item:INFT) => (
+            render: (item: INFT) => (
                 <div className="flex items-center gap-2">
-                    <img src={ getRandomNftImage(item.tokenId)} alt="" className="w-8 h-8 rounded-lg" />
+                    <img src={getRandomNftImage(item.tokenId)} alt="" className="w-8 h-8 rounded-lg" />
                     <div>{item.name}</div>
                     <div className="text-sm text-gray-500">{item.symbol}</div>
                 </div>
@@ -173,7 +177,7 @@ const MakeCustomModal = (props:IProps) => {
         <StyledModal open={open} onClose={handleClose}>
             <ModalContent>
                 <Typography variant="h6" color="white" gutterBottom className="text-xl">
-                    挂单
+                    挂单{loading ? '中' : ''}
                 </Typography>
                 <Box>
                     <DataTable columns={columns} data={assets} ></DataTable>
@@ -206,10 +210,12 @@ const MakeCustomModal = (props:IProps) => {
 
                 </Box>
 
-                <ButtonStyle onClick={() => {
+                <ButtonStyle 
+                loading={loading}
+                onClick={() => {
                     setApprovalForAll()
 
-                }}>挂单 {assets.length} 个物品</ButtonStyle>
+                }}>挂单{loading ? '中' : ''} {assets.length} 个物品</ButtonStyle>
             </ModalContent>
         </StyledModal>
     );

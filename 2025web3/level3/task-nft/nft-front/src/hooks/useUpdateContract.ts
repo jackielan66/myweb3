@@ -1,12 +1,15 @@
-import { useWriteContract } from "wagmi";
+import { useWriteContract ,useChainId,useSwitchChain} from "wagmi";
 import { createPublicClient, http, parseGwei } from 'viem'
-import { config } from '../wagmi';
 
 const useUpdateContract = () => {
 
+      const chainId = useChainId();
+      const { chains } = useSwitchChain();
+      let currentChain = chains.find(item => item.id === chainId)
+
     const { writeContractAsync, writeContract, error } = useWriteContract();
     const publicClient = createPublicClient({
-        chain: config.chains[0],
+        chain: currentChain,
         transport: http(),
     })
 

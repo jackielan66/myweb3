@@ -1,14 +1,12 @@
-import { createPublicClient, erc721Abi, http } from 'viem'
-import { mainnet } from 'viem/chains'
-import { config } from '../wagmi';
-import { count } from 'console';
+import { createPublicClient, erc721Abi, http, toHex } from 'viem'
+import { Chain } from '@rainbow-me/rainbowkit';
 
-const fromBlock = 'earliest' // 起始区块
+
+const fromBlock = BigInt('8117300'); // 起始区块
 const toBlock = 'latest' // 到最新区块
-async function getOwnedTokenIds(contractAddress: `0x${string}`, ownerAddress: `0x${string}`) {
-
+async function getOwnedTokenIds(contractAddress: `0x${string}`, ownerAddress: `0x${string}`,chain:Chain) {
   const client = createPublicClient({
-    chain: config.chains[0],
+    chain: chain,
     transport: http()
   });
 

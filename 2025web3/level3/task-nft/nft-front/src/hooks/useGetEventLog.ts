@@ -1,19 +1,13 @@
-import { useAccount, useWatchContractEvent } from "wagmi"
+import { useAccount, usePublicClient, useWatchContractEvent } from "wagmi"
 import { ABI_CONTRACT, ADDRESS_CONTRACT } from "../utils/contractConfig"
 import { createPublicClient, createWalletClient, http, Log } from 'viem'
 import { config } from '../wagmi'
 import { use, useEffect, useMemo, useState } from "react"
 import { OrderStatue, IOrder } from "../types/global"
+import useGetPublicClient from "./useGetPublicClient"
 
-const fromBlock = 'earliest' // 起始区块
+const fromBlock = BigInt('8117300'); // 起始区块
 const toBlock = 'latest' // 到最新区块
-
-const client = createPublicClient({
-  chain: config.chains[0],
-  transport: http()
-});
-
-
 
 // 定义事件日志的类型
 type LogMakeArgs = {
@@ -42,10 +36,12 @@ const useGetEventLog = () => {
   const [makeOrders, setMakeOrders] = useState<(IOrder & { _sortKey?: number })[]>([]);
   const [cancelOrders, setCancelOrders] = useState<LogCancelArgs[]>([]);
   const [matchOrders, setMatchOrders] = useState<LogMatchArgs[]>([]);
+  const { publicClient } =  useGetPublicClient()
   // 获取创建订单日志，所有订单列表
   async function getLogMakeLogs() {
     const logMakeEventAbi = ABI_CONTRACT.EasySwapOrderBook.filter(item => item.name === 'LogMake');
-    const orderLogs = await client.getLogs({
+    // @ts-ignore
+    const orderLogs = await publicClient.getLogs({
       address: ADDRESS_CONTRACT.EasySwapOrderBook,
       // @ts-ignore
       event: (logMakeEventAbi[0]),
@@ -60,7 +56,8 @@ const useGetEventLog = () => {
   // 获取创建订单日志，所有订单列表
   async function getLogCancel() {
     const eventAbi = ABI_CONTRACT.EasySwapOrderBook.filter(item => item.name === 'LogCancel');
-    const orderLogs = await client.getLogs({
+    // @ts-ignore
+    const orderLogs = await publicClient.getLogs({
       address: ADDRESS_CONTRACT.EasySwapOrderBook,
       // @ts-ignore
       event: eventAbi[0],
@@ -77,7 +74,8 @@ const useGetEventLog = () => {
   // 
   async function getMatchOrder() {
     const eventAbi = ABI_CONTRACT.EasySwapOrderBook.filter(item => item.name === 'LogMatch');
-    const orderLogs = await client.getLogs({
+    // @ts-ignore
+    const orderLogs = await publicClient.getLogs({
       address: ADDRESS_CONTRACT.EasySwapOrderBook,
       // @ts-ignore
       event: eventAbi[0],
@@ -148,10 +146,10 @@ const useGetEventLog = () => {
     return Object.values(tempObj).sort((a, b) => b._sortKey! - a._sortKey!)
   }, [makeOrders, cancelOrders, matchOrders])
 
-  // console.log('makeOrders', makeOrders)
+  console.log('makeOrders', makeOrders)
   // console.log('cancelOrders', cancelOrders);
   // console.log('matchOrders', matchOrders);
-  // console.log('allOrderList', allOrderList);
+  console.log('allOrderList', allOrderList);
 
 
 

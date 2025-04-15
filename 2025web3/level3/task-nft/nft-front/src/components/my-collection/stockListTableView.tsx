@@ -19,11 +19,11 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const StockListTableView = (props: any) => {
     const account = useAccount()
-    const {  allOrderList,refetch:refetchOrder } = useGetEventLog()
-    const { tokenList, refetch: reFetchNFTs,isApproved } = useNFTs()
+    const { allOrderList, refetch: refetchOrder } = useGetEventLog()
+    const { tokenList, refetch: reFetchNFTs, isApproved } = useNFTs()
     const [orderDialogCfg, setOrderDialogCfg] = useState<{
         open: boolean,
-        order: IOrder | {}, 
+        order: IOrder | {},
         title: string,
         type: 'edit' | 'add'
     }>({
@@ -48,37 +48,39 @@ const StockListTableView = (props: any) => {
         {
             label: "类型",
             field: "side",
-            render: (item:IOrder) => {
+            render: (item: IOrder) => {
                 return <div>{item.side == 0 ? "挂单" : "出价"}</div>
             }
         },
         {
             label: "物品",
             field: "collection_name",
-            render: (item:IOrder) => (
+            render: (item: IOrder) => (
                 <div className="flex items-center gap-2">
-                    <img src={ getRandomNftImage(item.nft?.tokenId)} alt="" className="w-8 h-8 rounded-lg" />
+                    <img src={getRandomNftImage(item.nft?.tokenId)} alt="" className="w-8 h-8 rounded-lg" />
                     <div className="text-sm text-gray-500">{item.nft?.tokenId}</div>
                 </div>
             ),
         },
-        { label: "稀有度", field: "nft.amount", render: (item:IOrder) => item.nft?.amount },
+        { label: "稀有度", field: "nft.amount", render: (item: IOrder) => item.nft?.amount },
         {
             label: "价格", field: "price",
-            render: (item:IOrder) => {
+            render: (item: IOrder) => {
                 return item.price ? formatEther(item.price) + ' ETH' : ' '
             }
         },
         { label: "最高出价", field: "highestBid" },
-        { label: "从-至", field: "seller", render: (item:IOrder) => {
-            return <Box>
-                <Typography>{secureAddress(item.seller) }</Typography>
-                <Typography>{secureAddress(item.buyer)}</Typography>
-            </Box>
-        }},
-        { label: "有效期", field: "expire", render: (item:IOrder) => formatDate(Number(item.expiry) * 1000) },
         {
-            label: "状态", field: "status", render: (item:IOrder) => {
+            label: "从-至", field: "seller", render: (item: IOrder) => {
+                return <Box>
+                    <Typography>{secureAddress(item.seller)}</Typography>
+                    <Typography>{secureAddress(item.buyer)}</Typography>
+                </Box>
+            }
+        },
+        { label: "有效期", field: "expire", render: (item: IOrder) => formatDate(Number(item.expiry) * 1000) },
+        {
+            label: "状态", field: "status", render: (item: IOrder) => {
                 if (item.status == OrderStatue.Cancel) {
                     return <div className="text-red-500">取消</div>
                 }
@@ -91,11 +93,11 @@ const StockListTableView = (props: any) => {
             }
         },
         {
-            label: "操作", field: "type", render: (item:IOrder) => {
+            label: "操作", field: "type", render: (item: IOrder) => {
                 return <Box>
-                    
+
                     {
-                      account.isConnected && item.status == OrderStatue.Process && item.side == 0 && item.maker != account.address && <Button variant="contained" onClick={() => {
+                        account.isConnected && item.status == OrderStatue.Process && item.side == 0 && item.maker != account.address && <Button variant="contained" onClick={() => {
                             setOrderDialogCfg((prev) => {
                                 return {
                                     ...prev,
@@ -117,7 +119,7 @@ const StockListTableView = (props: any) => {
                                 }
                             })
                         }}>
-                           出价
+                            出价
                         </Button>
                     }
                     {
