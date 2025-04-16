@@ -1,7 +1,7 @@
 
 import { Box, Typography, Button, Grid, Table, TableHead, TableRow, TableCell, TableBody, TableContainer, Tabs } from "@mui/material";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { use, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import { styled } from "@mui/system";
 import { useParams } from "next/navigation";
@@ -18,12 +18,13 @@ import useUpdateContract from "../../../hooks/useUpdateContract";
 import { toast } from "react-toastify";
 import useNFTs from "../../../hooks/useNFTs";
 import SellModal from "./SellModal";
+import { useAllOrderGraph, useNFTsGraph } from "../../../hooks/useGraph";
 
 const BidListTableView = (props: {
     address: `0x${string}` | ''
 }) => {
-    const { allOrderList, refetch: refetchLog } = useGetEventLog();
-    const { myTokenList } = useNFTs()
+    const { allOrderListUseGraph: allOrderList } = useAllOrderGraph();
+    const { myTokenList } = useNFTsGraph()
     const [orderDialogCfg, setOrderDialogCfg] = useState<{
         open: boolean,
         order: IOrder | {},
@@ -36,25 +37,7 @@ const BidListTableView = (props: {
         type: 'edit',
     })
     const { updateContractData } = useUpdateContract()
-    const handleCancel = async (item: IOrder) => {
-        try {
 
-            const receipt = await updateContractData({
-                address: ADDRESS_CONTRACT.EasySwapOrderBook,
-                abi: ABI_CONTRACT.EasySwapOrderBook,
-                functionName: 'cancelOrders',
-                args: [[item.orderKey]]
-            })
-            if (receipt.status === 'success') {
-                toast.success('取消成功')
-                refetchLog()
-            } else {
-                toast.error('取消失败')
-            }
-        } catch (error) {
-            console.log(error, "error eeror")
-        }
-    }
 
     const handleAccept = async (item: IOrder) => {
 
@@ -74,6 +57,7 @@ const BidListTableView = (props: {
             })
             if (receipt.status === 'success') {
                 toast.success('接收成功')
+                
             }
         } catch (error) {
             console.log(error, "error eeror")
@@ -131,7 +115,7 @@ const BidListTableView = (props: {
     ];
 
     const dataSource = useMemo(() => {
-        const myTokenIds = myTokenList.map((item) => item.tokenId);
+        const myTokenIds = myTokenList.map((item) => item.tokenId.toString());
         if (myTokenIds.length === 0) {
             return []
         }
@@ -139,6 +123,12 @@ const BidListTableView = (props: {
             return myTokenIds.includes(item.nft.tokenId) && item.side === Side.Bid && item.status === OrderStatue.Process
         });
     }, [allOrderList, myTokenList]);
+
+  
+    // console.log(dataSource, "dataSource ~~~ bidListTableView");
+    // console.log(myTokenList, "myTokenList ~~~ bidListTableView");
+    // console.log(allOrderList, "allOrderList ~~~ bidListTableView");
+
 
 
 

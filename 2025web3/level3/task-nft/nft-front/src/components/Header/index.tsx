@@ -5,18 +5,18 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const routes = [
-    {
-        name: 'Collections',
-        path: '/collections'
-    },
-    {
-        name: 'Portfolio',
-        path: '/portfolio'
-    },
-    {
-        name: 'Activities',
-        path: '/activities'
-    },
+    // {
+    //     name: 'Collections',
+    //     path: '/collections'
+    // },
+    // {
+    //     name: 'Portfolio',
+    //     path: '/portfolio'
+    // },
+    // {
+    //     name: 'Activities',
+    //     path: '/activities'
+    // },
     {
         name: '市场中心',
         path: '/my-collection'

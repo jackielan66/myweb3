@@ -46,12 +46,13 @@ export function getRandomAvatarUrl(): string {
 
 export function formatDate(value: string | number | bigint | Date, format = "YYYY-MM-DD HH:mm:ss") {
     if (!value) return "";
-    if (typeof value === "bigint") {
+    if (typeof value === "bigint"  || typeof value === "string") {
         value = Number(value);
         if (value < 10000000000) {
             value *= 1000;
         }
     }
+
     return dayjs(value).format(format);
 }
 

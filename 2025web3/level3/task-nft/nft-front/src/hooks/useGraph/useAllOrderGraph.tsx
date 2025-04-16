@@ -72,9 +72,7 @@ function getAllOrder({
     cancelOrders: CancelItem[],
     matchOrders: MatchItem[],
 }) {
-    const allOrderList = [];
-    // console.log(makeOrders, "makeOrders")
-    // console.log(matchOrders, "matchOrders")
+   
 
     let tempObj: Record<string, H_ORDER> = {}
     makeOrders.forEach((item, index) => {
@@ -121,7 +119,7 @@ function getAllOrder({
 
 const useAllOrderGraph = () => {
     const { data,refetch } = useQuery({
-        queryKey: ['data'],
+        queryKey: ['useAllOrderGraph'],
         async queryFn() {
             return await request(url, query, {}, headers)
         }

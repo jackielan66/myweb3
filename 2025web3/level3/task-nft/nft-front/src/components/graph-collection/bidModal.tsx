@@ -97,13 +97,15 @@ const MakeCustomModal = (props:IProps) => {
         try {
             setLoading(true)
             let orderList = [formData]
+            console.log(orderList, "orderList")
             let receipt = await updateContractData({
                 address: ADDRESS_CONTRACT.EasySwapOrderBook,
                 abi: ABI_CONTRACT.EasySwapOrderBook,
                 functionName: 'makeOrders',
                 args: [orderList],
+                value: formData.price,
             })
-            toast.info("挂单中...")
+            toast.info("出价中...")
             if (receipt.status === 'success') {
                 toast.dismiss()
                 toast.success(title + '成功')

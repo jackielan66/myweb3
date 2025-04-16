@@ -46,7 +46,7 @@ const useNFTsGraph = () => {
         },
         enabled: !!account.address
     })
-    // console.log(data, "data account.address fromData")
+    console.log(data, "data  useNFTsGraph account.address fromData")
 
     const myTokenList = useMemo(() => {
         const { incomingLogs = [], outgoingLogs = [] } = (data || {}) as any;

@@ -22,13 +22,11 @@ const BidTableView = (props: any) => {
     const { mintTokens } = useMintTokens()
     const [orderDialogCfg, setOrderDialogCfg] = useState<{
         open: boolean,
-        order: any,
         title: string,
         type: string,
         assets: INFT[]
     }>({
         open: false,
-        order: {},
         title: "出价",
         type: 'edit',
         assets: []
@@ -57,7 +55,6 @@ const BidTableView = (props: any) => {
                         }
                         setOrderDialogCfg({
                             open: true,
-                            order: item,
                             title: "出价",
                             type: 'edit',
                             assets: [item]
@@ -73,7 +70,7 @@ const BidTableView = (props: any) => {
             ...item
         }
     })
-
+    // console.log(mintTokens,"mintTokens")
     return <>
         <BidModal open={orderDialogCfg.open}
             title={orderDialogCfg.title}

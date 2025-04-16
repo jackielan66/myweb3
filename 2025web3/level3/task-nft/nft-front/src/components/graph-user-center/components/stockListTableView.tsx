@@ -17,7 +17,6 @@ import { INFT, IOrder } from "../../../types/global";
 import { useNFTsGraph } from "../../../hooks/useGraph";
 
 const StockListTableView = (props: any) => {
-    // const { tokenList, count, refetch: reFetchNFTs, isApproved=false} = useNFTs()
     const { myTokenList, refetch: reFetchNFTs,isApproved=false }  =useNFTsGraph()
     const [orderDialogCfg, setOrderDialogCfg] = useState({
         open: false,
@@ -68,7 +67,6 @@ const StockListTableView = (props: any) => {
     ];
     const dataSource = useMemo(() => {
         return myTokenList.map((item) => {
-            // console.log(tokenList, "tokenList")
             return item
         })
     }, [myTokenList])

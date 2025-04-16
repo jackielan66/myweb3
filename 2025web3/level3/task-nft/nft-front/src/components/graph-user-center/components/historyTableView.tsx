@@ -112,10 +112,6 @@ const HistoryTableView = (props: {
         return item.maker === address.toLowerCase()
     });
 
-    useEffect(() => {
-        refetchLog()
-    }, [])
-
     return <>
         <MakeOrder open={orderDialogCfg.open}
             title={orderDialogCfg.title}
