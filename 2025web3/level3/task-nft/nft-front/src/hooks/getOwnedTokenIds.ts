@@ -1,10 +1,8 @@
 import { createPublicClient, erc721Abi, http, toHex } from 'viem'
 import { Chain } from '@rainbow-me/rainbowkit';
+import { fromBlock, toBlock } from '../utils/constant';
 
-
-const fromBlock = BigInt('8117300'); // 起始区块
-const toBlock = 'latest' // 到最新区块
-async function getOwnedTokenIds(contractAddress: `0x${string}`, ownerAddress: `0x${string}`,chain:Chain) {
+async function getOwnedTokenIds(contractAddress: `0x${string}`, ownerAddress: `0x${string}`, chain: Chain) {
   const client = createPublicClient({
     chain: chain,
     transport: http()
@@ -22,7 +20,7 @@ async function getOwnedTokenIds(contractAddress: `0x${string}`, ownerAddress: `0
     functionName: 'symbol',
   });
 
-  
+
 
 
   // 1. 获取所有转入该地址的 Transfer 事件

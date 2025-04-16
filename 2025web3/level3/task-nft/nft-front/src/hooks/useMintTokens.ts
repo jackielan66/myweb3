@@ -5,9 +5,7 @@ import { useEffect, useState } from 'react';
 import { ADDRESS_CONTRACT } from '../utils/contractConfig';
 import { INFT } from '../types/global';
 import { useChainId, useChains, useSwitchChain } from 'wagmi';
-
-const fromBlock = BigInt('8117300'); // 起始区块
-const toBlock = 'latest' // 到最新区块
+import { fromBlock, toBlock } from '../utils/constant';
 async function getMintTokens(contractAddress: `0x${string}`, currentChain: any): Promise<INFT[]> {
   // console.log('contractAddress', contractAddress)
   const client = createPublicClient({

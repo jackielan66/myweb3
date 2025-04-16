@@ -6,10 +6,6 @@ import { usePathname } from "next/navigation";
 
 const routes = [
     {
-        name: 'Home',
-        path: '/'
-    },
-    {
         name: 'Collections',
         path: '/collections'
     },
@@ -37,10 +33,14 @@ const routes = [
         name: 'Test',
         path: '/test'
     },
-    // {
-    //     name: 'RCC Reward',
-    //     path: '/rccReward'
-    // }
+    {
+        name: 'Graph collection',
+        path: '/graph-collection'
+    },
+    {
+        name: 'graph user center',
+        path: '/graph-user-center'
+    }
 ]
 
 import { styled } from "@mui/system";

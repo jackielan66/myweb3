@@ -12,8 +12,18 @@ import { ToastContainer, toast } from 'react-toastify';
 
 import { useRouter } from 'next/router';
 import useGetERC20TokenInfo from '../hooks/useGetTokenInfo';
+import { redirect } from 'next/dist/server/api-utils';
+
 const ADMIN_ROLE = keccak256(toBytes("ADMIN_ROLE")); // 计算 ADMIN_ROLE 哈希值
 
+export const getServerSideProps = async () => {
+  return {
+    redirect: {
+      destination: '/graph-collection',
+      permanent: false,
+    },
+  };
+} 
 const Home: NextPage = () => {
   const account = useAccount();
   const { data: currentBlockNumber } = useBlockNumber();

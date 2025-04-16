@@ -5,9 +5,8 @@ import { config } from '../wagmi'
 import { use, useEffect, useMemo, useState } from "react"
 import { OrderStatue, IOrder } from "../types/global"
 import useGetPublicClient from "./useGetPublicClient"
+import { fromBlock, toBlock } from '../utils/constant';
 
-const fromBlock = BigInt('8117300'); // 起始区块
-const toBlock = 'latest' // 到最新区块
 
 // 定义事件日志的类型
 type LogMakeArgs = {
@@ -147,9 +146,9 @@ const useGetEventLog = () => {
   }, [makeOrders, cancelOrders, matchOrders])
 
   console.log('makeOrders', makeOrders)
-  // console.log('cancelOrders', cancelOrders);
-  // console.log('matchOrders', matchOrders);
-  console.log('allOrderList', allOrderList);
+  console.log('cancelOrders', cancelOrders);
+  console.log('matchOrders', matchOrders);
+  // console.log('allOrderList', allOrderList);
 
 
 
