@@ -88,6 +88,7 @@ const MakeCustomModal = (props: IProps) => {
                     return
                 }
             }
+
             let tokenId = assets[0].tokenId;
             let salt = Math.floor(Math.random() * 100);
             let formJson = {
@@ -118,13 +119,18 @@ const MakeCustomModal = (props: IProps) => {
     const handleMakeOrder = async (formData: IOrder) => {
         try {
             setLoading(true);
+        
             let orderList = [formData]
             let receipt = await updateContractData({
                 address: ADDRESS_CONTRACT.EasySwapOrderBook,
                 abi: ABI_CONTRACT.EasySwapOrderBook,
                 functionName: 'makeOrders',
                 args: [orderList],
+                _cbAfterMetaMask(){
+                    toast.info('挂单中，请稍等等',{autoClose: 15000})
+                }
             })
+            toast.dismiss()
             if (receipt.status === 'success') {
                 toast.success('挂单成功')
                 onSuccess && onSuccess()

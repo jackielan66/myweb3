@@ -37,8 +37,12 @@ const HistoryTableView = (props: {
                 address: ADDRESS_CONTRACT.EasySwapOrderBook,
                 abi: ABI_CONTRACT.EasySwapOrderBook,
                 functionName: 'cancelOrders',
-                args: [[item.orderKey]]
+                args: [[item.orderKey]],
+                _cbAfterMetaMask() {
+                    toast.info("取消中...", { autoClose: 15000 })
+                }
             })
+            toast.dismiss()
             if (receipt.status === 'success') {
                 toast.success('取消成功')
                 refetchLog()
@@ -107,7 +111,7 @@ const HistoryTableView = (props: {
             }
         },
     ];
-    
+
     const dataSource = allOrderListUseGraph.filter((item) => {
         return item.maker === address.toLowerCase()
     });

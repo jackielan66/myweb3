@@ -19,6 +19,7 @@ const useUpdateContract = () => {
             const txHash = await writeContractAsync({
                 ...params,
             });
+            params._cbAfterMetaMask && params._cbAfterMetaMask();
             const receipt:{status:string} = await publicClient.waitForTransactionReceipt({ hash: txHash });
             // console.log(receipt,"receipt~~~~");
             return receipt;
