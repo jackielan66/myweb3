@@ -145,9 +145,9 @@ const useGetEventLog = () => {
     return Object.values(tempObj).sort((a, b) => b._sortKey! - a._sortKey!)
   }, [makeOrders, cancelOrders, matchOrders])
 
-  console.log('makeOrders', makeOrders)
-  console.log('cancelOrders', cancelOrders);
-  console.log('matchOrders', matchOrders);
+  // console.log('makeOrders', makeOrders)
+  // console.log('cancelOrders', cancelOrders);
+  // console.log('matchOrders', matchOrders);
   // console.log('allOrderList', allOrderList);
 
 

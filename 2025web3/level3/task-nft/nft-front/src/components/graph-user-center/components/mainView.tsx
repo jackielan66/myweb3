@@ -25,7 +25,6 @@ const TabPanel = ({ children, value, index }: any) => {
 
 export default function MainView() {
     const account = useAccount()
-    const { } = useGetEventLog()
 
     const [value, setValue] = useState(0);
 

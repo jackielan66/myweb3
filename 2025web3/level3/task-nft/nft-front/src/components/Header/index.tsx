@@ -29,10 +29,10 @@ const routes = [
         name: '我的用户中心',
         path: '/my-user-center'
     },
-    {
-        name: 'Test',
-        path: '/test'
-    },
+    // {
+    //     name: 'Test',
+    //     path: '/test'
+    // },
     {
         name: 'Graph collection',
         path: '/graph-collection'

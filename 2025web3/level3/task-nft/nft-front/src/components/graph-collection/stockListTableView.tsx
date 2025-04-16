@@ -95,10 +95,17 @@ const StockListTableView = (props: any) => {
         },
         {
             label: "操作", field: "type", render: (item: IOrder) => {
+                let currentLoginAddress = (account.address || '').toLowerCase()
                 return <Box>
-
+                    {/* {
+                        item.maker
+                    }
+                    <div>fen</div>
                     {
-                        account.isConnected && item.status == OrderStatue.Process && item.side == 0 && item.maker != account.address && <Button variant="contained" onClick={() => {
+                        account.address
+                    } */}
+                    {
+                        account.isConnected && item.status == OrderStatue.Process && item.side == 0 && item.maker != currentLoginAddress && <Button variant="contained" onClick={() => {
                             setOrderDialogCfg((prev) => {
                                 return {
                                     ...prev,
@@ -111,7 +118,7 @@ const StockListTableView = (props: any) => {
                         </Button>
                     }
                     {
-                        account.isConnected && item.status == OrderStatue.Process && item.side == 1 && item.maker != account.address && <Button variant="contained" onClick={() => {
+                        account.isConnected && item.status == OrderStatue.Process && item.side == 1 && item.maker != currentLoginAddress && <Button variant="contained" onClick={() => {
                             setOrderDialogCfg((prev) => {
                                 return {
                                     ...prev,

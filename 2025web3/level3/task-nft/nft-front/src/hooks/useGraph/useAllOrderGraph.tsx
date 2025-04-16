@@ -175,7 +175,7 @@ const useAllOrderGraph = () => {
             }
         })
     }
-    console.log(data, "data")
+    // console.log(data, "data")
 
     const allOrderList = getAllOrder({
         // @ts-ignore

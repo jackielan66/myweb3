@@ -59,6 +59,7 @@ const MakeCustomModal = (props:IProps) => {
     const [inputValue, setInputValue] = useState("");
     const [expiry, setExpiry] = useState(1);
     const { updateContractData } = useUpdateContract();
+    const [loading, setLoading]=useState(false)
 
     const handleClose = () => {
         props.onCancel && props.onCancel()
@@ -94,6 +95,7 @@ const MakeCustomModal = (props:IProps) => {
     }
     const handleMakeOrder = async (formData:IOrder) => {
         try {
+            setLoading(true)
             let orderList = [formData]
             let receipt = await updateContractData({
                 address: ADDRESS_CONTRACT.EasySwapOrderBook,
@@ -101,15 +103,22 @@ const MakeCustomModal = (props:IProps) => {
                 functionName: 'makeOrders',
                 args: [orderList],
             })
+            toast.info("挂单中...")
             if (receipt.status === 'success') {
+                toast.dismiss()
                 toast.success(title + '成功')
                 onSuccess && onSuccess()
                 handleClose()
             } else {
+                toast.dismiss()
                 toast.error('failed')
             }
+            setLoading(false)
         } catch (error) {
+            toast.dismiss()
             console.log(error, "error eeror")
+            setLoading(false)
+            toast.error('购买失败')
         }
     }
 
@@ -182,7 +191,9 @@ const MakeCustomModal = (props:IProps) => {
 
                 </Box>
 
-                <ButtonStyle onClick={() => {
+                <ButtonStyle
+                loading={loading}
+                 onClick={() => {
                     setApprovalForAll()
                 }}>{title} {assets.length} 个物品</ButtonStyle>
             </ModalContent>

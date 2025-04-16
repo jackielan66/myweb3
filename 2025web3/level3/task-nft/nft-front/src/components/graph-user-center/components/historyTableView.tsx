@@ -16,12 +16,13 @@ import useGetEventLog from "../../../hooks/useGetEventLog";
 import { IOrder, OrderStatue, Side } from "../../../types/global";
 import useUpdateContract from "../../../hooks/useUpdateContract";
 import { toast } from "react-toastify";
+import { useAllOrderGraph } from "../../../hooks/useGraph";
 
 const HistoryTableView = (props: {
     address: `0x${string}` | ''
 }) => {
     const { address } = props;
-    const { allOrderList, refetch: refetchLog } = useGetEventLog();
+    const { allOrderListUseGraph, refetch: refetchLog } = useAllOrderGraph()
     const [orderDialogCfg, setOrderDialogCfg] = useState({
         open: false,
         order: {},
@@ -53,7 +54,7 @@ const HistoryTableView = (props: {
             label: "类型",
             field: "orp",
             render: (item: IOrder) => {
-                
+
                 return item.side === Side.Bid ? "出价" : "购买";
             },
         },
@@ -106,10 +107,14 @@ const HistoryTableView = (props: {
             }
         },
     ];
-
-    const dataSource = allOrderList.filter((item) => {
-        return item.maker === address
+    
+    const dataSource = allOrderListUseGraph.filter((item) => {
+        return item.maker === address.toLowerCase()
     });
+
+    useEffect(() => {
+        refetchLog()
+    }, [])
 
     return <>
         <MakeOrder open={orderDialogCfg.open}

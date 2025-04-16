@@ -12,12 +12,13 @@ import DataTable from "../../../components/Table";
 import { getRandomNftImage } from "../../../utils/tools";
 import { MakeOrder, MakeCustomModal } from "../../../components/Order";
 import { formatEther } from "viem";
-import useNFTs from "../../../hooks/useNFTs";
 import { Check, CheckBox } from "@mui/icons-material";
 import { INFT, IOrder } from "../../../types/global";
+import { useNFTsGraph } from "../../../hooks/useGraph";
 
 const StockListTableView = (props: any) => {
-    const { tokenList, count, refetch: reFetchNFTs, isApproved=false} = useNFTs()
+    // const { tokenList, count, refetch: reFetchNFTs, isApproved=false} = useNFTs()
+    const { myTokenList, refetch: reFetchNFTs,isApproved=false }  =useNFTsGraph()
     const [orderDialogCfg, setOrderDialogCfg] = useState({
         open: false,
         order: {},
@@ -66,11 +67,11 @@ const StockListTableView = (props: any) => {
         },
     ];
     const dataSource = useMemo(() => {
-        return tokenList.map((item) => {
+        return myTokenList.map((item) => {
             // console.log(tokenList, "tokenList")
             return item
         })
-    }, [tokenList])
+    }, [myTokenList])
 
     return <>
         {

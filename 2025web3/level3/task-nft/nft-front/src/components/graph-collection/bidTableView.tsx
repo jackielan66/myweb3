@@ -15,9 +15,10 @@ import useMintTokens from "../../hooks/useMintTokens";
 import BidModal from "./bidModal"
 import { toast } from "react-toastify";
 import { INFT, IOrder } from "../../types/global";
+import { useNFTsGraph } from "../../hooks/useGraph";
 
 const BidTableView = (props: any) => {
-    const { tokenList } = useNFTs()
+    const { myTokenList } = useNFTsGraph();
     const { mintTokens } = useMintTokens()
     const [orderDialogCfg, setOrderDialogCfg] = useState<{
         open: boolean,
@@ -32,7 +33,6 @@ const BidTableView = (props: any) => {
         type: 'edit',
         assets: []
     })
-    const { writeContractAsync } = useWriteContract()
 
     const columns = [
         {
@@ -51,8 +51,7 @@ const BidTableView = (props: any) => {
             label: "操作", field: "type", render: (item: INFT) => {
                 return <Box>
                     <Button variant="contained" onClick={() => {
-
-                        if (tokenList.map(item => item.tokenId).includes(item.tokenId)) {
+                        if (myTokenList.map(item => item.tokenId).includes(item.tokenId.toString())) {
                             toast.error("NFT belong to you ")
                             return
                         }
