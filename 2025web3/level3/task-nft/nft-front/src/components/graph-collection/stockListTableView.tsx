@@ -37,14 +37,7 @@ const StockListTableView = (props: any) => {
     const columns = [
         {
             label: "",
-            field: "selection",
-            // render: (item) => {
-            //     return <CheckBox
-            //         checked={item.checked}
-            //         onChange={() => {
-            //         }}
-            //     />
-            // },
+            field: "selection"
         },
         {
             label: "类型",

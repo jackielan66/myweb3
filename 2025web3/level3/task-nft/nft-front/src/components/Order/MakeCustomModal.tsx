@@ -7,7 +7,7 @@ import useUpdateContract from '../../hooks/useUpdateContract';
 import { ABI_CONTRACT, ADDRESS_CONTRACT } from '../../utils/contractConfig'
 import { toast } from "react-toastify";
 import { parseEther } from "viem";
-import { useAccount } from "wagmi";
+import { useAccount, usePrepareTransactionRequest } from "wagmi";
 import DataTable from "../Table";
 import { getRandomNftImage } from "../../utils/tools";
 import dayjs from "dayjs";
@@ -57,6 +57,9 @@ const MakeCustomModal = (props: IProps) => {
     const [inputValue, setInputValue] = useState("");
     const [expiry, setExpiry] = useState(1);
     const { updateContractData } = useUpdateContract();
+    
+
+
     const [loading, setLoading] = useState(false);
     const setApprovalForAll = async () => {
         if (!inputValue) {
@@ -136,7 +139,7 @@ const MakeCustomModal = (props: IProps) => {
                 onSuccess && onSuccess()
                 handleClose()
             } else {
-                toast.error('make failed')
+                toast.error(receipt.message)
             }
             setLoading(false);
 

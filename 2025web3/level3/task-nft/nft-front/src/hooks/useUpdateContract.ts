@@ -1,31 +1,63 @@
-import { useWriteContract ,useChainId,useSwitchChain} from "wagmi";
-import { createPublicClient, http, parseGwei } from 'viem'
+import { useWriteContract, useChainId, useSwitchChain } from "wagmi";
+import { createPublicClient, http, parseGwei,ContractFunctionExecutionError, formatGwei, formatEther } from 'viem'
+import useGetPublicClient from "./useGetPublicClient";
+import { simulateContract } from "viem/actions";
+import { config } from "../wagmi";
+import { toast } from "react-toastify";
 
+const extractReadableError = (err:unknown) => {
+    // unknown 类型更安全，因为需要做类型检测
+    if (err instanceof ContractFunctionExecutionError) {
+      const cause = err.cause as any
+        
+      // 尝试逐层提取 message
+      return (
+        cause?.cause?.shortMessage || // 比如：insufficient funds ...
+        cause?.shortMessage ||
+        cause?.message ||
+        err.shortMessage ||
+        err.message
+      )
+    }
+  
+    // 非特定错误也返回
+    if (err instanceof Error) return err.message
+    return String(err)
+  }
 const useUpdateContract = () => {
-
-      const chainId = useChainId();
-      const { chains } = useSwitchChain();
-      let currentChain = chains.find(item => item.id === chainId)
+    const { publicClient } = useGetPublicClient()
 
     const { writeContractAsync, writeContract, error } = useWriteContract();
-    const publicClient = createPublicClient({
-        chain: currentChain,
-        transport: http(),
-    })
 
-    const updateContractData = async (params: any):Promise<{status:string,message?:string}> => {
+    const updateContractData = async (params: any): Promise<{ status: string, message?: string }> => {
         try {
             const { contractAddress, functionName, args, chainId } = params;
+            const estimateGasResult = await publicClient.estimateGas({
+                ...params
+            })
+            // gas 数量
+            console.log(estimateGasResult, "estimateGasResult~~~~~~~");
+            // 每个gas的价格
+            const getGasPriceResult = await publicClient.getGasPrice();
+            console.log(getGasPriceResult, "getGasPriceResult~~~~~~~");
+            toast.success("预估Gsa价格：" + formatEther(estimateGasResult * getGasPriceResult))
+            const simulateResult = await publicClient.simulateContract({
+                ...params
+            });
+            // console.log(simulateResult, "simulateResult~~~~ simulation");
             const txHash = await writeContractAsync({
-                ...params,
+                ...simulateResult.request
             });
             params._cbAfterMetaMask && params._cbAfterMetaMask();
-            const receipt:{status:string} = await publicClient.waitForTransactionReceipt({ hash: txHash });
-            // console.log(receipt,"receipt~~~~");
+            const receipt: { status: string } = await publicClient.waitForTransactionReceipt({ hash: txHash });
             return receipt;
         } catch (error) {
-            // console.log(error);
+            // console.log(error, "error~~~~");
+            let message  =extractReadableError(error);
+     
+
             return {
+                message: message,
                 status: 'error'
             };
         }

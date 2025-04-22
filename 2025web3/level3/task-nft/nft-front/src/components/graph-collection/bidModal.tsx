@@ -113,7 +113,7 @@ const MakeCustomModal = (props:IProps) => {
                 handleClose()
             } else {
                 toast.dismiss()
-                toast.error('failed')
+                toast.error(receipt.message)
             }
             setLoading(false)
         } catch (error) {

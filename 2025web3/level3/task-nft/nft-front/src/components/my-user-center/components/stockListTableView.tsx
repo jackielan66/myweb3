@@ -24,7 +24,6 @@ const StockListTableView = (props: any) => {
         title: "编辑",
         type: 'edit',
     })
-    const { writeContractAsync } = useWriteContract()
 
     const columns = [
         {

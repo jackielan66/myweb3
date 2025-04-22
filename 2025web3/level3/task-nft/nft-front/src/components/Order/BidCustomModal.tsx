@@ -73,23 +73,6 @@ const BidCustomModal = (props: BidCustomModalProps) => {
                 side:Side.Bid,
                 saleKind: order.saleKind,
             }
-            // buyOrder.maker = account.address;
-            // buyOrder.expiry = expiry;
-            // buyOrder.salt = salt;
-            // buyOrder.price = parseEther(inputValue)
-            // buyOrder.nft = orderList[0].nft;
-            // [tokenId, ADDRESS_CONTRACT.TestERC721, 1];
-            // buyOrder.side = Side.Bid;
-            // buyOrder.saleKind = SaleKind.FixedPriceForItem;
-            // let buyOrder = {
-            //     side: Side.Bid,
-            //     saleKind: SaleKind.FixedPriceForItem,
-            //     maker: addr1.address,
-            //     nft: [tokenId, nftAddress, 1],
-            //     price: toBn("0.01"),
-            //     expiry: now,
-            //     salt: salt,
-            // }
             handleMakeOrder(order, buyOrder)
 
 
@@ -114,7 +97,7 @@ const BidCustomModal = (props: BidCustomModalProps) => {
                 onSuccess && onSuccess()
                 handleClose()
             } else {
-                toast.error('make failed')
+                toast.error(receipt.message)
             }
         } catch (error) {
             console.log(error, "error eeror")
