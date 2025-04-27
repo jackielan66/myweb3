@@ -1,12 +1,12 @@
 
 import { Box, Button, Container } from "@mui/material";
 import Header from "../../components/Header";
-import React, { use, useEffect } from "react";
+import React, { Suspense, use, useEffect } from "react";
 import Head from "next/head";
 import { CollectionStats } from "../../components/Collection";
 import { ADDRESS_CONTRACT } from "../../utils/contractConfig";
 import { Sidebar, MainView } from "../../components/graph-collection";
-import { IOrder,OrderStatue } from "../../types/global";
+import { IOrder, OrderStatue } from "../../types/global";
 import { useAllOrderGraph } from "../../hooks/useGraph";
 type H_ORDER = IOrder & { _sortKey?: number };
 
@@ -60,7 +60,9 @@ const GraphCollectionPage = () => {
                     <Sidebar />
                 </Box>
                 <Box sx={{ borderLeft: '1px solid #2D2D2D', flex: 1 }}  >
-                    <MainView />
+                    <Suspense fallback={<div>out loading...</div>} >
+                        <MainView />
+                    </Suspense>
                 </Box>
             </Box>
         </>

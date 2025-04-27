@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import { Tabs, Tab, Box, Typography } from '@mui/material';
 import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
 import HistoryOutlinedIcon from '@mui/icons-material/HistoryOutlined';
@@ -13,7 +13,7 @@ const TabPanel = ({ children, value, index }: any) => {
         <div hidden={value !== index}>
             {value === index && (
                 <Box sx={{ p: 2 }}>
-                    {children}               
+                    {children}
                 </Box>
             )}
         </div>
@@ -43,24 +43,17 @@ export default function MainView() {
             >
                 <Tab icon={<Inventory2OutlinedIcon />} iconPosition="start" label="物品" />
                 <Tab icon={<AttachMoneyOutlinedIcon />} iconPosition="start" label="出价" />
-                {/* <Tab icon={<HistoryOutlinedIcon />} iconPosition="start" label="历史" />
-                <Tab icon={<AttachMoneyOutlinedIcon />} iconPosition="start" label="出价" />
-                <Tab icon={<AccountBalanceWalletOutlinedIcon />} iconPosition="start" label="取消" /> */}
             </Tabs>
 
             {/* Tab 内容区域 */}
             <TabPanel value={value} index={0}>
-                <StockListTableView />
+                <Suspense fallback={<div>loading...</div>} >
+                    <StockListTableView />
+                </Suspense>
             </TabPanel>
             <TabPanel value={value} index={1}>
                 <BidTableView />
             </TabPanel>
-            {/* <TabPanel value={value} index={1}>
-                <TableView orderList={makeOrders} />
-            </TabPanel>
-            <TabPanel value={value} index={2}>暂无出价</TabPanel>
-            <TabPanel value={value} index={3}>                <TableView orderList={cancelOrders} />
-            </TabPanel> */}
         </Box>
     );
 }

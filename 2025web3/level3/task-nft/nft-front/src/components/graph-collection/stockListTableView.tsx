@@ -20,7 +20,6 @@ import { useAllOrderGraph } from "../../hooks/useGraph";
 
 const StockListTableView = (props: any) => {
     const account = useAccount()
-    // const { allOrderList, refetch: refetchOrder } = useGetEventLog()
     const { allOrderListUseGraph: allOrderList, refetch: refetchOrder } = useAllOrderGraph()
     const [orderDialogCfg, setOrderDialogCfg] = useState<{
         open: boolean,
