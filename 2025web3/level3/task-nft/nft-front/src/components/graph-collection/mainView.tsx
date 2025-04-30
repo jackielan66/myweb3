@@ -52,7 +52,9 @@ export default function MainView() {
                 </Suspense>
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <BidTableView />
+                <Suspense fallback={<div>loading...</div>} >
+                    <BidTableView />
+                </Suspense>
             </TabPanel>
         </Box>
     );

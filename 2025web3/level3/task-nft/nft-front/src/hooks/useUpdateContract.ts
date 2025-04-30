@@ -1,5 +1,5 @@
 import { useWriteContract, useChainId, useSwitchChain } from "wagmi";
-import { createPublicClient, http, parseGwei,ContractFunctionExecutionError, formatGwei, formatEther } from 'viem'
+import { createPublicClient, http, parseGwei,ContractFunctionExecutionError, formatGwei, formatEther, Abi, Address } from 'viem'
 import useGetPublicClient from "./useGetPublicClient";
 import { simulateContract } from "viem/actions";
 import { config } from "../wagmi";
@@ -24,25 +24,33 @@ const extractReadableError = (err:unknown) => {
     if (err instanceof Error) return err.message
     return String(err)
   }
+
+type Params = {
+    address:Address,
+    abi:Abi,
+    functionName: string,
+    args: any[],
+    chainId: number,
+    _cbAfterMetaMask?: () => void
+}  
 const useUpdateContract = () => {
     const { publicClient } = useGetPublicClient()
 
     const { writeContractAsync, writeContract, error } = useWriteContract();
 
-    const updateContractData = async (params: any): Promise<{ status: string, message?: string }> => {
+    const updateContractData = async (params: Params): Promise<{ status: string, message?: string }> => {
         try {
-            const { contractAddress, functionName, args, chainId } = params;
-            const estimateGasResult = await publicClient.estimateGas({
-                ...params
-            })
-            // gas 数量
-            console.log(estimateGasResult, "estimateGasResult~~~~~~~");
-            // 每个gas的价格
-            const getGasPriceResult = await publicClient.getGasPrice();
-            console.log(getGasPriceResult, "getGasPriceResult~~~~~~~");
-            toast.success("预估Gsa价格：" + formatEther(estimateGasResult * getGasPriceResult))
+            // const estimateGasResult = await publicClient.estimateGas({
+            //     ...params
+            // })
+            // // gas 数量
+            // console.log(estimateGasResult, "estimateGasResult~~~~~~~");
+            // // 每个gas的价格
+            // // const getGasPriceResult = await publicClient.getGasPrice();
+            // console.log(getGasPriceResult, "getGasPriceResult~~~~~~~");
+            // toast.success("预估Gsa价格：" + formatEther(estimateGasResult * getGasPriceResult))
             const simulateResult = await publicClient.simulateContract({
-                ...params
+                ...params,
             });
             // console.log(simulateResult, "simulateResult~~~~ simulation");
             const txHash = await writeContractAsync({

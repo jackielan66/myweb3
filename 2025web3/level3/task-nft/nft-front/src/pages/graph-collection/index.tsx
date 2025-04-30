@@ -8,7 +8,6 @@ import { ADDRESS_CONTRACT } from "../../utils/contractConfig";
 import { Sidebar, MainView } from "../../components/graph-collection";
 import { IOrder, OrderStatue } from "../../types/global";
 import { useAllOrderGraph } from "../../hooks/useGraph";
-type H_ORDER = IOrder & { _sortKey?: number };
 
 
 const GraphCollectionPage = () => {
@@ -60,9 +59,7 @@ const GraphCollectionPage = () => {
                     <Sidebar />
                 </Box>
                 <Box sx={{ borderLeft: '1px solid #2D2D2D', flex: 1 }}  >
-                    <Suspense fallback={<div>out loading...</div>} >
-                        <MainView />
-                    </Suspense>
+                    <MainView />
                 </Box>
             </Box>
         </>
