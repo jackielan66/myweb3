@@ -8,7 +8,8 @@ const useGetPublicClient = () => {
   const { chains } = useSwitchChain();
 
   const publicClient = useMemo(() => {
-    let currentChain = chains.find(item => item.id === chainId)
+    let currentChain = chains.find(item => item.id === chainId);
+    console.log(currentChain,"currentChain")
     return createPublicClient({
       chain: currentChain,
       transport: http()
