@@ -1,13 +1,11 @@
-# Sample Hardhat Project
+# swap 合约流程
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a Hardhat Ignition module that deploys that contract.
+Factory.createPool(...)            // 创建合约实例（create2）
+-> Pool (部署完毕)
 
-Try running some of the following tasks:
+Pool.initialize(sqrtPriceX96)      // 设置初始价格
+Router/Contract -> Pool.mint(...)  // 发起 mint（Pool 回调 Router.mintCallback）
+Router/Contract -> Pool.swap(...)  // 发起 swap（Pool 回调 Router.swapCallback）
+LP -> Pool.burn(...)               // 退出 liquidity（计入 owed）
+LP -> Pool.collect(...)            // 领取 owed token
 
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat ignition deploy ./ignition/modules/Lock.js
-```
