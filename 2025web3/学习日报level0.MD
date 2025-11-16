@@ -1,13 +1,132 @@
 ## web3 2025
 
-比较好的dapp 入门教程【2888】5、Web3.0-DApp开发课程资料
+
+how to do / solve  怎么做
+
+哈希函数的概念可以追溯到20世纪50年代，当时它主要用于数据结构中，如哈希表，用来快速定位和检索数据。后来哈希函数经历了一系列的发展，旧的标准不断被更安全的新标准所替代：MD4—>MD5—>SHA0—>SHA1—>SHA2—>SHA3目前最先进的标准是 SHA-3，SHA-3 基于 Keccak 算法，由比利时密码学家设计，并在2015年成为 NIST 的标准。
+
+
+公链 layer1 有哪些，这个是干嘛的
+layer0层是什么
+0知识证明 是什么
+
+重钱包与轻钱包是什么
+最长链原则是什么，一直在等待
+
+前端单元测试必须要会
+
+https://0x.org/  这个是什么鬼网站
+
+
+https://www.daulathussain.com/blog/
+
+项目列表
+
+1. 钱包操作库，类似rainbowwallet钱包库  evm系列所有链的操作    其他链
+   带UI 不带UI
+
+2. https://ton.org/   Org https://ton.org/
+
+
+## 黑客松项目
+[质押swap](
+https://devpost.com/software/lynk-swap?_gl=1*vglpdx*_gcl_au*MTI2Mzc2OTU4OS4xNzQ2MDA0MDg5*_ga*MTQyMzA4Njc1NC4xNzQ2MDA0MDg5*_ga_0YHJK3Y10M*MTc0NjAwNDA4OC4xLjEuMTc0NjAwNjI4MS4wLjAuMA..)
+
+
+swap中市商这个逻辑到达是什么
+
+
+https://profiles.cyfrin.io/updraft/onboarding/confirm
+
+https://updraft.cyfrin.io/dashboard
+
+
+import { useState, useDeferredValue } from 'react';
+
+useDeferredValue 的使用
+import { atom, useAtom, useAtomValue } from 'jotai'
+
+
+## 找工作网站
+https://abetterweb3.notion.site/
+https://eleduck.com/
+https://wellfound.com/jobs
+https://cryptojobslist.com/
+https://cryptocurrencyjobs.co/
+https://dejob.top/
+https://ncnlo95gua0y.feishu.cn/wiki/QKK2woMdYiyihfkO9aIc9rB6ndd
+
+
+
+设计稿
+https://www.figma.com/design/ZQjFMSrxL8EWngh4nESrax/web3--%E5%AE%9A%E7%A8%BF%E9%A1%B5%E9%9D%A2?node-id=289-535&t=GjQfjBdjyIoRC1SV-0
+
+
+的网站
+https://element.market/drops
+
+
+https://nativecamp.net/zh-cn
+
+
+motion study
+https://www.youtube.com/watch?v=znbCa4Rr054&t=152s
+
+
+
+
+前端开发工程师
+岗位职责
+1.负责公司 Web3 相关产品的前端架构设计与核心开发，优化性能与用户体验.
+2.参与智能合约交互、钱包集成（如 MetaMask,  WalletConnect,Phantom,  Privy）等 Web3相关前端开发.
+3.负责 Web3 领域的 DApp 开发，包括但不限于 Defi,  NFT,GameFi 等应用场景；
+4.参与前端技术选型，优化前端工程化方案，提高发开效率与代码质量.
+5.与后端、产品、设计等团队紧密合作，推动产品落地，快速迭代优化用户体验.
+6.关注行业动态，探索新技术，推动团队技术提升。
+任职要求
+1.计算机相关专业本科及以上学历，5年及以上前端开发经验，具备扎实的前端技术基础.
+2.精通 JavaScript/TypeScript，熟练掌握 Vue/React  其中至少一种前端框架，并有大型项目经验.
+3.熟悉 Solana  /Ethereum生态，掌握 @solana/web3.js,  ethers.js,wagmi 等常见 Web3 前端库，并具备 DApp 开发经验；
+4.熟悉智能合约交互（EVM  /SVM），能够编写合约调用逻辑，并进行状态管理。
+5.掌握钱包集成相关技术，具备 Web3 身份验证、交易签名、链上数据查询等开发经验。
+6.具备优秀的 HTML5、CSS3、ES6+前端开发能力，掌握常见的前端动画优化方法，提升页面性能与用户体验.
+7.熟悉 Node.js/WebSocket  /GraphQL  等后端接口通信方式，具备全栈开发经验者优先.
+8.熟悉前端工程化工具，如 Webpack、Vite、Rollup，并有实际优化经验.
+9.具备良好的代码质量意识和开发规范，有高并发、高可用系统开发经验者优先.
+10.具备良好的沟通能力、团队协作能力，能够主动推动项目进展并解决技术难题。
+加分项
+•熟练使用 GASP/Framer  Motion/Lottie进行 UI 动效开发，优化用户体验；
+• 具备滚动触发特效、手势交互、拖拽、视差动画等交互特效开发经验；
+• 有 Web3 相关 3D 交互、粒子特效、数据可视化开发经验，如 Three.js、WebGL、D3.js；
+• 有 DeFi、NFT、GameFi 官网开发经验并有线上作品；
+•有技术社区活跃度（GitHub、技术博客、开源贡献等）。
+
+这个远程的岗位，您看合适吗，需要做这种网站的：
+同步：我们想找的是可以完成这种效果的前端，不是面板类的，示例如下：
+https://3dweblab.com/
+https://blueyard.com/
+https://terradactyl.xyz/
+
+
+react 中的fiber 怎么避免不一致性
+
+Next.js 提供了开箱即用的流式渲染支持，主要通过 React 18 的 Streaming SSR 和 Suspense 组件实现。以下是详细的实现方法：
+
+Suspense是干嘛用
 
 整理下去中心化的业务流程。
 
+# 前端怎么优化Gas
+方法一：usePrepareContractWrite + useContractWrite
+
 tang老师推荐的项目
     https://github.com/pancakeswap/pancake-frontend
-    https://bodhi.wtf/
     https://www.apollographql.com/docs/react
+
+返回就是Gas用量 比如5000n等
+Gas用量 estimateGas 可以大概查询出来
+Gas价格 getgasprice 估计价格出来
+交易费用计算：交易费用=Gas用量×Gas价格
 
 
 事件使用the graph 查询
@@ -19,31 +138,33 @@ The Graph (GRT)
 
 为什么：本地hardhat模拟的10个账号，在sepolia网站无法接收余额
 
-### **项目经验**
+nextjs 刷新的时候是多页，但是点击的时候是单页模式。所以nextjs到底是多页还是单页模式，如果是spa模式他是怎么实现的
 
-#### **KaerStake - 去中心化质押与奖励合约**
-*开发时间：2024年 - 至今*
+这三个是什么：
+以太坊侧链与Layer 2解决方案
+跨链Dapp开发
+基于Solana的Dapp开发
 
-**项目描述：**
-KaerStake是一个去中心化多池质押合约，用户可以进行多个池子加密货币的质押与奖励领取。用户主要质押是 ERC-20 代币，并且到达一定条件后，可以进行提取的操作，根据平台一些奖励规则，可以领取平台给的奖励的功能，旨在为用户提供更灵活的 DeFi 质押体验。
 
-**核心职责：**
-- **DAPP前端设计与开发：**
-  - 设计并实现了质押与解质押功能，使用户可以方便地将代币存入流动性池并根据平台的奖励规则领取奖励。
-  - 与MetaMask及其他钱包插件集成，实现了用户与智能合约的安全交互，确保交易操作的顺利完成。
-  - 使用Wagmi库与链上合约进行交互，精确获取质押池的相关信息，提升用户的交互体验。
 
-- **用户体验优化：**
-  - 设计简洁且响应式的UI界面，使用户可以在任何设备上流畅使用平台。
-  - 通过TailwindCSS 和 Material UI优化页面样式，提升整体用户体验与界面的可操作性。
+https://quicktype.io/ 前端快速根据后端json 返回ts格式
 
-**技术栈：**React, Next.js, Wagmi, Ethers.js, TailwindCSS, Material UI, Hardhat
+
+使用jest写些joke-blog的测试用例，学习这块的jest方法
+
+怎么保证Nodejs服务的稳定性
+白嫖severless
+
+https://abetterweb3.notion.site/abetterweb3-7ce334dcf8524cb79a5894bdd784ddb4
+
+
 
 
 
 为什么开发这个:
 虽然现在平台的知名度还不高，但我们看到了去中心化金融（DeFi）领域巨大的市场潜力。我们也想进入这个市场。通过奖励来吸引客户。
 主要是吸引客户来
+
 
 # 学习总结
  
@@ -80,9 +201,6 @@ Polygon PoS（以太坊的侧链）、Ronin（Axie Infinity 游戏专用侧链�
   2 合约地址必须有withdraw，否则无法取出钱来 
 
 
-- 交易所与ERC20交互给流程
-  用户先授权给交易erc20多少量给交易所
-  然后交易所可以通过订单池发起交易然后在这些授权的量上进行交易。
 
 - todo 
     hardhat 测试用例要怎么写，并且打印出来  
@@ -93,8 +211,6 @@ Polygon PoS（以太坊的侧链）、Ronin（Axie Infinity 游戏专用侧链�
 
   }
 
-- nextjs
-  ·_document· is only rendered on the server, so event handlers like onClick cannot be used in this file.
 
 
 
@@ -103,153 +219,18 @@ recoilRoot 状态库的使用
 https://recoiljs.org/docs/api-reference/core/RecoilRoot/
 
 
-- const tx = await writeContractAsync({
-        address: ADDRESS_CONTRACT.RccStake,
-        abi: ABI_CONTRACT.RCCStake,
-        functionName: 'claim',
-        args: [DEF_POOL_ID]
-      });
-      const receipt = await publicClient.waitForTransactionReceipt({ hash: tx });
-      if (receipt.status === 'success') {
-        toast.success('领取成功')
-      } else {
-        toast.error('Transaction failed')
-      }
-问题如果 receipt 失败，数据会上链吗
-
-
-
 coinbase 是什么
 
 
 
-
-
-pledge 业务逻辑.md
-
-路由
-首页
-- MARKET
-    展示
-
-闪电贷：
-DEFI 抵押(存入)一种代币，借出另外一个代币。。
-
-多签协议是什么
-
     
-查询池基本信息列表   
-    // 基本信息
-    struct PoolBaseInfo{
-        uint256 settleTime;         // 结算时间
-        uint256 endTime;            // 结束时间
-        uint256 interestRate;       // 池的固定利率，单位是1e8 (1e8)
-        uint256 maxSupply;          // 池的最大限额
-        uint256 lendSupply;         // 当前实际存款的借款
-        uint256 borrowSupply;       // 当前实际存款的借款
-        uint256 martgageRate;       // 池的抵押率，单位是1e8 (1e8)
-        address lendToken;          // 借款方代币地址 (比如 BUSD..)
-        address borrowToken;        // 借款方代币地址 (比如 BTC..)
-        PoolState state;            // 状态 'MATCH, EXECUTION, FINISH, LIQUIDATION, UNDONE'
-        IDebtToken spCoin;          // sp_token的erc20地址 (比如 spBUSD_1..)
-        IDebtToken jpCoin;          // jp_token的erc20地址 (比如 jpBTC_1..)
-        uint256 autoLiquidateThreshold; // 自动清算阈值 (触发清算阈值)
-    }
 
 
 
 
-
-获取所有token
- https://pledge.rcc-tec.xyz/api/v22/token?chainId=56
-
-
-
-RCC STATE 项目
-Deployed Addresses
-RccTokenModule#RccToken - 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512
-
-Deploying RCCStake...
-Box deployed to: 0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0
-
-
-添加质押值，
-Pool
-stTokenAddress: 质押代币的地址。
-poolWeight: 质押池的权重，影响奖励分配。
-lastRewardBlock: 最后一次计算奖励的区块号。
-accRCCPerST: 每个质押代币累积的 RCC 数量。
-stTokenAmount: 池中的总质押代币量。
-minDepositAmount: 最小质押金额。
-unstakeLockedBlocks: 解除质押的锁定区块数。
-
-必要参数质押token地址，到什么区块可以解锁质押
-
-nextjs .next 这个文件夹是干嘛的
-nextjs pages 可以定义组件，并且让路径访问不到吗
 
 钱包怎么请求签名
 
-3.2 User
-stAmount: 用户质押的代币数量。
-finishedRCC: 已分配的 RCC 数量。
-pendingRCC: 待领取的 RCC 数量。
-requests: 解质押请求列表，每个请求包含解质押数量和解锁区块。
 
 
-deployer:  0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
-esDex address: 0x0B306BF915C4d645ff596e518fAf3F9669b97016
-esVault address: 0x9A676e781A523b5d0C0e43731313A708CB607508
-testERC721 address: 0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82
-
-
-
-docker run -d \
-  --name easyswap \
-  -p 33009:3306 \
-  -e MYSQL_DATABASE=easyswap \
-  -e MYSQL_USER=easyuser \
-  -e MYSQL_PASSWORD=easypasswd \
-  -e MYSQL_ROOT_PASSWORD=your_root_password \
-  mysql:latest
-
-database = "easyswap"
-password = "easypasswd"
-port = 33009 #4000
-max_open_conns = 1500
-host = "127.0.0.1"
-log_level = "info"
-max_conn_max_lifetime = 300
-user = "easyuser"
-max_idle_conns = 10
-
-
-docker exec -i mysql mysql -ueasyuser -p easypasswd easyswap < your_script.sql
-mysql -ueasyuser -peasypasswd
-
-docker run -d \
-  --name redis_pledger \
-  -p 6379:6379 \
-  -e REDIS_PASSWORD= \
-  redis:latest
-
-[[kv.redis]]
-pass = ""
-host = "127.0.0.1:6379"
-type = "node"
-
-
-docker cp ./pledge.sql mysql_pledge_v21:/tmp/pledge_v21.sql
-
-# 进入容器
-docker exec -it mysql_pledge_v21 bash
-
-# 在容器内执行（输入密码后导入）
-mysql -u pledge_v21 -p pledge_v21 < /tmp/pledge_v21.sql
-
-
-# 删除表
-docker exec -it mysql_pledge_v21 mysql -u pledge_v21 -p
-USE pledge_v21;
-DROP TABLE IF EXISTS admin, multi_sign, poolbases, pooldata, token_info;
 
