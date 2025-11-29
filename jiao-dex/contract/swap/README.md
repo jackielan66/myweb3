@@ -1,3 +1,9 @@
+# 怎么运行项目
+先运行环境
+1. npx hardhat node 
+2. npx hardhat run scripts/deploy.js --network localhost
+
+
 # swap 合约流程
 
 Factory.createPool(...)            // 创建合约实例（create2）
