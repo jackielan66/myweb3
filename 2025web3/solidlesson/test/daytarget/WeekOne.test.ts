@@ -8,7 +8,9 @@ const deploy = async () => {
 
     const UserProfile = await hre.viem.deployContract("UserProfile", ["jackie", 30n]);
 
-    return { userRegistry, UserProfile };
+    const VisibilityDemo = await hre.viem.deployContract("VisibilityDemo");
+
+    return { userRegistry, UserProfile, VisibilityDemo };
 };
 
 
@@ -22,22 +24,40 @@ describe("Week 1", function () {
     // });
 
     // 事件触发
-    it("should emit ProfileUpdated event", async () => {
-        const { UserProfile } = await loadFixture(deploy);
+    // it("should emit ProfileUpdated event", async () => {
+    //     const { UserProfile } = await loadFixture(deploy);
 
+    //     // 获取测试账户
+    //     const [owner] = await hre.viem.getWalletClients();
+
+    //     // 调用 updateProfile 并获取交易收据
+    //     const hash = await UserProfile.write.updateProfile(["NewJackie", 22n]);
+
+    //     // 获取事件触发
+    //     const profileEvents = await UserProfile.getEvents.ProfileUpdated();
+    //     expect(profileEvents).to.have.lengthOf(1);
+    //     expect(profileEvents[0].args.name).to.equal('NewJackie');
+    //     expect(profileEvents[0].args.age).to.equal(22n);
+
+    // });
+
+    // 测试函数可见性
+    it("should test visibility 测试函数可见性 day5", async () => {
+        const { VisibilityDemo } = await loadFixture(deploy);
         // 获取测试账户
         const [owner] = await hre.viem.getWalletClients();
 
-        // 调用 updateProfile 并获取交易收据
-        const hash = await UserProfile.write.updateProfile(["NewJackie", 22n]);
+        expect(await VisibilityDemo.read.getBase()).to.equal(100n);
 
-        // 获取事件触发
-        const profileEvents = await UserProfile.getEvents.ProfileUpdated();
-        expect(profileEvents).to.have.lengthOf(1);
-        expect(profileEvents[0].args.name).to.equal('NewJackie');
-        expect(profileEvents[0].args.age).to.equal(22n);
+        expect(await VisibilityDemo.read.getSecretExternal()).to.equal(42n);
 
-    });
+        const r = await VisibilityDemo.read.compute();
+        // a = baseValue + 10 = 110
+        // b = secretNumber * 2 = 84
+        expect(r[0]).to.equal(110n);
+        expect(r[1]).to.equal(84);
+
+    })
 });
 
 
