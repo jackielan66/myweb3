@@ -14,7 +14,12 @@ const deploy = async () => {
 
     const ErrorHandlingDemo = await hre.viem.deployContract("ErrorHandlingDemo");
 
-    return { userRegistry, UserProfile, VisibilityDemo, ErrorHandlingDemo, user1 };
+
+    const a = await hre.viem.deployContract("A");
+    const b = await hre.viem.deployContract("B");
+    const c = await hre.viem.deployContract("C");
+
+    return { userRegistry, UserProfile, VisibilityDemo, ErrorHandlingDemo, user1, a, c, b };
 };
 
 
@@ -78,6 +83,42 @@ describe("Week 1", function () {
 
     });
 
+
+});
+
+describe("Week 2 Day 8 继承", function () {
+    it("A.getNumber should return 1", async () => {
+        const { a, b, c } = await loadFixture(deploy);
+        expect(await a.read.getNumber()).to.equal(1);
+    });
+
+    it("B overrides getNumber to 2", async () => {
+                const { a, b, c } = await loadFixture(deploy);
+
+        expect(await b.read.getNumber()).to.equal(2);
+    });
+
+    it("C overrides getNumber to 3", async () => {
+                const { a, b, c } = await loadFixture(deploy);
+
+        expect(await c.read.getNumber()).to.equal(3);
+    });
+
+    it("getValue override chain", async () => {
+                        const { a, b, c } = await loadFixture(deploy);
+
+        expect(await a.read.getValue()).to.equal(10);       // from A
+        expect(await b.read.getValue()).to.equal(10);       // inherited from A
+        expect(await c.read.getValue()).to.equal(20);       // overridden: value * 2
+    });
+
+    it("Value mutation works through inheritance", async () => {
+                        const { a, b, c } = await loadFixture(deploy);
+
+        await b.write.addValue(5); // B modifies inherited A.value
+
+        expect(await b.write.getValue()).to.equal(15);
+    });
 
 });
 
