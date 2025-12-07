@@ -110,40 +110,41 @@ describe("Week 2 Day 11 — Function Selector", function () {
         const { FunctionSelectorDemo } = await loadFixture(deploy);
 
         const selector = await FunctionSelectorDemo.read.getSelector();
+        console.log(selector,"selector");
         expect(selector).to.equal("0x55241077"); // keccak256("setValue(uint256)") 前 4 字节
     });
 
-    // it("should update value normally with write.setValue", async () => {
-    //     const { contract } = await loadFixture(deploy);
+    it("should update value normally with write.setValue", async () => {
+        const { FunctionSelectorDemo } = await loadFixture(deploy);
 
-    //     await contract.write.setValue([123n]);
-    //     expect(await contract.read.value()).to.equal(123n);
-    // });
+        await FunctionSelectorDemo.write.setValue([123n]);
+        expect(await FunctionSelectorDemo.read.value()).to.equal(123n);
+    });
 
-    // it("fallback should catch unknown selectors", async () => {
-    //     const { contract, owner } = await loadFixture(deploy);
+    it("fallback should catch unknown selectors", async () => {
+        const { FunctionSelectorDemo, owner } = await loadFixture(deploy);
 
-    //     const publicClient = await hre.viem.getPublicClient();
+        const publicClient = await hre.viem.getPublicClient();
 
-    //     // 手动构造一个不存在的 selector
-    //     const badSelector = "0x12345678";
+        // 手动构造一个不存在的 selector
+        const badSelector = "0x12345678";
 
-    //     const tx = await owner.sendTransaction({
-    //         to: contract.address,
-    //         data: badSelector,
-    //     });
+        const tx = await owner.sendTransaction({
+            to: FunctionSelectorDemo.address,
+            data: badSelector,
+        });
 
-    //     const receipt = await publicClient.getTransactionReceipt({ hash: tx });
+        const receipt = await publicClient.getTransactionReceipt({ hash: tx });
+        console.log(receipt,"FunctionSelectorDemo receipt")
+        expect(receipt.status).to.equal("success");
 
-    //     expect(receipt.status).to.equal("success");
+        // // 解码返回值
+        // const returnData = receipt.logs.length === 0
+        //     ? receipt.returnData
+        //     : receipt.logs[0].data;
 
-    //     // 解码返回值
-    //     const returnData = receipt.logs.length === 0
-    //         ? receipt.returnData
-    //         : receipt.logs[0].data;
-
-    //     expect(returnData.startsWith("0x")).to.be.true;
-    // });
+        // expect(returnData.startsWith("0x")).to.be.true;
+    });
 });
 
 
