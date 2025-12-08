@@ -22,8 +22,22 @@ const deploy = async () => {
 
     const eventCounter = await hre.viem.deployContract("EventCounter", []);
 
+        const logicV1 = await hre.viem.deployContract("LogicV1");
 
-    return { FunctionSelectorDemo, userRegistry, UserProfile, VisibilityDemo, ErrorHandlingDemo, user1, a, c, b, eventCounter, owner };
+    const proxy = await hre.viem.deployContract("Proxy", [logicV1.address]);
+
+    // 通过 Proxy 创建合约实例（用 LogicV1 的 ABI）
+    const proxyAsLogicV1 = await hre.viem.getContractAt(
+        "LogicV1",
+        proxy.address
+    );
+
+    return { FunctionSelectorDemo, userRegistry, UserProfile, VisibilityDemo, ErrorHandlingDemo, user1, a, c, b, eventCounter, owner,
+proxyAsLogicV1,
+proxy,
+logicV1
+
+    };
 };
 
 
@@ -145,6 +159,36 @@ describe("Week 2 Day 11 — Function Selector", function () {
 
         // expect(returnData.startsWith("0x")).to.be.true;
     });
+    
+});
+
+
+describe("Week 2 Day 13 — delegatecall basics", function () {
+
+    it("proxy should use logicV1 to set x", async () => {
+        const { proxyAsLogicV1, proxy } = await loadFixture(deploy);
+
+        await proxyAsLogicV1.write.setX([123n]);
+
+        const value = await proxyAsLogicV1.read.x();
+        expect(value).to.equal(123n);
+
+        // 逻辑合约 storage 不变
+        const logicValue = await hre.viem.getContractAt("LogicV1", proxyAsLogicV1.address).read.x();
+        expect(logicValue).to.equal(123n);
+    });
+
+    it("proxy storage should change, not logic storage", async () => {
+        const { logicV1, proxyAsLogicV1 } = await loadFixture(deploy);
+
+        await proxyAsLogicV1.write.setX([999n]);
+        const proxyValue = await proxyAsLogicV1.read.x();
+        expect(proxyValue).to.equal(999n);
+
+        const logicValue = await logicV1.read.x();
+        expect(logicValue).to.equal(0n);
+    });
+
 });
 
 

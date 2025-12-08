@@ -2,6 +2,7 @@
 pragma solidity ^0.8.20;
 
 contract ErrorHandlingDemo {
+    // public 公用状态
     uint256 public value;
     address public owner;
 
