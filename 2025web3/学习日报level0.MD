@@ -1,9 +1,16 @@
 ## web3 2025
 
 
+// nextjs 
+https://github.com/MetaNodeAcademy/nextjs-courses
+
+
+
 how to do / solve  怎么做
 
 哈希函数的概念可以追溯到20世纪50年代，当时它主要用于数据结构中，如哈希表，用来快速定位和检索数据。后来哈希函数经历了一系列的发展，旧的标准不断被更安全的新标准所替代：MD4—>MD5—>SHA0—>SHA1—>SHA2—>SHA3目前最先进的标准是 SHA-3，SHA-3 基于 Keccak 算法，由比利时密码学家设计，并在2015年成为 NIST 的标准。
+
+
 
 
 公链 layer1 有哪些，这个是干嘛的
@@ -26,6 +33,22 @@ https://www.daulathussain.com/blog/
    带UI 不带UI
 
 2. https://ton.org/   Org https://ton.org/
+
+
+💻 前端技术栈
+1. 核心框架与基础技术：
+Next.js 15.5.2
+React 19.1.0
+TypeScript 5.x
+Tailwind CSS 4.x
+2. 区块链与钱包集成：
+Privy.io —— 钱包认证与身份管理
+Web3 开发库：wagmi 2.x、viem 2.x
+多链支持：TronWeb（TRON 网络）、Solana 相关库（@solana/kit 等）
+3. 状态管理与数据获取：
+Zustand 5.x —— 全局状态管理
+TanStack React Query 5.x —— 数据获取与缓存
+Socket.io-client —— WebSocket 实时通信
 
 
 ## 黑客松项目
