@@ -1,0 +1,8 @@
+
+/* Button.module.css */
+.btn {
+  padding: 10px 20px;
+  background-color: blue;
+  color: white;
+  border-radius: 5px;
+}

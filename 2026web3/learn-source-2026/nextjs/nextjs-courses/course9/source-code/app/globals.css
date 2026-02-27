@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+/* Tailwind v4 主题令牌映射：将语义色引用到 CSS 变量 */
+@theme {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+}
+
+/* 基础样式层：定义全局主题变量及暗色模式映射 */
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+  }
+}
+
+@layer base {
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+  }
+}
+
+@layer components {
+  .btn-apply {
+    @apply py-2 px-4 font-bold rounded-lg shadow-md transition-colors cursor-pointer;
+    @apply bg-blue-500 text-white hover:bg-blue-600;
+  }
+}
