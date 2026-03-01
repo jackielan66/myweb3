@@ -4,20 +4,27 @@ Next.js 从入门到精通实战课程
 
 ## 课程结构概览
 
-- 第一部分：Next.js + React 开发实践
-  - 目标：搭建生产级基础，完成端到端交付
-  - 范围：掌握 App Router 架构与布局/路由模型；深入 RSC 与 Client 的边界与组合（拆分为两章）；对比 Pages Router 并掌握迁移路径；掌握数据获取与缓存策略、API 路由与 Server Actions 的端到端设计；TypeScript 集成、代码规范与工程化；组件拆分与状态管理；UI 库（shadcn/ui）与 CSS 方案（以 Tailwind 为主）的选型与落地。
-  - 产出：架构设计与选型说明（记录路由/布局模型、RSC/Client 边界、数据/渲染策略的选型与权衡）、团队规范与类型系统（包含 TypeScript 配置、编码规范、组件/状态与样式方案的实践清单）、可上线的博客项目。
+本课程共 20 节，分为五大模块，从零基础到生产部署全覆盖：
 
-- 第二部分：前端进阶
-  - 目标：优化到生产级，完善质量与运维
-  - 范围：掌握 SSR/SSG/ISR/Streaming 渲染策略的选型与实现；Prefetching 行为控制与缓存交互；Core Web Vitals（LCP/INP/CLS）度量、优化与监控；建立测试体系与 CI/CD 流程；基于 next-intl 的国际化方案（Locale 检测、中间件、SEO/hreflang、消息字典管理）；Vercel 部署与生产环境优化；梳理面试重点与实战演练，沉淀迁移与复盘方法。
-  - 产出：性能与质量体系文档（包含渲染策略落地、性能度量与优化方案、测试策略与覆盖目标、CI 阈值）、国际化方案与规范（产出最小可运行的中英双语实现）、部署与运维手册、面试与迁移资料、以及一个包含前后端代码、测试与部署配置的**完整可上线项目**。
+- **第一部分：基础入门**（第 1-5 节）
+  - 内容：Next.js 核心概念与项目初始化、React 组件开发基础、App Router 与 Pages Router 路由系统、布局与页面深入实践
+  - 目标：掌握 Next.js 项目搭建、路由配置与布局设计，理解文件即路由的核心理念
 
-- 第三部分：框架新特性解析
-  - 范围：Turbopack、MCP、缓存组件（Cache Components）、Partial Pre-Rendering（PPR）、路由优化、React 编译器等。
-  - 产出：新特性学习笔记与迁移参考、调试与优化清单。
+- **第二部分：组件与样式**（第 6-10 节）
+  - 内容：Server Components（RSC）与 Client Components 的边界与组合、客户端状态管理（Context/Zustand）、Tailwind CSS 样式方案、shadcn/ui 组件库实战
+  - 目标：深入理解 RSC 架构，掌握组件拆分原则与状态管理，落地现代化 UI 方案
 
+- **第三部分：数据与渲染**（第 11-12 节）
+  - 内容：SSR/SSG/ISR/Streaming 渲染机制与数据获取策略、Server Actions 与 Route Handlers 全栈数据交互
+  - 目标：掌握各渲染模式的选型与实现，实现端到端的数据流设计
+
+- **第四部分：工程化与生产部署**（第 13-16 节）
+  - 内容：自动化测试与质量保障体系、next-intl 国际化方案、Core Web Vitals（LCP/INP/CLS）性能优化、Vercel 部署与生产环境优化
+  - 目标：建立完整的测试体系与 CI/CD 流程，掌握性能度量与优化方法，完成生产级部署
+
+- **第五部分：进阶、原理与新特性**（第 17-20 节）
+  - 内容：Next.js 核心原理与面试通关指南、App Router 与 Pages Router 对比及迁移实战、构建体系 (Webpack/Turbopack) 深度解析、Next.js 16 全新特性实战
+  - 目标：深入理解框架底层原理与构建机制，掌握面试重点与迁移能力，率先上手 Next.js 16 前沿技术
 
 ## 课程目录
 
@@ -404,7 +411,7 @@ Next.js 从入门到精通实战课程
 
 #### 课程地址: 
 
-[观看课程](TODO)
+[观看课程](https://appibxs98ig9955.h5.xet.citv.cn/p/course/video/v_69410fc3e4b0694c5b63cb1a?product_id=course_2xArq45EVWERVb4oHPYEmCLzHG5&course_id=course_2xArq45EVWERVb4oHPYEmCLzHG5&sub_course_id=subcourse_35KXhy15aP68E7Btg1am2m5OVPQ)
 
 #### 文档资料: 
 
@@ -540,3 +547,245 @@ Next.js 从入门到精通实战课程
 #### 代码示例: 
 
 [course14 source](https://github.com/MetaNodeAcademy/nextjs-courses/tree/main/course14/source-code)
+
+
+### 15. Next.js 性能优化实战（LCP/INP/CLS）
+
+状态: ✅
+
+学时: 1小时
+
+#### 教学内容:
+
+- 0. 核心理念：Web Vitals 与性能监控
+  - 0.1 核心指标：LCP, INP, CLS
+  - 0.2 常用工具：DevTools, Lighthouse, WebPageTest
+  - 0.3 对照实验设计：Baseline vs Optimized
+- 1. LCP 与 CLS 优化：让首屏更快更稳
+  - 1.1 字体优化 (`next/font`)：消除 FOIT 与 CLS
+  - 1.2 图片优化 (`next/image`)：格式、尺寸与 Priority
+- 2. 代码分割：让“重的东西”晚点来
+  - 2.1 Bundle Splitting 原理
+  - 2.2 实战：`next/dynamic` 实现按需加载
+- 3. INP 优化：让交互不卡顿
+  - 3.1 识别长任务与主线程阻塞
+  - 3.2 实战：React `useTransition` 并发模式
+- 4. 持续监控：防止性能回归
+  - 4.1 本地对比 (Lighthouse)
+  - 4.2 远程复测 (WebPageTest)
+  - 4.3 线上监控 (Web Vitals Reporter)
+
+#### 课程地址: 
+
+[观看课程]()
+
+#### 文档资料: 
+
+* 课件： [课程课件](./course15/readme.md)
+
+* 学习资料： [课程学习资料](./course15/readme.md)
+
+#### 代码示例: 
+
+[course15 source](https://github.com/MetaNodeAcademy/nextjs-courses/tree/main/course15/source-code)
+
+
+### 16. Next.js Vercel 部署与生产环境优化
+
+状态: ✅
+
+学时: 1小时
+
+#### 教学内容:
+
+- 1. 前言：为什么 Vercel 是前端部署的终极方案
+- 2. 零配置部署实战
+- 3. 环境变量的三种使用场景
+- 4. 生产环境配置：自定义域名与 HTTPS
+- 5. 团队协作流：Preview Deployments
+- 6. 生产环境救火：Instant Rollback
+- 7. 监控与成本优化
+
+#### 课程地址: 
+
+[观看课程]()
+
+#### 文档资料: 
+
+* 课件： [课程课件](./course16/readme.md)
+
+* 学习资料： [课程学习资料](./course16/readme.md)
+
+#### 代码示例: 
+
+[course16 source](https://github.com/MetaNodeAcademy/nextjs-courses/tree/main/course16/source-code)
+
+
+### 17. Next.js 核心原理和面试通关指南
+
+状态: ✅
+
+学时: 1小时
+
+#### 教学内容:
+
+- 1. 渲染模式全解析：SSR、SSG 与 ISR
+- 2. 用户体验与流式渲染：Streaming & Suspense
+- 3. 路由与架构：App Router 深度解析
+- 4. 难点攻克：Server Component vs Client Component
+- 5. Server Actions 安全陷阱
+- 6. Middleware：请求层面的守门员
+- 7. 常见报错：Hydration Mismatch
+- 8. 错误处理与边界情况
+- 9. 性能优化：Core Web Vitals 实战
+- 10. 行业应用特别篇：为什么 Web3 公司最爱 Next.js
+- 11. 高频面试题快问快答
+
+#### 课程地址: 
+
+[观看课程]()
+
+#### 文档资料: 
+
+* 课件： 
+
+  - [课程课件](./course17/readme.md)
+
+* 学习资料： 
+
+  - [演示文稿 (PDF)](./course17/docs/Next.js%2016.x%20面试通关与核心原理.pdf) 
+  - [思维导图](./course17/docs/Next.js%20核心原理与面试通关指南_脑图.png)
+
+#### 代码示例: 
+
+[course17 source](https://github.com/MetaNodeAcademy/nextjs-courses/tree/main/course17/source-code)
+
+
+### 18. Next.js 进阶指南：App Router 与 Pages Router 对比及迁移实战
+
+状态: ✅
+
+学时: 1小时
+
+#### 教学内容:
+
+- 1. 为什么会有两套路由？Pages Router vs App Router
+- 2. 核心差异对比：目录结构、服务端/客户端组件、数据获取
+- 3. 迁移实战：关键点全覆盖
+  - 3.1 全局入口迁移：从 _app/_document 到 Root Layout
+  - 3.2 路由钩子迁移：useRouter 拆分为多个 Hooks
+  - 3.3 SEO 迁移：从 Head 组件到 Metadata API
+  - 3.4 错误处理与加载状态：loading.tsx / error.tsx
+  - 3.5 定时更新 (ISR) 的迁移
+  - 3.6 Link 组件：页面导航
+  - 3.7 API Routes：接口写法对比
+  - 3.8 样式与字体的迁移
+- 4. 常见报错速查表（初学者必看）
+- 5. 迁移策略：如何平滑过渡？
+- 6. 迁移检查清单
+- 7. 新项目该选哪个？
+- 8. 总结：思维转变
+- 9. 动手实践：演示项目
+
+#### 课程地址: 
+
+[观看课程]()
+
+#### 文档资料: 
+
+* 课件： 
+
+  - [课程课件](./course18/readme.md)
+
+* 学习资料： 
+
+  - [演示文稿 (PDF)](./course18/docs/Nextjs_App_Router_Pages_Router_深度对比.pdf) 
+  - [思维导图](./course18/docs/Next.js%20进阶指南：App%20Router%20vs%20Pages%20Router%20对比与迁移实战.png)
+
+#### 代码示例: 
+
+[course18 source](https://github.com/MetaNodeAcademy/nextjs-courses/tree/main/course18/source-code)
+
+
+### 19. Next.js 内部构建体系与分层逻辑解析 (Webpack / Turbopack)
+
+状态: ✅
+
+学时: 1小时
+
+#### 教学内容:
+
+- 1. 核心架构：多重宇宙（Parallel Compilers）
+  - 1.1 分层逻辑图解
+  - 1.2 三大编译器层级 (Server, Client, Edge)
+- 2. 边界处理与清单文件 (Manifests)
+  - 2.1 模块解析过程
+  - 2.2 关键 Manifest 文件
+- 3. 深入解析：三大 Layer 环境的异同
+  - 3.1 环境隔离与“泄漏”防范
+  - 3.2 核心误区：Client Component 的“双重渲染”与 `use client`
+  - 3.3 实战陷阱：Hydration Mismatch (水合不匹配)
+- 4. Webpack vs. Turbopack：架构差异
+- 5. 总结：一个请求的构建之旅
+
+#### 课程地址: 
+
+[观看课程]()
+
+#### 文档资料: 
+
+* 课件： 
+
+  - [课程课件](./course19/readme.md)
+
+* 学习资料： 
+
+  - [演示文稿 (PDF)](./course19/docs/Nextjs_内部构建架构内幕揭秘.pdf)
+  - [思维导图](./course19/docs/Next.js%20内部构建体系与分层逻辑解析.png)
+
+#### 代码示例: 
+
+[course19 source]()
+
+
+### 20. Next.js 16 新特性深度解析
+
+状态: ✅
+
+学时: 1小时
+
+#### 教学内容:
+
+- 1. Turbopack 默认启用：速度的飞跃
+  - 启动更快、更新即时、生产构建加速
+- 2. MCP 集成：AI 驱动的调试助手
+  - 智能诊断、快速定位
+- 3. 缓存组件 (Cache Components) 与 `use cache`
+  - 什么是 `use cache`？
+  - 配合 PPR (Partial Pre-Rendering)
+- 4. 路由与导航优化
+  - 布局去重 (Layout Deduplication)
+  - 增量预取 (Incremental Prefetching)
+- 5. API 进化：`proxy.ts` 与更清晰的工具链
+- 6. 开发者体验 (DX) 强化
+  - React Compiler 集成 (自动 Memoization)
+  - TypeScript 与 Sass 增强
+
+#### 课程地址: 
+
+[观看课程]()
+
+#### 文档资料: 
+
+* 课件： 
+
+  - [课程课件](./course20/readme.md)
+
+* 学习资料： 
+
+  - [演示文稿 (PDF)](./course20/docs/Next.js_16_新特性深度解析.pdf)
+  - [思维导图](./course20/docs/Next.js_16_新特性深度解析.png)
+
+#### 代码示例: 
+
+[course20 source]()
